@@ -1,3 +1,3 @@
-# Laravel_react_todo_list
+# Laravel_react_Freelancing_Portal
 the name says it all
-<img src="./screenshots/ss.jpg" alt="login" style="display:inline-block;" width="800"/>
+<img src="./screenshots/Screenshot (7).png" alt="login" style="display:inline-block;" width="800"/>
