@@ -1,0 +1,33 @@
+#form{
+    border:0.5px solid steelblue;
+    box-shadow: 10px 10px 15px black;
+    background:white;
+  }
+.mouse{
+  cursor: pointer;
+}
+.mouse:hover{
+  background: rgba(0,0,0,0.2);
+}
+#form *{
+   border-radius:0px !important; }
+.list-group-item{
+    
+    border-radius: 0 !important;
+}
+#form input{
+  margin-top: 0px !important;
+}
+.active{
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+  #input:active , #input:focus,.delete:active,.delete:focus{
+    box-shadow: none;
+  }
+body{
+  margin: 0!important;
+}
+.time{
+  float: right;
+}
