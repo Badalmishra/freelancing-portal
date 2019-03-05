@@ -96,19 +96,6 @@ export default class Example extends Component {
              Link:event.target.value,
          });
      }
-    makeBid(){
-        //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
-        //var user_id=1;
-        var body=["mybid","https://www.google.com",this.state.jobForDescription.id,200,30];
-        axios.post('api/bids?api_token='+window.token, { body })
-            .then(res => {
-                window.res=res;
-               
-        }).catch(err => {
-            console.log(err);
-            
-        });
-    }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
        
@@ -118,7 +105,7 @@ export default class Example extends Component {
         return (
             <div className="px-3">
                 <div className="row">
-                    <div className="col-md-4 px-0">
+                    <div className="col-md-3 px-0">
                         <div className="card">
                             <div className="card-header bg-info">All Jobs</div>
                             
@@ -142,13 +129,7 @@ export default class Example extends Component {
                             :null
                     }        
                     </div>
-                    {   this.state.jobForDescription?
-                        <Makebid
-                            job={this.state.jobForDescription}
-                            click={this.makeBid.bind(this)}
-                            />
-                            :null
-                    }  
+                  
                 </div>
             </div> 
         );

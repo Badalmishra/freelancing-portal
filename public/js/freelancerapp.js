@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -26135,43 +26135,18 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
-//require('./bootstrap');
-
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-__webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
-
-/***/ }),
-
-/***/ "./resources/js/components/Addjob.js":
-/*!*******************************************!*\
-  !*** ./resources/js/components/Addjob.js ***!
-  \*******************************************/
+/***/ "./resources/js/freelancer/Bid.js":
+/*!****************************************!*\
+  !*** ./resources/js/freelancer/Bid.js ***!
+  \****************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Addjob; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Bid; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26192,83 +26167,38 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-var Addjob =
+var Bid =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Addjob, _React$Component);
+  _inherits(Bid, _React$Component);
 
-  function Addjob(props) {
-    _classCallCheck(this, Addjob);
+  function Bid(props) {
+    var _this;
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Addjob).call(this, props));
+    _classCallCheck(this, Bid);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bid).call(this, props));
+    _this.state = {};
+    return _this;
   }
 
-  _createClass(Addjob, [{
+  _createClass(Bid, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "form",
-        className: "p-3"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "text-success"
-      }, "Add Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row px-3 mb-2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        placeholder: "Name",
-        id: "input",
-        type: "text",
-        onChange: this.props.changeName,
-        value: this.props.Name,
-        className: "form-control mb-1"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
-        maxLength: "120",
-        className: "w-100 form-control mb-1",
-        onChange: this.props.changeDescription,
-        value: this.props.Description,
-        placeholder: "Description here ..."
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        placeholder: "Maximum time",
-        id: "input",
-        type: "text",
-        onChange: this.props.changeTime,
-        value: this.props.Time,
-        className: "form-control col-6 mb-1"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        placeholder: "Maximum price",
-        id: "input",
-        type: "text",
-        onChange: this.props.changeMoney,
-        value: this.props.Money,
-        className: "form-control col-6 mb-1"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        placeholder: "Link a reference project",
-        id: "input",
-        type: "text",
-        onChange: this.props.changeLink,
-        value: this.props.Link,
-        className: "form-control "
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: " btn btn-outline-primary w-100",
-        onClick: this.props.click
-      }, "Add ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-paper-plane "
-      }))));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
     }
   }]);
 
-  return Addjob;
+  return Bid;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 
 
 /***/ }),
 
-/***/ "./resources/js/components/Example.js":
+/***/ "./resources/js/freelancer/Example.js":
 /*!********************************************!*\
-  !*** ./resources/js/components/Example.js ***!
+  !*** ./resources/js/freelancer/Example.js ***!
   \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -26282,10 +26212,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Addjob__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Addjob */ "./resources/js/components/Addjob.js");
-/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages */ "./resources/js/components/messages.js");
-/* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table */ "./resources/js/components/table.js");
-/* harmony import */ var _description__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./description */ "./resources/js/components/description.js");
+/* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages */ "./resources/js/freelancer/messages.js");
+/* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./table */ "./resources/js/freelancer/table.js");
+/* harmony import */ var _description__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./description */ "./resources/js/freelancer/description.js");
+/* harmony import */ var _Makebid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Makebid */ "./resources/js/freelancer/Makebid.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26371,7 +26301,7 @@ function (_Component) {
 
         if (res.data == '404') {
           _this3.setState({
-            error: "This job was not posted by you"
+            error: "This Bid was not posted by you"
           });
 
           setTimeout(function () {
@@ -26387,7 +26317,7 @@ function (_Component) {
           });
 
           _this3.setState({
-            alert: "This job was deleted"
+            alert: "This Bid was deleted"
           });
 
           if (index == _this3.state.jobForDescription.id) {
@@ -26445,29 +26375,6 @@ function (_Component) {
       });
     }
   }, {
-    key: "addJob",
-    value: function addJob() {
-      var _this4 = this;
-
-      var body = [this.state.Name, this.state.Description, this.state.Money, this.state.Time, this.state.Link];
-      var user_id = 1;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs?api_token=' + window.token, {
-        body: body
-      }).then(function (res) {
-        window.res = res;
-
-        _this4.setState({
-          jobs: res.data,
-          jobForDescription: res.data[0],
-          Name: "",
-          Description: "",
-          Time: "",
-          Money: "",
-          Link: ""
-        });
-      });
-    }
-  }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
       this.setState({
@@ -26482,37 +26389,22 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " col-md-3 "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        click: this.addJob.bind(this),
-        Name: this.state.Name,
-        changeName: this.changeInputName.bind(this),
-        Description: this.state.Description,
-        changeDescription: this.changeInputDescription.bind(this),
-        Time: this.state.Time,
-        changeTime: this.changeInputTime.bind(this),
-        Money: this.state.Money,
-        changeMoney: this.changeInputMoney.bind(this),
-        Link: this.state.Link,
-        changeLink: this.changeInputLink.bind(this)
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-4 px-0"
+        className: "col-md-3 px-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-info"
       }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_3__["default"], {
         error: this.state.error,
         alert: this.state.alert
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table__WEBPACK_IMPORTED_MODULE_4__["default"], {
         jobs: this.state.jobs,
-        delete: this.delete.bind(this),
         click: this.setJobForDescription.bind(this)
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-5 px-2"
-      }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_description__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        className: "col-md-4 px-2"
+      }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_description__WEBPACK_IMPORTED_MODULE_5__["default"], {
         job: this.state.jobForDescription
       }) : null)));
     }
@@ -26523,26 +26415,26 @@ function (_Component) {
 
 
 
-if (document.getElementById('example')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Example, null), document.getElementById('example'));
+if (document.getElementById('freehome')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Example, null), document.getElementById('freehome'));
 }
 
 /***/ }),
 
-/***/ "./resources/js/components/description.js":
-/*!************************************************!*\
-  !*** ./resources/js/components/description.js ***!
-  \************************************************/
+/***/ "./resources/js/freelancer/Makebid.js":
+/*!********************************************!*\
+  !*** ./resources/js/freelancer/Makebid.js ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Decription; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Makebid; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26564,18 +26456,131 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+var Makebid =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Makebid, _React$Component);
+
+  function Makebid(props) {
+    _classCallCheck(this, Makebid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Makebid).call(this, props));
+  }
+
+  _createClass(Makebid, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn btn-outline-danger   ",
+        onClick: this.props.click
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-paper-plane mr-2"
+      }), "Make Bid"));
+    }
+  }]);
+
+  return Makebid;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/description.js":
+/*!************************************************!*\
+  !*** ./resources/js/freelancer/description.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Decription; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Bid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Bid */ "./resources/js/freelancer/Bid.js");
+/* harmony import */ var _Makebid__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Makebid */ "./resources/js/freelancer/Makebid.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
 var Decription =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(Decription, _React$Component);
 
   function Decription(props) {
+    var _this;
+
     _classCallCheck(this, Decription);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Decription).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Decription).call(this, props));
+    _this.state = {
+      bids: []
+    };
+    return _this;
   }
 
   _createClass(Decription, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var id = this.props.job.id;
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + id + "?api_token=" + window.token).then(function (res) {
+        window.bids = res.bids;
+        var bids = res.data.reverse(); // jobs=jobs.reverse();
+
+        _this2.setState({
+          bids: bids
+        });
+      });
+    }
+  }, {
+    key: "makeBid",
+    value: function makeBid() {
+      var _this3 = this;
+
+      //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
+      //var user_id=1;
+      var body = ["mybid", "https://www.google.com", this.props.job.id, 200, 30];
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids?api_token=' + window.token, {
+        body: body
+      }).then(function (res) {
+        window.res = res;
+
+        _this3.setState({
+          bids: res.data
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26613,7 +26618,16 @@ function (_React$Component) {
         className: "btn btn-outline-dark disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
-      }), "0 Bids"))));
+      }), this.state.bids.length, " Bids")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        job: this.props.job.id,
+        click: this.makeBid.bind(this)
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body fix-scroll"
+      }, this.state.bids.map(function (bid) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          theBid: bid
+        });
+      })));
     }
   }]);
 
@@ -26624,9 +26638,9 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/messages.js":
+/***/ "./resources/js/freelancer/messages.js":
 /*!*********************************************!*\
-  !*** ./resources/js/components/messages.js ***!
+  !*** ./resources/js/freelancer/messages.js ***!
   \*********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -26688,9 +26702,9 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/js/components/table.js":
+/***/ "./resources/js/freelancer/table.js":
 /*!******************************************!*\
-  !*** ./resources/js/components/table.js ***!
+  !*** ./resources/js/freelancer/table.js ***!
   \******************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -26745,28 +26759,16 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "list-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item active"
-      }, "All Jobs"), this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item "
       }, " Empty List...") : //if jobs array is empty 
       this.props.jobs.map(function (job, key) {
         return (// if there are some jobs
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             key: key,
-            className: " list-group list-group-horizontal  w-100"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             onClick: _this.props.click.bind(_this, job),
-            className: "list-group-item col-9 mouse"
-          }, job.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            id: job.id,
-            className: "list-group-item delete p-2  col-3 btn btn-outline-danger",
-            onClick: _this.props.delete
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "fas fa-trash-alt"
-          }), " Delete"))
+            className: "list-group-item  mouse"
+          }, job.body)
         );
       }));
     }
@@ -26779,26 +26781,25 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/***/ "./resources/js/freelancerapp.js":
+/*!***************************************!*\
+  !*** ./resources/js/freelancerapp.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\project\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! ./freelancer/Example */ "./resources/js/freelancer/Example.js");
+
+/***/ }),
+
+/***/ 1:
+/*!*********************************************!*\
+  !*** multi ./resources/js/freelancerapp.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! E:\project\resources\js\freelancerapp.js */"./resources/js/freelancerapp.js");
 
 
 /***/ })

@@ -31,3 +31,7 @@ body{
 .time{
   float: right;
 }
+.fix-scroll{
+  max-height: 10rem;
+  overflow-y: scroll;
+}
