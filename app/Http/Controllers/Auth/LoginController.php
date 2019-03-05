@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\User;
@@ -40,7 +40,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         $newUser=User::find($user->id);
-        $newUser->api_token="the api";
+        $newUser->api_token=Hash::make(str_random(60));;
         $newUser->save();
         
     }

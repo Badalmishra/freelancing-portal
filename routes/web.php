@@ -14,8 +14,14 @@
 
 
 Auth::routes();
+Route::resource('test','testController');
+Route::resource('bids','bidsController');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth:web')->get('/', function () {
-    return view('welcome');
+    if(Auth::user()->type=="client"){
+        return view('welcome');
+    }else{
+        return redirect('/home');
+    }
 });

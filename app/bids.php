@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class jobs extends Model
+class bids extends Model
 {
     public function user()
     {

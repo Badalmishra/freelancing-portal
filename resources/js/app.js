@@ -14,3 +14,4 @@
  */
 
 require('./components/Example');
+require('./freelancer/Example');

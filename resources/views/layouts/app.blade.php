@@ -67,6 +67,9 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a href="/notifications" class="nav-link">Notifications</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>

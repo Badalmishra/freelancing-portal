@@ -53,7 +53,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+            'type' => ['required']
+,        ]);
     }
 
     /**
@@ -67,6 +68,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'type' => $data['type'],
             'password' => Hash::make($data['password']),
 
         ]);
@@ -76,7 +78,8 @@ class RegisterController extends Controller
     {
 
         $newUser=User::find($user->id);
-        $newUser->api_token="the api";
+        $newUser->api_token=Hash::make(str_random(60));
+       
         $newUser->save();
 
     }

@@ -4,6 +4,7 @@
     <script>
     window.token='{{Auth::user()->api_token}}';
     </script>
+    i am client
             <div id="example" class="w-100 px-2"></div>
     <script src="js/app.js"></script>
  @endsection

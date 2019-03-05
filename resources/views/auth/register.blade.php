@@ -52,7 +52,13 @@
                                 @endif
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                        <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
+                            <select name="type" class="form-control col-md-6">
+                                <option value="client">Client</option>
+                                <option value="freelancer">Freelancer</option>
+                            </select>
+                        </div>
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
