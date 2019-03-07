@@ -4,7 +4,6 @@ import axios from 'axios';
 import Messages from './messages';
 import Table from './table';
 import Description from './description';
-import Makebid from "./Makebid";
 export default class Example extends Component {
     constructor(props) {
         super(props);

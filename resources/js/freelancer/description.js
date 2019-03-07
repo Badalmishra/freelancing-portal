@@ -2,36 +2,64 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Bid from './Bid'
-import Makebid from './Makebid'
+import Makebid from './Makebid';
+
 export default class Decription extends React.Component{
     constructor(props){
         super(props);
         this.state={
                 bids:[],
+               
         }
+        //window.prop =this.props.job.id;
+    }
+    componentDidUpdate(prevProps){
+        
+        if (this.props.job !== prevProps.job) {
+           // window.id=this.props.job.id;
+            axios.get(`api/bids/`+this.props.job.id+`?api_token=`+window.token)
+            .then(res => {
+              window.bids=res;
+        
+             // alert(this.props.job.id+"lol");
+             // jobs=jobs.reverse();
+              this.setState({ 
+                  bids:res.data.reverse(),
+                  
+               });
+              
+            })
+            
+          }
     }
     componentDidMount() {
-        var id = this.props.job.id;
-        axios.get(`api/bids/`+id+`?api_token=`+window.token)
-          .then(res => {
-            window.bids=res.bids;
-            const bids = res.data.reverse();
-           // jobs=jobs.reverse();
-            this.setState({ 
-                bids:bids,
-                
-             });
-            
-          })
+   
+        axios.get(`api/bids/`+this.props.job.id+`?api_token=`+window.token)
+        .then(res => {
+          window.bids=res;
+    
+         // alert(this.props.job.id+"lol");
+         // jobs=jobs.reverse();
+          this.setState({ 
+              bids:res.data.reverse(),
+              
+           });
+          
+        })
+  
      }
 
      makeBid(){
         //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
         //var user_id=1;
         var body=["mybid","https://www.google.com",this.props.job.id,200,30];
+        console.log(this.props.job.id);
+        
         axios.post('api/bids?api_token='+window.token, { body })
             .then(res => {
                 window.res=res;
+                console.log(res.data);
+                
                 this.setState({ 
                     bids:res.data,
                     
@@ -48,7 +76,7 @@ export default class Decription extends React.Component{
             <div className="card ml-0 ">
                 <div className="card-header bg-primary">{this.props.job.body}</div>
                 <div className="card-body">
-                    <p className="text-success lead">Description</p>
+                    <p className="text-success lead">Description {this.props.job.id}</p>
                     <hr></hr>
                     <p>{this.props.job.description}</p>
                     {
@@ -88,10 +116,10 @@ export default class Decription extends React.Component{
                 </div>
                 <div className="card-body fix-scroll">
                 {
-                    this.state.bids.map((bid)=>{
+                    this.state.bids.map((bid,id)=>{
                         return(
                         
-                            <Bid 
+                            <Bid key={id}
                                 theBid={bid}/>
                            
                         )

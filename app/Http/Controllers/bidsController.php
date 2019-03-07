@@ -50,7 +50,7 @@ class bidsController extends Controller
         $bid->status    = 1;
 
         $bid->save();
-        $bids =  bids::with('user')->get();
+        $bids =  bids::with('user')->where('jobs_id',$request->body[2])->get();
         return json_encode($bids);    
     }
 
@@ -62,7 +62,7 @@ class bidsController extends Controller
      */
     public function show($id)
     {
-        $bids =  bids::with('user')->get();
+        $bids =  bids::with('user')->where('jobs_id', $id)->get();
         return json_encode($bids);
     }
 

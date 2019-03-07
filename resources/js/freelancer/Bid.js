@@ -7,6 +7,7 @@ export default class Bid extends React.Component{
       this.state = {
          
       }
+      
     }
     render() {
       return (

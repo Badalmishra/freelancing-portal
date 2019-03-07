@@ -26215,7 +26215,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages */ "./resources/js/freelancer/messages.js");
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./table */ "./resources/js/freelancer/table.js");
 /* harmony import */ var _description__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./description */ "./resources/js/freelancer/description.js");
-/* harmony import */ var _Makebid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Makebid */ "./resources/js/freelancer/Makebid.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26233,7 +26232,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -26433,8 +26431,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Makebid; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26452,7 +26448,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -26540,40 +26535,59 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Decription).call(this, props));
     _this.state = {
-      bids: []
+      bids: [] //window.prop =this.props.job.id;
+
     };
     return _this;
   }
 
   _createClass(Decription, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
       var _this2 = this;
 
-      var id = this.props.job.id;
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + id + "?api_token=" + window.token).then(function (res) {
-        window.bids = res.bids;
-        var bids = res.data.reverse(); // jobs=jobs.reverse();
+      if (this.props.job !== prevProps.job) {
+        // window.id=this.props.job.id;
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + this.props.job.id + "?api_token=" + window.token).then(function (res) {
+          window.bids = res; // alert(this.props.job.id+"lol");
+          // jobs=jobs.reverse();
 
-        _this2.setState({
-          bids: bids
+          _this2.setState({
+            bids: res.data.reverse()
+          });
+        });
+      }
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + this.props.job.id + "?api_token=" + window.token).then(function (res) {
+        window.bids = res; // alert(this.props.job.id+"lol");
+        // jobs=jobs.reverse();
+
+        _this3.setState({
+          bids: res.data.reverse()
         });
       });
     }
   }, {
     key: "makeBid",
     value: function makeBid() {
-      var _this3 = this;
+      var _this4 = this;
 
       //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
       //var user_id=1;
       var body = ["mybid", "https://www.google.com", this.props.job.id, 200, 30];
+      console.log(this.props.job.id);
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids?api_token=' + window.token, {
         body: body
       }).then(function (res) {
         window.res = res;
+        console.log(res.data);
 
-        _this3.setState({
+        _this4.setState({
           bids: res.data
         });
       }).catch(function (err) {
@@ -26591,7 +26605,7 @@ function (_React$Component) {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-success lead"
-      }, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, "Description ", this.props.job.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "btn btn-warning",
         href: this.props.job.linkToReferenceProject
       }, "Link to Reference Project ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -26623,8 +26637,9 @@ function (_React$Component) {
         click: this.makeBid.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body fix-scroll"
-      }, this.state.bids.map(function (bid) {
+      }, this.state.bids.map(function (bid, id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          key: id,
           theBid: bid
         });
       })));
