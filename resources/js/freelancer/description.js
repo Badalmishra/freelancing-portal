@@ -70,6 +70,41 @@ export default class Decription extends React.Component{
             
         });
     }
+    deleteBid(params){
+        var index =params;
+        console.log(params);
+        
+            var data ={
+                 "_method":"delete",
+                 "id":index,
+            };
+            var config = {
+                'Authorization': "Bearer " + window.token
+            };
+
+            axios.post('api/bids/'+index+'?api_token='+window.token,data)
+              .then(res => {
+                  window.res=res;
+                  if(res.data=='404'){
+                      this.setState({error:"This Bid was not posted by you"});
+                      setTimeout(()=>
+                          this.setState({error:""})
+                      ,3000);
+                  } else{
+                        const bids = res.data;
+                         this.setState({ bids:bids });
+                         this.setState({alert:"This Bid was deleted"});
+                        //  if(index==this.state.jobForDescription.id){
+                        //     this.setState({
+                        //         jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
+                        //     });
+                        //  }
+                         setTimeout(()=>
+                                this.setState({alert:""})
+                         ,3000);
+                     }
+              });
+    }
 
     render(){
         return(
@@ -110,21 +145,27 @@ export default class Decription extends React.Component{
                     
                         <Makebid
                             job={this.props.job.id}
+                            
                             click={this.makeBid.bind(this)}
                             />
                        
                 </div>
-                <div className="card-body fix-scroll">
-                {
-                    this.state.bids.map((bid,id)=>{
-                        return(
+                <div className="card-body  p-0">
+                    <div className=" list-group-item bg-success text-white">All Bids</div>
+                    <div class="fix-scroll ">
+                    {   
+                        this.state.bids.map((bid,id)=>{
+                            return(
                         
-                            <Bid key={id}
-                                theBid={bid}/>
-                           
-                        )
-                    })
-                }
+                                <Bid key={id}
+                                    theBid={bid}
+                                    showBid={this.props.showBid}
+                                    deleteBid={this.deleteBid.bind(this)}/>
+                            
+                            )
+                        })
+                    }
+                 </div>
                 </div>
             </div>
         )

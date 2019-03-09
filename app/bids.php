@@ -10,4 +10,8 @@ class bids extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function job()
+    {
+        return $this->belongsTo('App\jobs');
+    }
 }

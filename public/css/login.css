@@ -1,0 +1,25 @@
+.form-stuff{
+    border-radius:0px !important; 
+}
+#logo{
+    background: url('../images/lol.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+#logo-text{
+    text-shadow:2px 2px  black;
+
+}
+.card-deck
+{
+    margin-top: 5%;
+}
+.info{
+    transition: 0.5s background-color;
+}
+.info:hover{
+    box-shadow: 5px 5px 10px black;
+    background-color: rgba(91, 66, 225, 0.4)!important;
+    cursor: pointer;
+}

@@ -12,9 +12,8 @@ export default class Example extends Component {
             Name:"",
             Description:"",
             Time:"",
-            Money:"",
-            Link:"",
-            jobForDescription:"",
+            Money:"",   
+            bidForDescription:"",
             alert:"",
             error:"",
         };
@@ -32,74 +31,16 @@ export default class Example extends Component {
              });
           })
      }
-    delete(){
-        var index =event.target.id;
-        var data ={
-             "_method":"delete",
-             "id":index,
-        };
-        var config = {
-            'Authorization': "Bearer " + window.token
-        };
 
-        axios.post('api/jobs/'+index+'?api_token='+window.token,data)
-          .then(res => {
-              window.res=res;
-              if(res.data=='404'){
-                  this.setState({error:"This Bid was not posted by you"});
-                  setTimeout(()=>
-                      this.setState({error:""})
-                  ,3000);
-              } else{
-                    const jobs = res.data;
-                     this.setState({ jobs:jobs });
-                     this.setState({alert:"This Bid was deleted"});
-                     if(index==this.state.jobForDescription.id){
-                        this.setState({
-                            jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
-                        });
-                     }
-                     setTimeout(()=>
-                            this.setState({alert:""})
-                     ,3000);
-                 }
-          });
-    }
-    changeInputName(){
-       // alert(event.key);
-        this.setState({
-            Name:event.target.value,
-        });
-    }
-    changeInputDescription(){
-        // alert(event.key);
-         this.setState({
-            Description:event.target.value,
-         });
-     }
-    changeInputTime(){
-        // alert(event.key);
-         this.setState({
-             Time:event.target.value,
-         });
-     }
-    changeInputMoney(){
-        // alert(event.key);
-         this.setState({
-             Money:event.target.value,
-         });
-     }
-    changeInputLink(){
-        // alert(event.key);
-         this.setState({
-             Link:event.target.value,
-         });
-     }
+   
+ 
     setJobForDescription(param){
        this.setState({jobForDescription:param});
        
     }
-
+    showBid(params){
+        console.log(params);
+      }
     render() {
         return (
             <div className="px-3">
@@ -124,7 +65,8 @@ export default class Example extends Component {
                     {   this.state.jobForDescription?
                         <Description
                             job={this.state.jobForDescription}
-                            />
+                            showBid={this.showBid}
+                          />
                             :null
                     }        
                     </div>

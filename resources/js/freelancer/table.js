@@ -6,7 +6,7 @@ export default class Table extends React.Component{
     }
     componentWillUnmount() {
         //this.removeEventListener('click');
-        window.removeEventListener("click",this.props.delete);
+        //window.removeEventListener("click",this.props.delete);
     }
     render(){
         return(

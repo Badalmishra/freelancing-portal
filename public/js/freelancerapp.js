@@ -26185,7 +26185,17 @@ function (_React$Component) {
   _createClass(Bid, [{
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " bid "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        onClick: this.props.showBid.bind(this, this.props.theBid),
+        className: "col-9 list-group-item"
+      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-danger col-3 list-group-item",
+        onClick: this.props.deleteBid.bind(this, this.props.theBid.id)
+      }, "Delete")));
     }
   }]);
 
@@ -26257,8 +26267,7 @@ function (_Component) {
       Description: "",
       Time: "",
       Money: "",
-      Link: "",
-      jobForDescription: "",
+      bidForDescription: "",
       alert: "",
       error: ""
     };
@@ -26282,102 +26291,16 @@ function (_Component) {
       });
     }
   }, {
-    key: "delete",
-    value: function _delete() {
-      var _this3 = this;
-
-      var index = event.target.id;
-      var data = {
-        "_method": "delete",
-        "id": index
-      };
-      var config = {
-        'Authorization': "Bearer " + window.token
-      };
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + index + '?api_token=' + window.token, data).then(function (res) {
-        window.res = res;
-
-        if (res.data == '404') {
-          _this3.setState({
-            error: "This Bid was not posted by you"
-          });
-
-          setTimeout(function () {
-            return _this3.setState({
-              error: ""
-            });
-          }, 3000);
-        } else {
-          var jobs = res.data;
-
-          _this3.setState({
-            jobs: jobs
-          });
-
-          _this3.setState({
-            alert: "This Bid was deleted"
-          });
-
-          if (index == _this3.state.jobForDescription.id) {
-            _this3.setState({
-              jobForDescription: _this3.state.jobs[0] ? _this3.state.jobs[0] : null
-            });
-          }
-
-          setTimeout(function () {
-            return _this3.setState({
-              alert: ""
-            });
-          }, 3000);
-        }
-      });
-    }
-  }, {
-    key: "changeInputName",
-    value: function changeInputName() {
-      // alert(event.key);
-      this.setState({
-        Name: event.target.value
-      });
-    }
-  }, {
-    key: "changeInputDescription",
-    value: function changeInputDescription() {
-      // alert(event.key);
-      this.setState({
-        Description: event.target.value
-      });
-    }
-  }, {
-    key: "changeInputTime",
-    value: function changeInputTime() {
-      // alert(event.key);
-      this.setState({
-        Time: event.target.value
-      });
-    }
-  }, {
-    key: "changeInputMoney",
-    value: function changeInputMoney() {
-      // alert(event.key);
-      this.setState({
-        Money: event.target.value
-      });
-    }
-  }, {
-    key: "changeInputLink",
-    value: function changeInputLink() {
-      // alert(event.key);
-      this.setState({
-        Link: event.target.value
-      });
-    }
-  }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
       this.setState({
         jobForDescription: param
       });
+    }
+  }, {
+    key: "showBid",
+    value: function showBid(params) {
+      console.log(params);
     }
   }, {
     key: "render",
@@ -26403,7 +26326,8 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 px-2"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_description__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        job: this.state.jobForDescription
+        job: this.state.jobForDescription,
+        showBid: this.showBid
       }) : null)));
     }
   }]);
@@ -26595,8 +26519,61 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "deleteBid",
+    value: function deleteBid(params) {
+      var _this5 = this;
+
+      var index = params;
+      console.log(params);
+      var data = {
+        "_method": "delete",
+        "id": index
+      };
+      var config = {
+        'Authorization': "Bearer " + window.token
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids/' + index + '?api_token=' + window.token, data).then(function (res) {
+        window.res = res;
+
+        if (res.data == '404') {
+          _this5.setState({
+            error: "This Bid was not posted by you"
+          });
+
+          setTimeout(function () {
+            return _this5.setState({
+              error: ""
+            });
+          }, 3000);
+        } else {
+          var bids = res.data;
+
+          _this5.setState({
+            bids: bids
+          });
+
+          _this5.setState({
+            alert: "This Bid was deleted"
+          }); //  if(index==this.state.jobForDescription.id){
+          //     this.setState({
+          //         jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
+          //     });
+          //  }
+
+
+          setTimeout(function () {
+            return _this5.setState({
+              alert: ""
+            });
+          }, 3000);
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this6 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card ml-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26636,13 +26613,19 @@ function (_React$Component) {
         job: this.props.job.id,
         click: this.makeBid.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body fix-scroll"
+        className: "card-body  p-0"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " list-group-item bg-success text-white"
+      }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        class: "fix-scroll "
       }, this.state.bids.map(function (bid, id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: id,
-          theBid: bid
+          theBid: bid,
+          showBid: _this6.props.showBid,
+          deleteBid: _this6.deleteBid.bind(_this6)
         });
-      })));
+      }))));
     }
   }]);
 
@@ -26765,9 +26748,8 @@ function (_React$Component) {
 
   _createClass(Table, [{
     key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      //this.removeEventListener('click');
-      window.removeEventListener("click", this.props.delete);
+    value: function componentWillUnmount() {//this.removeEventListener('click');
+      //window.removeEventListener("click",this.props.delete);
     }
   }, {
     key: "render",

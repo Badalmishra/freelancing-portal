@@ -97,6 +97,18 @@ class bidsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bid=bids::find($id);
+        $jobs_id = $bid->jobs_id;
+        
+        $user_id=Auth::guard('api')->id();
+        //return $user_id.''.$job->user_id;
+        if ($bid->user_id==$user_id) {
+            $bid->delete();
+            $bids =  bids::with('user')->where('jobs_id', $jobs_id)->get();
+            return json_encode($bids);            
+        }
+        else{
+            return json_encode("404");
+        }
     }
 }

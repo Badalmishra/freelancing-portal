@@ -32,6 +32,13 @@ body{
   float: right;
 }
 .fix-scroll{
-  max-height: 10rem;
+  max-height: 15rem;
   overflow-y: scroll;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+}
+.bid{  
+}
+.bid :nth-child(){
+  background: rgba(91, 66, 225, 0.4)!important;
 }
