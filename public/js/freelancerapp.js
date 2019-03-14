@@ -26173,13 +26173,9 @@ function (_React$Component) {
   _inherits(Bid, _React$Component);
 
   function Bid(props) {
-    var _this;
-
     _classCallCheck(this, Bid);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Bid).call(this, props));
-    _this.state = {};
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(Bid).call(this, props));
   }
 
   _createClass(Bid, [{
@@ -26501,8 +26497,6 @@ function (_React$Component) {
     value: function makeBid() {
       var _this4 = this;
 
-      //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
-      //var user_id=1;
       var body = ["mybid", "https://www.google.com", this.props.job.id, 200, 30];
       console.log(this.props.job.id);
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids?api_token=' + window.token, {
@@ -26534,12 +26528,14 @@ function (_React$Component) {
       };
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids/' + index + '?api_token=' + window.token, data).then(function (res) {
         window.res = res;
+        console.log(res);
 
         if (res.data == '404') {
           _this5.setState({
             error: "This Bid was not posted by you"
           });
 
+          console.log(_this5.state.error);
           setTimeout(function () {
             return _this5.setState({
               error: ""
@@ -26547,6 +26543,7 @@ function (_React$Component) {
           }, 3000);
         } else {
           var bids = res.data;
+          console.log(_this5.state.bids.length);
 
           _this5.setState({
             bids: bids
@@ -26554,12 +26551,13 @@ function (_React$Component) {
 
           _this5.setState({
             alert: "This Bid was deleted"
-          }); //  if(index==this.state.jobForDescription.id){
+          });
+
+          console.log(_this5.state.alert); //  if(index==this.state.jobForDescription.id){
           //     this.setState({
           //         jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
           //     });
           //  }
-
 
           setTimeout(function () {
             return _this5.setState({
@@ -26617,7 +26615,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " list-group-item bg-success text-white"
       }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        class: "fix-scroll "
+        className: "fix-scroll "
       }, this.state.bids.map(function (bid, id) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: id,

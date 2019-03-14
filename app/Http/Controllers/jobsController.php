@@ -101,6 +101,8 @@ class jobsController extends Controller
         $user_id=Auth::guard('api')->id();
         //return $user_id.''.$job->user_id;
         if ($job->user_id==$user_id) {
+
+            $job->bids()->delete();
             $job->delete();
         $jobs =  jobs::all();
         return json_encode($jobs);            

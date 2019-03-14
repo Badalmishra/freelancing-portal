@@ -50,8 +50,6 @@ export default class Decription extends React.Component{
      }
 
      makeBid(){
-        //var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
-        //var user_id=1;
         var body=["mybid","https://www.google.com",this.props.job.id,200,30];
         console.log(this.props.job.id);
         
@@ -73,7 +71,6 @@ export default class Decription extends React.Component{
     deleteBid(params){
         var index =params;
         console.log(params);
-        
             var data ={
                  "_method":"delete",
                  "id":index,
@@ -85,15 +82,23 @@ export default class Decription extends React.Component{
             axios.post('api/bids/'+index+'?api_token='+window.token,data)
               .then(res => {
                   window.res=res;
+                  console.log(res);
+                  
                   if(res.data=='404'){
                       this.setState({error:"This Bid was not posted by you"});
+                      console.log(this.state.error);
+                      
                       setTimeout(()=>
                           this.setState({error:""})
                       ,3000);
                   } else{
-                        const bids = res.data;
+                        let bids = res.data;
+                        console.log(this.state.bids.length);
+                        
                          this.setState({ bids:bids });
                          this.setState({alert:"This Bid was deleted"});
+                         console.log(this.state.alert);
+                         
                         //  if(index==this.state.jobForDescription.id){
                         //     this.setState({
                         //         jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
@@ -152,7 +157,7 @@ export default class Decription extends React.Component{
                 </div>
                 <div className="card-body  p-0">
                     <div className=" list-group-item bg-success text-white">All Bids</div>
-                    <div class="fix-scroll ">
+                    <div className="fix-scroll ">
                     {   
                         this.state.bids.map((bid,id)=>{
                             return(
