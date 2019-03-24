@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
-use App\bids;
 use Illuminate\Http\Request;
-
-class bidsController extends Controller
+use App\skills;
+class skillsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,12 +13,10 @@ class bidsController extends Controller
      */
     public function index()
     {
-        $user=Auth::guard('api')->user();
-        
-        if($user->type!="client"){
-            return redirect('/login'); 
-        }
-        return $user->bids;
+        $skills =  skills::all();
+       // $jobs= $jobs->reverse();
+       error_log(json_encode($skills));
+        return json_encode($skills);
     }
 
     /**
@@ -40,18 +37,7 @@ class bidsController extends Controller
      */
     public function store(Request $request)
     {
-        $bid = new bids;
-
-        $bid->user_id   = Auth::guard('api')->id();
-        $bid->jobs_id    = $request->body[2];
-        $bid->price     = $request->body[3];
-        $bid->time      = $request->body[4];
-        $bid->proposal  = $request->body[0];
-        $bid->status    = 1;
-
-        $bid->save();
-        $bids =  bids::with('user')->where('jobs_id',$request->body[2])->get();
-        return json_encode($bids);    
+        //
     }
 
     /**
@@ -62,8 +48,7 @@ class bidsController extends Controller
      */
     public function show($id)
     {
-        $bids =  bids::with(['user','jobs'])->where('jobs_id', $id)->get();
-        return json_encode($bids);
+        //
     }
 
     /**
@@ -97,18 +82,6 @@ class bidsController extends Controller
      */
     public function destroy($id)
     {
-        $bid=bids::find($id);
-        $jobs_id = $bid->jobs_id;
-        
-        $user_id=Auth::guard('api')->id();
-        //return $user_id.''.$job->user_id;
-        if ($bid->user_id==$user_id) {
-            $bid->delete();
-            $bids =  bids::with('user')->where('jobs_id', $jobs_id)->get();
-            return json_encode($bids);            
-        }
-        else{
-            return json_encode("404");
-        }
+        //
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\jobs;
+use App\jobSkills;
+
 class jobsController extends Controller
 {
     /**
@@ -17,6 +19,7 @@ class jobsController extends Controller
     {
        $jobs =  jobs::all();
        // $jobs= $jobs->reverse();
+      /// error_log(json_encode($jobs));
         return json_encode($jobs);
     }
 
@@ -48,9 +51,16 @@ class jobsController extends Controller
         $job->maxMoney=$request->body[2];
         $job->maxDays=$request->body[3];
         $job->linkToReferenceProject=$request->body[4]?$request->body[4]:"";
-
         $job->save();
-        $jobs =  jobs::all();
+        foreach ($request->body[5] as $key => $value) {
+            $jobskills = new jobSkills;
+            $jobskills->jobs_id=$job->id;
+            $jobskills->skills_id=$value;
+            $jobskills->save();
+        }
+        
+        //error_log(jobs::with('jobSkills.skills')->get());
+        $jobs =  jobs::with('jobSkills.skills')->get();
         return json_encode($jobs);
     }
 
@@ -62,7 +72,9 @@ class jobsController extends Controller
      */
     public function show($id)
     {
-        //
+        $jobs =  jobs::with('jobSkills.skills')
+        ->get(array('skills'));
+        return json_encode($jobs);
     }
 
     /**

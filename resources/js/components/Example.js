@@ -4,7 +4,7 @@ import axios from 'axios';
 import Addjob from './Addjob';
 import Messages from './messages';
 import Table from './table';
-import Description from './description';
+import Description from './Description';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +18,7 @@ export default class Example extends Component {
             jobForDescription:"",
             alert:"",
             error:"",
+            jobSkills:[],
         };
         window.jobs=this.state.jobs;
     }
@@ -66,38 +67,20 @@ export default class Example extends Component {
                  }
           });
     }
-    changeInputName(){
+    change(e){
        // alert(event.key);
         this.setState({
-            Name:event.target.value,
+            [event.target.name]:event.target.value,
         });
     }
-    changeInputDescription(){
-        // alert(event.key);
-         this.setState({
-            Description:event.target.value,
-         });
-     }
-    changeInputTime(){
-        // alert(event.key);
-         this.setState({
-             Time:event.target.value,
-         });
-     }
-    changeInputMoney(){
-        // alert(event.key);
-         this.setState({
-             Money:event.target.value,
-         });
-     }
-    changeInputLink(){
-        // alert(event.key);
-         this.setState({
-             Link:event.target.value,
-         });
-     }
+
     addJob(){
-        var body =[this.state.Name,this.state.Description,this.state.Money,this.state.Time,this.state.Link];
+        var body =[
+                this.state.Name,
+                this.state.Description,
+                this.state.Money,this.state.Time,
+                this.state.Link,
+                this.state.jobSkills];
         var user_id=1;
         axios.post('api/jobs?api_token='+window.token, { body })
             .then(res => {
@@ -110,14 +93,37 @@ export default class Example extends Component {
                     Time:"",
                     Money:"",
                     Link:"",
+                    jobSkills:[],
                 });
-        })
+                console.log(this.state.jobs);
+        });
+       
         
         
     }
     setJobForDescription(param){
-       this.setState({jobForDescription:param});
+       this.setState({
+           jobForDescription:param
+        });
+
        
+    }
+    skillManagement(params){
+        const arr = this.state.jobSkills;
+        
+        
+        if(!(arr.indexOf(params)+1)){
+            arr.push(params);
+            this.setState({
+                jobSkills:arr,
+            });
+        }else{
+            arr.splice(arr.indexOf(params),1);
+            this.setState({
+                jobSkills:arr,
+            });
+        }
+        console.log(this.state.jobSkills);
     }
     render() {
         return (
@@ -127,15 +133,12 @@ export default class Example extends Component {
                     <Addjob 
                         click={this.addJob.bind(this)} 
                         Name={this.state.Name}
-                        changeName={this.changeInputName.bind(this)} 
+                        change={this.change.bind(this)} 
                         Description={this.state.Description}
-                        changeDescription={this.changeInputDescription.bind(this)}
                         Time={this.state.Time}
-                        changeTime={this.changeInputTime.bind(this)}
                         Money={this.state.Money}
-                        changeMoney={this.changeInputMoney.bind(this)}
                         Link={this.state.Link}
-                        changeLink={this.changeInputLink.bind(this)}
+                        skillManagement={this.skillManagement.bind(this)}
                         />
                 </div>
                     <div className="col-md-4 px-0">

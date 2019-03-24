@@ -17,6 +17,7 @@ Auth::routes();
 Route::resource('test','testController');
 Route::resource('bids','bidsController');
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware('auth:web')->get('/', function () {
     if(Auth::user()->type=="client"){
@@ -24,4 +25,7 @@ Route::middleware('auth:web')->get('/', function () {
     }else{
         return redirect('/home');
     }
+});
+Route::get('/main', function(){
+    return view('reactmainfree');
 });

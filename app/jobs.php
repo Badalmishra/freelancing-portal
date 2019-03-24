@@ -14,4 +14,8 @@ class jobs extends Model
     {
         return $this->hasMany('App\bids');
     }
+    public function jobSkills()
+    {
+        return $this->hasMany('App\jobSkills');
+    }
 }

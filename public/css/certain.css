@@ -25,6 +25,12 @@
   #input:active , #input:focus,.delete:active,.delete:focus{
     box-shadow: none;
   }
+  .blank-box:active,.blank-box:focus{
+    box-shadow: none;
+  }
+  .blank-box:hover{
+    background: auto!important;
+  }
 body{
   margin: 0!important;
 }

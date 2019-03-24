@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('logapi','thatauthapicontroller@index');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -19,4 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('auth:api')->resource('bids','bidsController');
 
 Route::middleware('auth:api')->resource('jobs', 'jobsController');
+
+Route::middleware('auth:api')->resource('skills', 'skillsController');
 //Route::resource('jobs', 'jobsController');
