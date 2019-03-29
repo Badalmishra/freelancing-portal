@@ -49,10 +49,10 @@ export default class Decription extends React.Component{
   
      }
 
-     makeBid(){
-        var body=["mybid","https://www.google.com",this.props.job.id,200,30];
-        console.log(this.props.job.id);
-        
+     makeBid(params){
+        var body=params;
+        console.log(params[2]);
+        params=params.slice();
         axios.post('api/bids?api_token='+window.token, { body })
             .then(res => {
                 window.res=res;
@@ -62,6 +62,7 @@ export default class Decription extends React.Component{
                     bids:res.data,
                     
                  });
+                 this.props.upbid(res.data);
                
         }).catch(err => {
             console.log(err);
@@ -116,32 +117,48 @@ export default class Decription extends React.Component{
             <div className="card ml-0 ">
                 <div className="card-header bg-primary">{this.props.job.body}</div>
                 <div className="card-body">
-                    <p className="text-success lead">Description {this.props.job.id}</p>
-                    <hr></hr>
+                    
+                   
                     <p>{this.props.job.description}</p>
+                    
                     {
                         this.props.job.linkToReferenceProject!=""?
-                        <a className="btn btn-warning" href={this.props.job.linkToReferenceProject}>
+                        <a className="btn btn-warning btn-sm" href={this.props.job.linkToReferenceProject}>
                            Link to Reference Project <i className="fa fa-paperclip ml-2"></i> 
                         </a>
                         :
-                        <a className="btn btn-warning disableb" href="#">
+                        <a className="btn btn-warning disableb btn-sm" href="#">
                         No Reference Project <i className="fa fa-paperclip ml-2"></i> 
                         </a>
                     }
+                    <div className="btn-group d-block text-success">
+                    Skills:<br></br>
+                        {
+                            this.props.job.job_skills.map((data)=>{
+                                return(
+                                <button className="btn disabled btn-outline-dark btn-sm"
+                                     key={data.skills.id}>{data.skills.name}
+                                     </button>)
+                            })
+                        }
+                    </div>
+                    <hr></hr>
+                    <small className="text-success">
+                        Posted By: {this.props.job.user.name}
+                    </small>
                 </div>
                 <div className="card-footer ">
-                    <span className="btn btn-outline-success disabled" 
+                    <span className="btn  btn-sm btn-outline-success disabled" 
                        title="Maximum Money client is willing to pay">
                         <i className="fas fa-rupee-sign mr-2"></i> 
                         {this.props.job.maxMoney}
                     </span>
                     <div className="time btn-group">
-                        <span className="btn btn-outline-primary disabled   ">
+                        <span className="btn btn-sm btn-outline-primary disabled   ">
                             <i className="fa fa-clock mr-2"></i> 
                             {this.props.job.maxDays} Days
-                        </span>
-                        <span className="btn btn-outline-dark disabled   ">
+                        </span> 
+                        <span className="btn btn-sm btn-outline-dark disabled   ">
                             <i className="fas fa-crosshairs mr-2"></i> 
                             {this.state.bids.length} Bids
                         </span>
@@ -150,7 +167,6 @@ export default class Decription extends React.Component{
                     
                         <Makebid
                             job={this.props.job.id}
-                            
                             click={this.makeBid.bind(this)}
                             />
                        
@@ -161,12 +177,10 @@ export default class Decription extends React.Component{
                     {   
                         this.state.bids.map((bid,id)=>{
                             return(
-                        
                                 <Bid key={id}
                                     theBid={bid}
                                     showBid={this.props.showBid}
                                     deleteBid={this.deleteBid.bind(this)}/>
-                            
                             )
                         })
                     }

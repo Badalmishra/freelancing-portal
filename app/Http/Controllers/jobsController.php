@@ -17,7 +17,7 @@ class jobsController extends Controller
 
     public function index()
     {
-       $jobs =  jobs::all();
+        $jobs =  jobs::with(['jobSkills.skills','user'])->get();
        // $jobs= $jobs->reverse();
       /// error_log(json_encode($jobs));
         return json_encode($jobs);
@@ -73,7 +73,7 @@ class jobsController extends Controller
     public function show($id)
     {
         $jobs =  jobs::with('jobSkills.skills')
-        ->get(array('skills'));
+        ->get('');
         return json_encode($jobs);
     }
 

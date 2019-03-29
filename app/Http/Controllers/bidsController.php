@@ -41,7 +41,7 @@ class bidsController extends Controller
     public function store(Request $request)
     {
         $bid = new bids;
-
+        error_log($request);
         $bid->user_id   = Auth::guard('api')->id();
         $bid->jobs_id    = $request->body[2];
         $bid->price     = $request->body[3];

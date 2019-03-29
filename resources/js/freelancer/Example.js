@@ -5,11 +5,12 @@ import Messages from './messages';
 import Table from './table';
 import Description from './Description';
 import Showbid from './Showb';
+import Bid from './Bid';
 export default class Example extends Component {
     constructor(props) {
         super(props);
         this.state={
-      
+            bids:[],
             jobs:[ ],
             Name:"",
             Description:"",
@@ -31,6 +32,18 @@ export default class Example extends Component {
               jobs:jobs,
               jobForDescription:jobs[0]?jobs[0]:null,
            });
+           axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
+            .then(res => {
+              window.bids=res;
+        
+             // alert(this.props.job.id+"lol");
+             // jobs=jobs.reverse();
+              this.setState({ 
+                  bids:res.data.reverse(),
+                  
+               });
+              
+            })
         })
      }
     setJobForDescription(param){
@@ -52,6 +65,48 @@ export default class Example extends Component {
             api_token:params,
         });
             alert(params);
+      }
+      upbid(params){
+          //alert(params);
+          this.setState({
+              bids:params,
+          });
+
+      }
+      deleteBid(params){
+        var index =params;
+        console.log(params);
+            var data ={
+                 "_method":"delete",
+                 "id":index,
+            };
+            var config = {
+                'Authorization': "Bearer " + window.token
+            };
+
+            axios.post('api/bids/'+index+'?api_token='+window.token,data)
+              .then(res => {
+                  window.res=res;
+                  console.log(res);
+                  
+                  if(res.data=='404'){
+                      this.setState({error:"This Bid was not posted by you"});
+                      console.log(this.state.error);
+                      setTimeout(()=>
+                          this.setState({error:""})
+                      ,3000);
+                  } else{
+                        let bids = res.data;
+                        console.log(this.state.bids.length);
+                        
+                         this.setState({ bids:bids });
+                         this.setState({alert:"This Bid was deleted"});
+                         console.log(this.state.alert);
+                         setTimeout(()=>
+                                this.setState({alert:""})
+                         ,3000);
+                     }
+              });
       }
     render() {
         return (
@@ -77,6 +132,7 @@ export default class Example extends Component {
                     <div className="col-md-4 px-2">
                     {   this.state.jobForDescription?
                         <Description
+                            upbid={this.upbid.bind(this)}
                             job={this.state.jobForDescription}
                             showBid={this.showBid.bind(this)}
                             api_token={this.state.api_token}
@@ -85,6 +141,25 @@ export default class Example extends Component {
                     }        
                     </div>
                     <div className="col-md-5">
+                        <div className="card">        
+                            <div className="card-body p-0 ">
+                            <div className=" list-group-item bg-success text-white">All Bids</div>
+                                <div className="fix-scroll">
+                                    {   this.state.bids?
+                                        this.state.bids.map((bid,id)=>{
+                                            return(
+                                                <Bid key={id}
+                                                    theBid={bid}
+                                                    showBid={this.showBid}
+                                                    deleteBid={this.deleteBid.bind(this)}/>
+                                            )
+                                        }):null
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="col-md-5">
                     x
                    
                         {this.state.bidForDescription?
@@ -95,7 +170,7 @@ export default class Example extends Component {
                         null
                         }
                         
-                    </div>
+                    </div> */}
                 </div>
                 
             </div>

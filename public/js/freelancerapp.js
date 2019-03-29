@@ -26295,11 +26295,12 @@ function (_React$Component) {
     }
   }, {
     key: "makeBid",
-    value: function makeBid() {
+    value: function makeBid(params) {
       var _this4 = this;
 
-      var body = ["mybid", "https://www.google.com", this.props.job.id, 200, 30];
-      console.log(this.props.job.id);
+      var body = params;
+      console.log(params[2]);
+      params = params.slice();
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids?api_token=' + window.token, {
         body: body
       }).then(function (res) {
@@ -26309,6 +26310,8 @@ function (_React$Component) {
         _this4.setState({
           bids: res.data
         });
+
+        _this4.props.upbid(res.data);
       }).catch(function (err) {
         console.log(err);
       });
@@ -26379,33 +26382,40 @@ function (_React$Component) {
         className: "card-header bg-primary"
       }, this.props.job.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "text-success lead"
-      }, "Description ", this.props.job.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "btn btn-warning",
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-warning btn-sm",
         href: this.props.job.linkToReferenceProject
       }, "Link to Reference Project ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-paperclip ml-2"
       })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "btn btn-warning disableb",
+        className: "btn btn-warning disableb btn-sm",
         href: "#"
       }, "No Reference Project ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-paperclip ml-2"
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn-group d-block text-success"
+      }, "Skills:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.job.job_skills.map(function (data) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn disabled btn-outline-dark btn-sm",
+          key: data.skills.id
+        }, data.skills.name);
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "text-success"
+      }, "Posted By: ", this.props.job.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-outline-success disabled",
+        className: "btn  btn-sm btn-outline-success disabled",
         title: "Maximum Money client is willing to pay"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-rupee-sign mr-2"
       }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "time btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-outline-primary disabled   "
+        className: "btn btn-sm btn-outline-primary disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-clock mr-2"
       }), this.props.job.maxDays, " Days"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-outline-dark disabled   "
+        className: "btn btn-sm btn-outline-dark disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
       }), this.state.bids.length, " Bids")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -26455,6 +26465,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./table */ "./resources/js/freelancer/table.js");
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Description */ "./resources/js/freelancer/Description.js");
 /* harmony import */ var _Showb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Showb */ "./resources/js/freelancer/Showb.js");
+/* harmony import */ var _Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Bid */ "./resources/js/freelancer/Bid.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26481,6 +26492,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -26493,6 +26505,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Example).call(this, props));
     _this.state = {
+      bids: [],
       jobs: [],
       Name: "",
       Description: "",
@@ -26518,6 +26531,15 @@ function (_Component) {
         _this2.setState({
           jobs: jobs,
           jobForDescription: jobs[0] ? jobs[0] : null
+        });
+
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this2.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+          window.bids = res; // alert(this.props.job.id+"lol");
+          // jobs=jobs.reverse();
+
+          _this2.setState({
+            bids: res.data.reverse()
+          });
         });
       });
     }
@@ -26546,8 +26568,68 @@ function (_Component) {
       alert(params);
     }
   }, {
+    key: "upbid",
+    value: function upbid(params) {
+      //alert(params);
+      this.setState({
+        bids: params
+      });
+    }
+  }, {
+    key: "deleteBid",
+    value: function deleteBid(params) {
+      var _this3 = this;
+
+      var index = params;
+      console.log(params);
+      var data = {
+        "_method": "delete",
+        "id": index
+      };
+      var config = {
+        'Authorization': "Bearer " + window.token
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids/' + index + '?api_token=' + window.token, data).then(function (res) {
+        window.res = res;
+        console.log(res);
+
+        if (res.data == '404') {
+          _this3.setState({
+            error: "This Bid was not posted by you"
+          });
+
+          console.log(_this3.state.error);
+          setTimeout(function () {
+            return _this3.setState({
+              error: ""
+            });
+          }, 3000);
+        } else {
+          var bids = res.data;
+          console.log(_this3.state.bids.length);
+
+          _this3.setState({
+            bids: bids
+          });
+
+          _this3.setState({
+            alert: "This Bid was deleted"
+          });
+
+          console.log(_this3.state.alert);
+          setTimeout(function () {
+            return _this3.setState({
+              alert: ""
+            });
+          }, 3000);
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "px-3"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26569,14 +26651,28 @@ function (_Component) {
       })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 px-2"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        upbid: this.upbid.bind(this),
         job: this.state.jobForDescription,
         showBid: this.showBid.bind(this),
         api_token: this.state.api_token
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-5"
-      }, "x", this.state.bidForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Showb__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        theBid: this.state.bidForDescription
-      }) : null)));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body p-0 "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " list-group-item bg-success text-white"
+      }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fix-scroll"
+      }, this.state.bids ? this.state.bids.map(function (bid, id) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          key: id,
+          theBid: bid,
+          showBid: _this4.showBid,
+          deleteBid: _this4.deleteBid.bind(_this4)
+        });
+      }) : null))))));
     }
   }]);
 
@@ -26605,6 +26701,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26629,17 +26727,59 @@ function (_React$Component) {
   _inherits(Makebid, _React$Component);
 
   function Makebid(props) {
+    var _this;
+
     _classCallCheck(this, Makebid);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Makebid).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Makebid).call(this, props));
+    _this.state = {
+      body: "",
+      refrence: "",
+      price: "",
+      days: ""
+    };
+    return _this;
   }
 
   _createClass(Makebid, [{
+    key: "change",
+    value: function change() {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "addBidClick",
+    value: function addBidClick() {
+      this.props.click(["mybid", "https://www.google.com", this.props.job, 200, 30]);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-outline-danger   ",
-        onClick: this.props.click
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "p-1 "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control ",
+        name: "body",
+        onChange: this.change.bind(this),
+        value: this.state.body
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        name: "refrence",
+        onChange: this.change.bind(this),
+        value: this.state.refrence
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row px-3"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "col-6 form-control",
+        name: "price",
+        onChange: this.change.bind(this),
+        value: this.state.price
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "col-6 form-control",
+        name: "days",
+        onChange: this.change.bind(this),
+        value: this.state.days
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.addBidClick.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-paper-plane mr-2"
       }), "Make Bid"));
