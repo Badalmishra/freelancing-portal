@@ -26186,11 +26186,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        onClick: this.props.showBid.bind(this, this.props.theBid),
-        className: "col-9 list-group-item"
+        onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
+        className: "col-9 list-group-item eachBid"
       }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-danger col-3 list-group-item",
-        onClick: this.props.deleteBid.bind(this, this.props.theBid.id)
+        onClick: this.props.deleteBid ? this.props.deleteBid.bind(this, this.props.theBid.id) : null
       }, "Delete")));
     }
   }]);
@@ -26263,40 +26263,9 @@ function (_React$Component) {
   }
 
   _createClass(Decription, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _this2 = this;
-
-      if (this.props.job !== prevProps.job) {
-        // window.id=this.props.job.id;
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + this.props.job.id + "?api_token=" + window.token).then(function (res) {
-          window.bids = res; // alert(this.props.job.id+"lol");
-          // jobs=jobs.reverse();
-
-          _this2.setState({
-            bids: res.data.reverse()
-          });
-        });
-      }
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + this.props.job.id + "?api_token=" + window.token).then(function (res) {
-        window.bids = res; // alert(this.props.job.id+"lol");
-        // jobs=jobs.reverse();
-
-        _this3.setState({
-          bids: res.data.reverse()
-        });
-      });
-    }
-  }, {
     key: "makeBid",
     value: function makeBid(params) {
-      var _this4 = this;
+      var _this2 = this;
 
       var body = params;
       console.log(params[2]);
@@ -26307,11 +26276,11 @@ function (_React$Component) {
         window.res = res;
         console.log(res.data);
 
-        _this4.setState({
+        _this2.setState({
           bids: res.data
         });
 
-        _this4.props.upbid(res.data);
+        _this2.props.upbid(res.data);
       }).catch(function (err) {
         console.log(err);
       });
@@ -26319,7 +26288,7 @@ function (_React$Component) {
   }, {
     key: "deleteBid",
     value: function deleteBid(params) {
-      var _this5 = this;
+      var _this3 = this;
 
       var index = params;
       console.log(params);
@@ -26335,36 +26304,36 @@ function (_React$Component) {
         console.log(res);
 
         if (res.data == '404') {
-          _this5.setState({
+          _this3.setState({
             error: "This Bid was not posted by you"
           });
 
-          console.log(_this5.state.error);
+          console.log(_this3.state.error);
           setTimeout(function () {
-            return _this5.setState({
+            return _this3.setState({
               error: ""
             });
           }, 3000);
         } else {
           var bids = res.data;
-          console.log(_this5.state.bids.length);
+          console.log(_this3.state.bids.length);
 
-          _this5.setState({
+          _this3.setState({
             bids: bids
           });
 
-          _this5.setState({
+          _this3.setState({
             alert: "This Bid was deleted"
           });
 
-          console.log(_this5.state.alert); //  if(index==this.state.jobForDescription.id){
+          console.log(_this3.state.alert); //  if(index==this.state.jobForDescription.id){
           //     this.setState({
           //         jobForDescription:this.state.jobs[0]?this.state.jobs[0]:null,
           //     });
           //  }
 
           setTimeout(function () {
-            return _this5.setState({
+            return _this3.setState({
               alert: ""
             });
           }, 3000);
@@ -26374,8 +26343,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card ml-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26418,23 +26385,10 @@ function (_React$Component) {
         className: "btn btn-sm btn-outline-dark disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
-      }), this.state.bids.length, " Bids")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }), this.props.bids.length, " Bids")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
         job: this.props.job.id,
         click: this.makeBid.bind(this)
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body  p-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " list-group-item bg-success text-white"
-      }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "fix-scroll "
-      }, this.state.bids.map(function (bid, id) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          key: id,
-          theBid: bid,
-          showBid: _this6.props.showBid,
-          deleteBid: _this6.deleteBid.bind(_this6)
-        });
-      }))));
+      })));
     }
   }]);
 
@@ -26505,13 +26459,13 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Example).call(this, props));
     _this.state = {
-      bids: [],
+      bids: "",
       jobs: [],
       Name: "",
       Description: "",
       Time: "",
       Money: "",
-      bidForDescription: "",
+      bidForDescription: [],
       alert: "",
       error: ""
     };
@@ -26546,18 +26500,36 @@ function (_Component) {
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
+      var _this3 = this;
+
       this.setState({
         jobForDescription: param
+      });
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + param.id + "?api_token=" + window.token).then(function (res) {
+        window.bids = res; // alert(this.props.job.id+"lol");
+        // jobs=jobs.reverse();
+
+        _this3.setState({
+          bids: res.data.reverse(),
+          jobForDescription: param
+        });
+
+        console.log(_this3.state.jobForDescription.id + " " + _this3.state.bids.length);
       });
     }
   }, {
     key: "showBid",
     value: function showBid(params) {
+      var _this4 = this;
+
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
+      }, function () {
+        console.log(_this4.state.bidForDescription);
+        $('#exampleModal').modal('show');
       });
-      console.log(this.state.bidForDescription);
+      window.the = this.state.bidForDescription;
     }
   }, {
     key: "getToken",
@@ -26578,7 +26550,7 @@ function (_Component) {
   }, {
     key: "deleteBid",
     value: function deleteBid(params) {
-      var _this3 = this;
+      var _this5 = this;
 
       var index = params;
       console.log(params);
@@ -26594,31 +26566,31 @@ function (_Component) {
         console.log(res);
 
         if (res.data == '404') {
-          _this3.setState({
+          _this5.setState({
             error: "This Bid was not posted by you"
           });
 
-          console.log(_this3.state.error);
+          console.log(_this5.state.error);
           setTimeout(function () {
-            return _this3.setState({
+            return _this5.setState({
               error: ""
             });
           }, 3000);
         } else {
           var bids = res.data;
-          console.log(_this3.state.bids.length);
+          console.log(_this5.state.bids.length);
 
-          _this3.setState({
+          _this5.setState({
             bids: bids
           });
 
-          _this3.setState({
+          _this5.setState({
             alert: "This Bid was deleted"
           });
 
-          console.log(_this3.state.alert);
+          console.log(_this5.state.alert);
           setTimeout(function () {
-            return _this3.setState({
+            return _this5.setState({
               alert: ""
             });
           }, 3000);
@@ -26628,7 +26600,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this6 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "px-3"
@@ -26653,8 +26625,8 @@ function (_Component) {
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_5__["default"], {
         upbid: this.upbid.bind(this),
         job: this.state.jobForDescription,
-        showBid: this.showBid.bind(this),
-        api_token: this.state.api_token
+        api_token: this.state.api_token,
+        bids: this.state.bids
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-5"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26669,10 +26641,45 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this4.showBid,
-          deleteBid: _this4.deleteBid.bind(_this4)
+          showBid: _this6.showBid.bind(_this6),
+          deleteBid: _this6.deleteBid.bind(_this6)
         });
-      }) : null))))));
+      }) : null))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "exampleModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog",
+        role: "document"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header bg-success"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "modal-title",
+        id: "exampleModalLabel"
+      }, this.state.bidForDescription.user ? this.state.bidForDescription.user.name : "lol"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, this.state.bidForDescription.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-secondary",
+        "data-dismiss": "modal"
+      }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        className: "btn btn-primary"
+      }, "Save changes"))))));
     }
   }]);
 
@@ -26749,7 +26756,7 @@ function (_React$Component) {
   }, {
     key: "addBidClick",
     value: function addBidClick() {
-      this.props.click(["mybid", "https://www.google.com", this.props.job, 200, 30]);
+      this.props.click(["mybid", "https://www.google.com", this.props.job, 200, 30]); //console.log("make bid has"+this.props.job);
     }
   }, {
     key: "render",

@@ -26432,6 +26432,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages */ "./resources/js/components/messages.js");
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table */ "./resources/js/components/table.js");
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Description */ "./resources/js/components/Description.js");
+/* harmony import */ var _freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../freelancer/Bid */ "./resources/js/freelancer/Bid.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26460,6 +26461,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -26473,6 +26475,7 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Example).call(this, props));
     _this.state = {
       jobs: [],
+      bids: [],
       Name: "",
       Description: "",
       Time: "",
@@ -26588,8 +26591,21 @@ function (_Component) {
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
+      var _this5 = this;
+
       this.setState({
         jobForDescription: param
+      }, function () {
+        console.log(_this5.state.jobForDescription);
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this5.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+          window.bids = res.data;
+          console.log(res.data); // alert(this.props.job.id+"lol");
+          // jobs=jobs.reverse();
+
+          _this5.setState({
+            bids: res.data.reverse()
+          });
+        });
       });
     }
   }, {
@@ -26648,6 +26664,10 @@ function (_Component) {
         className: "col-md-5 px-2"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_6__["default"], {
         job: this.state.jobForDescription
+      }) : null, this.state.bids != "" ? this.state.bids.map(function (bids) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          theBid: bids
+        });
       }) : null)));
     }
   }]);
@@ -26812,6 +26832,73 @@ function (_React$Component) {
   }]);
 
   return Table;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/Bid.js":
+/*!****************************************!*\
+  !*** ./resources/js/freelancer/Bid.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Bid; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Bid =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Bid, _React$Component);
+
+  function Bid(props) {
+    _classCallCheck(this, Bid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Bid).call(this, props));
+  }
+
+  _createClass(Bid, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " bid "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
+        className: "col-9 list-group-item eachBid"
+      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-danger col-3 list-group-item",
+        onClick: this.props.deleteBid ? this.props.deleteBid.bind(this, this.props.theBid.id) : null
+      }, "Delete")));
+    }
+  }]);
+
+  return Bid;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

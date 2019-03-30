@@ -43,7 +43,9 @@ body{
   overflow-x: auto;
   -ms-overflow-style: none;
 }
-.bid{  
+.eachBid:hover{
+  background-color: rgba(91, 66, 225, 0.4)!important;
+  cursor: pointer;
 }
 .bid :nth-child(){
   background: rgba(91, 66, 225, 0.4)!important;

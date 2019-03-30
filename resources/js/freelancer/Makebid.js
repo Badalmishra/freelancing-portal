@@ -16,6 +16,8 @@ export default class Makebid extends React.Component{
         }
         addBidClick(){
             this.props.click(["mybid","https://www.google.com",this.props.job,200,30]);
+            //console.log("make bid has"+this.props.job);
+            
         }
         render(){
         return(

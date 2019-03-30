@@ -5,11 +5,13 @@ import Addjob from './Addjob';
 import Messages from './messages';
 import Table from './table';
 import Description from './Description';
+import Bid from '../freelancer/Bid';
 export default class Example extends Component {
     constructor(props) {
         super(props);
         this.state={
             jobs:[ ],
+            bids:[],
             Name:"",
             Description:"",
             Time:"",
@@ -33,6 +35,7 @@ export default class Example extends Component {
                 jobForDescription:jobs[0]?jobs[0]:null,
              });
           })
+      
      }
     delete(){
         var index =event.target.id;
@@ -104,6 +107,22 @@ export default class Example extends Component {
     setJobForDescription(param){
        this.setState({
            jobForDescription:param
+        },()=>{
+            console.log(this.state.jobForDescription);
+            
+            axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
+            .then(res => {
+              window.bids=res.data;
+                console.log(res.data);
+                
+             // alert(this.props.job.id+"lol");
+             // jobs=jobs.reverse();
+              this.setState({ 
+                  bids:res.data.reverse(),
+                  
+               });
+              
+            })
         });
 
        
@@ -164,7 +183,16 @@ export default class Example extends Component {
                             job={this.state.jobForDescription}
                             />
                             :null
-                    }        
+                    }
+                    {this.state.bids!=""?
+                    this.state.bids.map((bids)=>{
+                       return( <Bid 
+                            theBid={bids}
+                        />)
+                    })
+                        
+                        :null
+                    }
                     </div>
                 </div>
             </div> 

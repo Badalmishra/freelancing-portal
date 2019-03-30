@@ -13,41 +13,8 @@ export default class Decription extends React.Component{
         }
         //window.prop =this.props.job.id;
     }
-    componentDidUpdate(prevProps){
-        
-        if (this.props.job !== prevProps.job) {
-           // window.id=this.props.job.id;
-            axios.get(`api/bids/`+this.props.job.id+`?api_token=`+window.token)
-            .then(res => {
-              window.bids=res;
-        
-             // alert(this.props.job.id+"lol");
-             // jobs=jobs.reverse();
-              this.setState({ 
-                  bids:res.data.reverse(),
-                  
-               });
-              
-            })
-            
-          }
-    }
-    componentDidMount() {
-   
-        axios.get(`api/bids/`+this.props.job.id+`?api_token=`+window.token)
-        .then(res => {
-          window.bids=res;
-    
-         // alert(this.props.job.id+"lol");
-         // jobs=jobs.reverse();
-          this.setState({ 
-              bids:res.data.reverse(),
-              
-           });
-          
-        })
-  
-     }
+
+
 
      makeBid(params){
         var body=params;
@@ -160,7 +127,7 @@ export default class Decription extends React.Component{
                         </span> 
                         <span className="btn btn-sm btn-outline-dark disabled   ">
                             <i className="fas fa-crosshairs mr-2"></i> 
-                            {this.state.bids.length} Bids
+                            {this.props.bids.length} Bids
                         </span>
                         
                     </div>
@@ -171,21 +138,7 @@ export default class Decription extends React.Component{
                             />
                        
                 </div>
-                <div className="card-body  p-0">
-                    <div className=" list-group-item bg-success text-white">All Bids</div>
-                    <div className="fix-scroll ">
-                    {   
-                        this.state.bids.map((bid,id)=>{
-                            return(
-                                <Bid key={id}
-                                    theBid={bid}
-                                    showBid={this.props.showBid}
-                                    deleteBid={this.deleteBid.bind(this)}/>
-                            )
-                        })
-                    }
-                 </div>
-                </div>
+                
             </div>
         )
     }

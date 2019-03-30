@@ -10,13 +10,13 @@ export default class Example extends Component {
     constructor(props) {
         super(props);
         this.state={
-            bids:[],
+            bids:"",
             jobs:[ ],
             Name:"",
             Description:"",
             Time:"",
             Money:"",   
-            bidForDescription:"",
+            bidForDescription:[],
             alert:"",
             error:"",
         };
@@ -48,17 +48,33 @@ export default class Example extends Component {
      }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
+       axios.get(`api/bids/`+param.id+`?api_token=`+window.token)
+            .then(res => {
+              window.bids=res;
+        
+             // alert(this.props.job.id+"lol");
+             // jobs=jobs.reverse();
+              this.setState({ 
+                  bids:res.data.reverse(),
+                  jobForDescription:param,
+               });
+               console.log(this.state.jobForDescription.id+" "+this.state.bids.length);
+
+            })
+            
        
     }
     showBid(params){
         console.log(this.state.bidForDescription);
         this.setState({
             bidForDescription:params,
+        },()=>{
+            console.log(this.state.bidForDescription);
+            $('#exampleModal').modal('show');
         });
-        console.log(this.state.bidForDescription);
-        
-        
-      }
+
+        window.the=this.state.bidForDescription;        
+     }
       getToken(params){
     
         this.setState({
@@ -134,8 +150,8 @@ export default class Example extends Component {
                         <Description
                             upbid={this.upbid.bind(this)}
                             job={this.state.jobForDescription}
-                            showBid={this.showBid.bind(this)}
                             api_token={this.state.api_token}
+                            bids={this.state.bids}
                           />
                             :null
                     }        
@@ -150,7 +166,7 @@ export default class Example extends Component {
                                             return(
                                                 <Bid key={id}
                                                     theBid={bid}
-                                                    showBid={this.showBid}
+                                                    showBid={this.showBid.bind(this)}
                                                     deleteBid={this.deleteBid.bind(this)}/>
                                             )
                                         }):null
@@ -159,19 +175,28 @@ export default class Example extends Component {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="col-md-5">
-                    x
-                   
-                        {this.state.bidForDescription?
-                        <Showbid
-                        theBid={this.state.bidForDescription}
-                         />
-                        :
-                        null
-                        }
-                        
-                    </div> */}
                 </div>
+
+
+<div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" role="document">
+    <div className="modal-content">
+      <div className="modal-header bg-success">
+        <h5 className="modal-title" id="exampleModalLabel">{this.state.bidForDescription.user?this.state.bidForDescription.user.name:"lol"}</h5>
+        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div className="modal-body">
+        {this.state.bidForDescription.id}
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
                 
             </div>
            
