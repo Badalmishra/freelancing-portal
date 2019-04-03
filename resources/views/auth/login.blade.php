@@ -3,7 +3,7 @@
 @section('content')
 <link rel="stylesheet" href="css/login.css">
 <div class="bg-info py-5 " id="logo">
-    <div class="container py-4">
+    <div class="container py-0">
         <div class="row ">
             <div class="col-md-8 " >
                 <h1 class="text-success display-3 mt-5" >
@@ -76,7 +76,7 @@
     <h1 class="">What's it all about
         <hr class="lead bg-success w-50">
     </h1>
-    <div class="card-deck mx-md-5 ">
+    <div class="card-deck mx-md-5 pt-md-5">
         <div class="card bg-dark text-light info">
             <div class="card-body">
                 <h2 class="card-title text-center   ">Explore</h2>
@@ -96,7 +96,7 @@
             <div class="card-body">
                 <h2 class="card-title text-center   ">Earn</h2>
                 <hr class="bg-white">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content</p>
             </div>
         </div>
     </div>

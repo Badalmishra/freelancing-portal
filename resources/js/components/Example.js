@@ -6,6 +6,7 @@ import Messages from './messages';
 import Table from './table';
 import Description from './Description';
 import Bid from '../freelancer/Bid';
+import Modal from '../freelancer/modal';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -14,6 +15,7 @@ export default class Example extends Component {
             bids:[],
             Name:"",
             Description:"",
+            bidForDescription:[],
             Time:"",
             Money:"",
             Link:"",
@@ -33,7 +35,25 @@ export default class Example extends Component {
             this.setState({ 
                 jobs:jobs,
                 jobForDescription:jobs[0]?jobs[0]:null,
-             });
+             }
+             ,()=>{
+                console.log(this.state.jobForDescription);
+                
+                axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
+                .then(res => {
+                  window.bids=res.data;
+                    console.log(res.data);
+                    
+                 // alert(this.props.job.id+"lol");
+                 // jobs=jobs.reverse();
+                  this.setState({ 
+                      bids:res.data.reverse(),
+                      
+                   });
+                  
+                })
+            }
+             );
           })
       
      }
@@ -88,6 +108,9 @@ export default class Example extends Component {
         axios.post('api/jobs?api_token='+window.token, { body })
             .then(res => {
                 window.res=res;
+            
+                
+                
                 this.setState({
                     jobs:res.data,
                     jobForDescription:res.data[0],
@@ -97,7 +120,12 @@ export default class Example extends Component {
                     Money:"",
                     Link:"",
                     jobSkills:[],
-                });
+                    alert:"The Job Has Been Added Successfully",
+                },console.log(this.state.alert)
+                );
+                setTimeout(()=>
+                    this.setState({alert:"",})
+                    ,4000)
                 console.log(this.state.jobs);
         });
        
@@ -144,58 +172,82 @@ export default class Example extends Component {
         }
         console.log(this.state.jobSkills);
     }
+    showBid(params){
+        console.log(this.state.bidForDescription);
+        this.setState({
+            bidForDescription:params,
+        },()=>{
+            console.log(this.state.bidForDescription);
+            $('#exampleModal').modal('show');
+        });
+
+        window.the=this.state.bidForDescription;        
+     }
     render() {
         return (
-            <div className="px-3">
-                <div className="row">
-                <div className=" col-md-3 ">
-                    <Addjob 
-                        click={this.addJob.bind(this)} 
-                        Name={this.state.Name}
-                        change={this.change.bind(this)} 
-                        Description={this.state.Description}
-                        Time={this.state.Time}
-                        Money={this.state.Money}
-                        Link={this.state.Link}
-                        skillManagement={this.skillManagement.bind(this)}
-                        />
+            <div className="p-0 ">
+                <div className="row  bg-primary lay add-background">
+                    <div className="  py-5 col-md-4 px-md-5 col-sm-12 ">
+                        <Addjob 
+                            click={this.addJob.bind(this)} 
+                            Name={this.state.Name}
+                            change={this.change.bind(this)} 
+                            Description={this.state.Description}
+                            Time={this.state.Time}
+                            Money={this.state.Money}
+                            Link={this.state.Link}
+                            skillManagement={this.skillManagement.bind(this)}
+                            />
+                    </div>
+                    <div className="bg-dark px-md-5 py-5 col-md-8  col-sm-12 text-center">
+                                
+                        <div className="display-2 py-5">
+                        <span className="bracket">{"<"}</span>
+                        <span className="text-primary">Ask the </span><br></br> 
+                        <span className="ml-5 px-4 text-primary">Geeks</span>
+                        <span className="bracket">{"/>"}</span>
+                        </div>
+                        <Messages 
+                                    error={this.state.error} 
+                                    alert={this.state.alert}
+                                    />
+                    </div>
                 </div>
-                    <div className="col-md-4 px-0">
-                        <div className="card">
-                            <div className="card-header bg-info">All Jobs</div>
-                            
-                            <div className="card-body">
-                            <Messages 
-                                error={this.state.error} 
-                                alert={this.state.alert}
+                <div className="row p-5 lay bg-white">
+                    <div className="col-md-4">
+                                <Table 
+                                    jobs={this.state.jobs} 
+                                    delete={this.delete.bind(this)} 
+                                    click={this.setJobForDescription.bind(this)}
+                                    /> 
+                        </div>
+                        <div className="col-md-5 ">
+                        {   this.state.jobForDescription?
+                            <Description
+                                job={this.state.jobForDescription}
+                                bidCount={this.state.bids.length}
                                 />
-                            <Table 
-                                jobs={this.state.jobs} 
-                                delete={this.delete.bind(this)} 
-                                click={this.setJobForDescription.bind(this)}
-                                /> 
-                            </div>
+                                :null
+                        }
+                        </div>
+                        <div className="col-md-3  ">       
+                                <div className=" list-group-item bg-success text-white">All Bids</div>
+                                    <div className="fix-scroll box">
+                                    {this.state.bids!=""?
+                                    this.state.bids.map((bids)=>{
+                                    return( <Bid 
+                                        theBid={bids}
+                                        showBid={this.showBid.bind(this)}
+                                        />)
+                                    })
+                                    :null
+                                    }
+                                    </div>
                         </div>
                     </div>
-                    <div className="col-md-5 px-2">
-                    {   this.state.jobForDescription?
-                        <Description
-                            job={this.state.jobForDescription}
-                            />
-                            :null
-                    }
-                    {this.state.bids!=""?
-                    this.state.bids.map((bids)=>{
-                       return( <Bid 
-                            theBid={bids}
-                        />)
-                    })
-                        
-                        :null
-                    }
-                    </div>
-                </div>
-            </div> 
+                    <Modal
+                        bidForDescription={this.state.bidForDescription}/>
+                    </div> 
         );
     }
 }

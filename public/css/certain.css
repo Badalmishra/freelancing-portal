@@ -1,3 +1,22 @@
+.lay{
+  margin:0 0 0 0 !important;
+  
+}
+.add-background{
+  /* background: url('../images/form.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed; */
+}
+.line1{
+  color: grey;
+}
+.line2{
+  color:darkgrey;
+}
+.bracket{
+  color:white;
+}
 #form{
     border:0.5px solid steelblue;
     box-shadow: 10px 10px 15px black;
@@ -38,7 +57,7 @@ body{
   float: right;
 }
 .fix-scroll{
-  max-height: 11rem;
+  max-height: 15rem;
   overflow-y: scroll;
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -49,4 +68,9 @@ body{
 }
 .bid :nth-child(){
   background: rgba(91, 66, 225, 0.4)!important;
+}
+.box{
+  min-height: 20rem;
+  max-height: 50rem;
+  overflow-y:scroll;
 }

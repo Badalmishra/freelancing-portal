@@ -4,8 +4,8 @@ import axios from 'axios';
 import Messages from './messages';
 import Table from './table';
 import Description from './Description';
-import Showbid from './Showb';
 import Bid from './Bid';
+import Modal from './modal';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -176,27 +176,8 @@ export default class Example extends Component {
                         </div>
                     </div>
                 </div>
-
-
-<div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog" role="document">
-    <div className="modal-content">
-      <div className="modal-header bg-success">
-        <h5 className="modal-title" id="exampleModalLabel">{this.state.bidForDescription.user?this.state.bidForDescription.user.name:"lol"}</h5>
-        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div className="modal-body">
-        {this.state.bidForDescription.id}
-      </div>
-      <div className="modal-footer">
-        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" className="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+            <Modal
+            bidForDescription={this.state.bidForDescription}/>
                 
             </div>
            

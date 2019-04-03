@@ -26216,8 +26216,8 @@ function (_React$Component) {
   _createClass(Addjob, [{
     key: "check",
     value: function check(e) {
-      var checked = "btn btn-primary btn-sm blank-box";
-      var unchecked = "btn btn-outline-primary btn-sm blank-box";
+      var checked = "skill btn btn-primary btn-sm blank-box";
+      var unchecked = "skill btn btn-outline-primary btn-sm blank-box";
       event.target.className = event.target.className == checked ? unchecked : checked; //alert(event.target.value);
 
       this.props.skillManagement(event.target.name);
@@ -26236,6 +26236,20 @@ function (_React$Component) {
           skills: skills
         });
       });
+    }
+  }, {
+    key: "click",
+    value: function click() {
+      //this.forceUpdate();
+      var but = document.getElementsByClassName('skill');
+      var index;
+
+      for (index = 0; index < but.length; index++) {
+        but[index].className = "skill btn btn-outline-primary btn-sm blank-box";
+      } // but.className = "skill btn btn-outline-primary btn-sm blank-box";
+
+
+      this.props.click();
     }
   }, {
     key: "render",
@@ -26294,7 +26308,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "button",
           placeholder: "Enter a relevent key skill",
-          className: "btn btn-outline-primary btn-sm blank-box",
+          className: "skill btn btn-outline-primary btn-sm blank-box",
           value: skill.name,
           onClick: _this3.check.bind(_this3),
           name: skill.id
@@ -26303,7 +26317,7 @@ function (_React$Component) {
         className: ""
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: " btn btn-outline-primary w-100",
-        onClick: this.props.click
+        onClick: this.click.bind(this)
       }, "Add ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-paper-plane "
       }))));
@@ -26401,7 +26415,7 @@ function (_React$Component) {
         className: "btn btn-outline-dark disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
-      }), "0 Bids"))));
+      }), this.props.bidCount, " Bids"))));
     }
   }]);
 
@@ -26433,6 +26447,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table */ "./resources/js/components/table.js");
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Description */ "./resources/js/components/Description.js");
 /* harmony import */ var _freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../freelancer/Bid */ "./resources/js/freelancer/Bid.js");
+/* harmony import */ var _freelancer_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../freelancer/modal */ "./resources/js/freelancer/modal.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26462,6 +26477,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -26478,6 +26494,7 @@ function (_Component) {
       bids: [],
       Name: "",
       Description: "",
+      bidForDescription: [],
       Time: "",
       Money: "",
       Link: "",
@@ -26502,6 +26519,17 @@ function (_Component) {
         _this2.setState({
           jobs: jobs,
           jobForDescription: jobs[0] ? jobs[0] : null
+        }, function () {
+          console.log(_this2.state.jobForDescription);
+          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this2.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+            window.bids = res.data;
+            console.log(res.data); // alert(this.props.job.id+"lol");
+            // jobs=jobs.reverse();
+
+            _this2.setState({
+              bids: res.data.reverse()
+            });
+          });
         });
       });
     }
@@ -26582,9 +26610,15 @@ function (_Component) {
           Time: "",
           Money: "",
           Link: "",
-          jobSkills: []
-        });
+          jobSkills: [],
+          alert: "The Job Has Been Added Successfully"
+        }, console.log(_this4.state.alert));
 
+        setTimeout(function () {
+          return _this4.setState({
+            alert: ""
+          });
+        }, 4000);
         console.log(_this4.state.jobs);
       });
     }
@@ -26628,14 +26662,30 @@ function (_Component) {
       console.log(this.state.jobSkills);
     }
   }, {
+    key: "showBid",
+    value: function showBid(params) {
+      var _this6 = this;
+
+      console.log(this.state.bidForDescription);
+      this.setState({
+        bidForDescription: params
+      }, function () {
+        console.log(_this6.state.bidForDescription);
+        $('#exampleModal').modal('show');
+      });
+      window.the = this.state.bidForDescription;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this7 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "px-3"
+        className: "p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
+        className: "row  bg-primary lay add-background"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " col-md-3 "
+        className: "  py-5 col-md-4 px-md-5 col-sm-12 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
         click: this.addJob.bind(this),
         Name: this.state.Name,
@@ -26646,29 +26696,47 @@ function (_Component) {
         Link: this.state.Link,
         skillManagement: this.skillManagement.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-4 px-0"
+        className: "bg-dark px-md-5 py-5 col-md-8  col-sm-12 text-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header bg-info"
-      }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        className: "display-2 py-5"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "bracket"
+      }, "<"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-primary"
+      }, "Ask the "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "ml-5 px-4 text-primary"
+      }, "Geeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "bracket"
+      }, "/>")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
         error: this.state.error,
         alert: this.state.alert
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row p-5 lay bg-white"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-4"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table__WEBPACK_IMPORTED_MODULE_5__["default"], {
         jobs: this.state.jobs,
         delete: this.delete.bind(this),
         click: this.setJobForDescription.bind(this)
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-5 px-2"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-5 "
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        job: this.state.jobForDescription
-      }) : null, this.state.bids != "" ? this.state.bids.map(function (bids) {
+        job: this.state.jobForDescription,
+        bidCount: this.state.bids.length
+      }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-3  "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " list-group-item bg-success text-white"
+      }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "fix-scroll box"
+      }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          theBid: bids
+          theBid: bids,
+          showBid: _this7.showBid.bind(_this7)
         });
-      }) : null)));
+      }) : null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        bidForDescription: this.state.bidForDescription
+      }));
     }
   }]);
 
@@ -26735,7 +26803,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.a = this.props.error ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "alert alert-danger"
       }, this.props.error) : null, this.b = this.props.alert ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "alert alert-success"
+        className: "text-success lead"
       }, this.props.alert) : null);
     }
   }]);
@@ -26808,7 +26876,9 @@ function (_React$Component) {
         className: "list-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item active"
-      }, "All Jobs"), this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box"
+      }, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item "
       }, " Empty List...") : //if jobs array is empty 
       this.props.jobs.map(function (job, key) {
@@ -26827,7 +26897,7 @@ function (_React$Component) {
             className: "fas fa-trash-alt"
           }), " Delete"))
         );
-      }));
+      })));
     }
   }]);
 
@@ -26890,15 +26960,122 @@ function (_React$Component) {
         className: " row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
-        className: "col-9 list-group-item eachBid"
-      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: this.props.deleteBid ? "col-9 list-group-item eachBid" : "col-12 list-group-item eachBid"
+      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), this.props.deleteBid ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-danger col-3 list-group-item",
         onClick: this.props.deleteBid ? this.props.deleteBid.bind(this, this.props.theBid.id) : null
-      }, "Delete")));
+      }, "Delete") : null));
     }
   }]);
 
   return Bid;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/modal.js":
+/*!******************************************!*\
+  !*** ./resources/js/freelancer/modal.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Modal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal(props) {
+    var _this;
+
+    _classCallCheck(this, Modal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, props));
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(Modal, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "exampleModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog w-75",
+        role: "document"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header bg-primary text-white"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        class: "modal-title"
+      }, "Bid Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        class: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body text-dark"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: ""
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6 text-success text-right"
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-success w-100 mt-4"
+      }, "Accept Bid")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer bg-white text-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn  btn-sm btn-outline-danger disabled",
+        title: "Maximum Money client is willing to pay"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-rupee-sign mr-2"
+      }), this.props.bidForDescription.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn btn-sm btn-outline-dark disabled   "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-clock mr-2"
+      }), this.props.bidForDescription.time, " Days")))));
+    }
+  }]);
+
+  return Modal;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

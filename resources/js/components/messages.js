@@ -18,7 +18,7 @@ export default class Messages extends React.Component{
                             {
                                 this.b= this.props.alert?
                                 
-                                    <div className="alert alert-success">{this.props.alert}</div>
+                                    <div className="text-success lead">{this.props.alert}</div>
                                 
                                 :null
                             }

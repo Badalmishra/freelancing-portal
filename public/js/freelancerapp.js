@@ -26187,11 +26187,11 @@ function (_React$Component) {
         className: " row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
-        className: "col-9 list-group-item eachBid"
-      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: this.props.deleteBid ? "col-9 list-group-item eachBid" : "col-12 list-group-item eachBid"
+      }, this.props.theBid.user.name, " bided Rs ", this.props.theBid.price), this.props.deleteBid ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-outline-danger col-3 list-group-item",
         onClick: this.props.deleteBid ? this.props.deleteBid.bind(this, this.props.theBid.id) : null
-      }, "Delete")));
+      }, "Delete") : null));
     }
   }]);
 
@@ -26418,8 +26418,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _messages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./messages */ "./resources/js/freelancer/messages.js");
 /* harmony import */ var _table__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./table */ "./resources/js/freelancer/table.js");
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Description */ "./resources/js/freelancer/Description.js");
-/* harmony import */ var _Showb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Showb */ "./resources/js/freelancer/Showb.js");
-/* harmony import */ var _Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Bid */ "./resources/js/freelancer/Bid.js");
+/* harmony import */ var _Bid__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Bid */ "./resources/js/freelancer/Bid.js");
+/* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modal */ "./resources/js/freelancer/modal.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -26638,48 +26638,15 @@ function (_Component) {
       }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fix-scroll"
       }, this.state.bids ? this.state.bids.map(function (bid, id) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: id,
           theBid: bid,
           showBid: _this6.showBid.bind(_this6),
           deleteBid: _this6.deleteBid.bind(_this6)
         });
-      }) : null))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal fade",
-        id: "exampleModal",
-        tabindex: "-1",
-        role: "dialog",
-        "aria-labelledby": "exampleModalLabel",
-        "aria-hidden": "true"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-dialog",
-        role: "document"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-header bg-success"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        className: "modal-title",
-        id: "exampleModalLabel"
-      }, this.state.bidForDescription.user ? this.state.bidForDescription.user.name : "lol"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "close",
-        "data-dismiss": "modal",
-        "aria-label": "Close"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        "aria-hidden": "true"
-      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-body"
-      }, this.state.bidForDescription.id), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-footer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "btn btn-secondary",
-        "data-dismiss": "modal"
-      }, "Close"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        type: "button",
-        className: "btn btn-primary"
-      }, "Save changes"))))));
+      }) : null))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_7__["default"], {
+        bidForDescription: this.state.bidForDescription
+      }));
     }
   }]);
 
@@ -26800,72 +26767,6 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./resources/js/freelancer/Showb.js":
-/*!******************************************!*\
-  !*** ./resources/js/freelancer/Showb.js ***!
-  \******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Showbid; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-
-
-var Showbid =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Showbid, _React$Component);
-
-  function Showbid(props) {
-    var _this;
-
-    _classCallCheck(this, Showbid);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Showbid).call(this, props));
-    _this.state = {};
-    return _this;
-  }
-
-  _createClass(Showbid, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      console.log(this.props);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.theBid.id);
-    }
-  }]);
-
-  return Showbid;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-
-
-/***/ }),
-
 /***/ "./resources/js/freelancer/messages.js":
 /*!*********************************************!*\
   !*** ./resources/js/freelancer/messages.js ***!
@@ -26924,6 +26825,113 @@ function (_React$Component) {
   }]);
 
   return Messages;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/modal.js":
+/*!******************************************!*\
+  !*** ./resources/js/freelancer/modal.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Modal; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Modal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal(props) {
+    var _this;
+
+    _classCallCheck(this, Modal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, props));
+    _this.state = {};
+    return _this;
+  }
+
+  _createClass(Modal, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal fade",
+        id: "exampleModal",
+        tabindex: "-1",
+        role: "dialog",
+        "aria-labelledby": "exampleModalLabel",
+        "aria-hidden": "true"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog w-75",
+        role: "document"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header bg-primary text-white"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        class: "modal-title"
+      }, "Bid Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        type: "button",
+        class: "close",
+        "data-dismiss": "modal",
+        "aria-label": "Close"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "aria-hidden": "true"
+      }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body text-dark"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        className: ""
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6 text-success text-right"
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-outline-success w-100 mt-4"
+      }, "Accept Bid")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-footer bg-white text-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn  btn-sm btn-outline-danger disabled",
+        title: "Maximum Money client is willing to pay"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-rupee-sign mr-2"
+      }), this.props.bidForDescription.price), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn btn-sm btn-outline-dark disabled   "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-clock mr-2"
+      }), this.props.bidForDescription.time, " Days")))));
+    }
+  }]);
+
+  return Modal;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

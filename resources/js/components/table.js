@@ -12,6 +12,7 @@ export default class Table extends React.Component{
         return(
             <ul className="list-group">
                 <li className="list-group-item active">All Jobs</li>
+                <div className="box">
                 {this.props.jobs.length==0?
                     <li className="list-group-item "> Empty List...</li>://if jobs array is empty 
                     this.props.jobs.map((job,key) =>  // if there are some jobs
@@ -23,6 +24,7 @@ export default class Table extends React.Component{
                          </ul>
                     )
                 }            
+                </div>
             </ul>
             
         );

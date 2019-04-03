@@ -37,7 +37,7 @@ export default class Decription extends React.Component{
                         </span>
                         <span className="btn btn-outline-dark disabled   ">
                             <i className="fas fa-crosshairs mr-2"></i> 
-                            0 Bids
+                            {this.props.bidCount} Bids
                         </span>
                     </div>
                     

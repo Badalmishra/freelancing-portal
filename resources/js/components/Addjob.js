@@ -11,8 +11,8 @@ export default class Addjob extends React.Component{
         }
     }
     check(e){
-        let checked = "btn btn-primary btn-sm blank-box";
-        let unchecked = "btn btn-outline-primary btn-sm blank-box";
+        let checked = "skill btn btn-primary btn-sm blank-box";
+        let unchecked = "skill btn btn-outline-primary btn-sm blank-box";
         event.target.className = 
             (event.target.className ==checked)
                 ?
@@ -34,6 +34,16 @@ export default class Addjob extends React.Component{
               skills:skills,
            });
         })
+    }
+    click(){
+        //this.forceUpdate();
+        var but=document.getElementsByClassName('skill');
+        var index;
+        for (index=0;index<but.length;index++) {
+        but[index].className="skill btn btn-outline-primary btn-sm blank-box"; 
+        }
+       // but.className = "skill btn btn-outline-primary btn-sm blank-box";
+        this.props.click();
     }
     render(){
         return(
@@ -86,7 +96,7 @@ export default class Addjob extends React.Component{
                             <input 
                             type="button"
                                 placeholder="Enter a relevent key skill"
-                                className="btn btn-outline-primary btn-sm blank-box"
+                                className="skill btn btn-outline-primary btn-sm blank-box"
                                 
                                 value={skill.name}
                                 
@@ -105,7 +115,7 @@ export default class Addjob extends React.Component{
 
 
             <div className="">
-               <button className=" btn btn-outline-primary w-100" onClick={this.props.click}>Add <i className="fas fa-paper-plane "></i></button>
+               <button className=" btn btn-outline-primary w-100" onClick={this.click.bind(this)}>Add <i className="fas fa-paper-plane "></i></button>
             </div>
         </div>
         );
