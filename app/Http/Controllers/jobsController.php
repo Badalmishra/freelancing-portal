@@ -115,6 +115,7 @@ class jobsController extends Controller
         if ($job->user_id==$user_id) {
 
             $job->bids()->delete();
+            $job->jobSkills()->delete();
             $job->delete();
         $jobs =  jobs::all();
         return json_encode($jobs);            

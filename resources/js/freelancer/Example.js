@@ -130,10 +130,7 @@ export default class Example extends Component {
             <div className="px-3">
                 <div className="row">
                     <div className="col-md-3 px-0">
-                        <div className="card">
-                            <div className="card-header bg-info">All Jobs</div>
-                            
-                            <div className="card-body">
+                       
                             <Messages 
                                 error={this.state.error} 
                                 alert={this.state.alert}
@@ -142,8 +139,7 @@ export default class Example extends Component {
                                 jobs={this.state.jobs} 
                                 click={this.setJobForDescription.bind(this)}
                                 /> 
-                            </div>
-                        </div>
+                            
                     </div>
                     <div className="col-md-4 px-2">
                     {   this.state.jobForDescription?

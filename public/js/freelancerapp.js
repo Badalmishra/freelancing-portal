@@ -26608,19 +26608,13 @@ function (_Component) {
         className: "row"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-3 px-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header bg-info"
-      }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_3__["default"], {
         error: this.state.error,
         alert: this.state.alert
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_table__WEBPACK_IMPORTED_MODULE_4__["default"], {
         jobs: this.state.jobs,
         click: this.setJobForDescription.bind(this)
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4 px-2"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_5__["default"], {
         upbid: this.upbid.bind(this),
@@ -26986,26 +26980,41 @@ function (_React$Component) {
 
   _createClass(Table, [{
     key: "componentWillUnmount",
-    value: function componentWillUnmount() {//this.removeEventListener('click');
-      //window.removeEventListener("click",this.props.delete);
+    value: function componentWillUnmount() {
+      //this.removeEventListener('click');
+      window.removeEventListener("click", this.props.delete);
     }
   }, {
     key: "render",
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "list-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "list-group-item active"
+      }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "box"
+      }, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item "
       }, " Empty List...") : //if jobs array is empty 
       this.props.jobs.map(function (job, key) {
         return (// if there are some jobs
-          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
             key: key,
+            className: " list-group list-group-horizontal  w-100"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             onClick: _this.props.click.bind(_this, job),
-            className: "list-group-item  mouse"
-          }, job.body)
+            className: _this.props.delete ? "list-group-item col-9 mouse" : "list-group-item col-12 mouse"
+          }, job.body), _this.props.delete ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: job.id,
+            className: "list-group-item delete p-2  col-3 btn btn-outline-danger",
+            onClick: _this.props.delete
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "fas fa-trash-alt"
+          }), " Delete") : null)
         );
-      }));
+      })));
     }
   }]);
 

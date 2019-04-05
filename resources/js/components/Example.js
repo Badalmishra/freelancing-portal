@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import Addjob from './Addjob';
 import Messages from './messages';
-import Table from './table';
+import Table from '../freelancer/table';
 import Description from './Description';
 import Bid from '../freelancer/Bid';
 import Modal from '../freelancer/modal';
@@ -157,8 +157,6 @@ export default class Example extends Component {
     }
     skillManagement(params){
         const arr = this.state.jobSkills;
-        
-        
         if(!(arr.indexOf(params)+1)){
             arr.push(params);
             this.setState({
@@ -213,41 +211,51 @@ export default class Example extends Component {
                                     />
                     </div>
                 </div>
-                <div className="row p-5 lay bg-white">
-                    <div className="col-md-4">
-                                <Table 
-                                    jobs={this.state.jobs} 
-                                    delete={this.delete.bind(this)} 
-                                    click={this.setJobForDescription.bind(this)}
-                                    /> 
-                        </div>
-                        <div className="col-md-5 ">
-                        {   this.state.jobForDescription?
-                            <Description
-                                job={this.state.jobForDescription}
-                                bidCount={this.state.bids.length}
-                                />
-                                :null
-                        }
-                        </div>
-                        <div className="col-md-3  ">       
-                                <div className=" list-group-item bg-success text-white">All Bids</div>
-                                    <div className="fix-scroll box">
-                                    {this.state.bids!=""?
-                                    this.state.bids.map((bids)=>{
-                                    return( <Bid 
-                                        theBid={bids}
-                                        showBid={this.showBid.bind(this)}
-                                        />)
-                                    })
-                                    :null
-                                    }
-                                    </div>
-                        </div>
+                <div className="tools bg-white pb-5">
+                    <div className="text-center lay p-3 px-5 "> 
+
+                        <h1 className=" text-black">Manage Jobs</h1>
+                        <hr className=" bg-success "></hr>
                     </div>
-                    <Modal
-                        bidForDescription={this.state.bidForDescription}/>
-                    </div> 
+                    <div className="row  bg-white lay px-5">
+
+                        <div className="col-md-4"> 
+                                    <Table 
+                                        jobs={this.state.jobs} 
+                                        delete={this.delete.bind(this)} 
+                                        click={this.setJobForDescription.bind(this)}
+                                        /> 
+                            </div>
+                            <div className="col-md-5 ">
+                            {   this.state.jobForDescription?
+                                <Description
+                                    job={this.state.jobForDescription}
+                                    bidCount={this.state.bids.length}
+                                    />
+                                    :null
+                            }
+                            </div>
+                            <div className="col-md-3  ">       
+                                    <div className=" list-group-item bg-success text-white">All Bids</div>
+                                        <div className="fix-scroll box">
+                                        {this.state.bids!=""?
+                                        this.state.bids.map((bids)=>{
+                                        return( <Bid 
+                                            theBid={bids}
+                                            showBid={this.showBid.bind(this)}
+                                            />)
+                                        })
+                                        :null
+                                        }
+                                        </div>
+                            </div>
+                        </div>
+                </div>
+                <Modal
+                    bidForDescription={this.state.bidForDescription}
+                />
+                <div className="p-5 bg-dark"></div>
+             </div> 
         );
     }
 }
