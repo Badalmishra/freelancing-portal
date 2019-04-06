@@ -63,10 +63,7 @@ export default class Example extends Component {
              "_method":"delete",
              "id":index,
         };
-        var config = {
-            'Authorization': "Bearer " + window.token
-        };
-
+  
         axios.post('api/jobs/'+index+'?api_token='+window.token,data)
           .then(res => {
               window.res=res;
@@ -96,7 +93,6 @@ export default class Example extends Component {
             [event.target.name]:event.target.value,
         });
     }
-
     addJob(){
         var body =[
                 this.state.Name,
@@ -169,6 +165,31 @@ export default class Example extends Component {
             });
         }
         console.log(this.state.jobSkills);
+    }
+    approve(){
+        const id =this.state.bidForDescription.id;
+        var data ={
+            "_method":"put",
+            "somedata":"oho",
+        };
+        axios.post('api/jobs/'+id+'?api_token='+window.token,data)
+        .then(res => {
+            console.log(res.data);
+            this.setState({
+                    bidForDescription:"",
+                    jobs:res.data.reverse(),
+                },
+
+                ()=>{
+                    console.log("done");
+                    this.setJobForDescription(this.state.jobs[0]);
+                }
+            );
+        })
+        .catch(err => console.log(err));
+        $('#exampleModal').modal('hide');
+        
+        
     }
     showBid(params){
         console.log(this.state.bidForDescription);
@@ -253,13 +274,13 @@ export default class Example extends Component {
                 </div>
                 <Modal
                     bidForDescription={this.state.bidForDescription}
+                    approve={this.approve.bind(this)}
                 />
                 <div className="p-5 bg-dark"></div>
              </div> 
         );
     }
 }
-
 if (document.getElementById('example')) {
     ReactDOM.render(<Example/>, document.getElementById('example'));
 }

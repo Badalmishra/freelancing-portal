@@ -26543,9 +26543,6 @@ function (_Component) {
         "_method": "delete",
         "id": index
       };
-      var config = {
-        'Authorization': "Bearer " + window.token
-      };
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + index + '?api_token=' + window.token, data).then(function (res) {
         window.res = res;
 
@@ -26662,15 +26659,41 @@ function (_Component) {
       console.log(this.state.jobSkills);
     }
   }, {
+    key: "approve",
+    value: function approve() {
+      var _this6 = this;
+
+      var id = this.state.bidForDescription.id;
+      var data = {
+        "_method": "put",
+        "somedata": "oho"
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + id + '?api_token=' + window.token, data).then(function (res) {
+        console.log(res.data);
+
+        _this6.setState({
+          bidForDescription: "",
+          jobs: res.data.reverse()
+        }, function () {
+          console.log("done");
+
+          _this6.setJobForDescription(_this6.state.jobs[0]);
+        });
+      }).catch(function (err) {
+        return console.log(err);
+      });
+      $('#exampleModal').modal('hide');
+    }
+  }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this6 = this;
+      var _this7 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this6.state.bidForDescription);
+        console.log(_this7.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -26678,7 +26701,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this7 = this;
+      var _this8 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
@@ -26740,10 +26763,11 @@ function (_Component) {
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           theBid: bids,
-          showBid: _this7.showBid.bind(_this7)
+          showBid: _this8.showBid.bind(_this8)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
-        bidForDescription: this.state.bidForDescription
+        bidForDescription: this.state.bidForDescription,
+        approve: this.approve.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-5 bg-dark"
       }));
@@ -26975,9 +26999,10 @@ function (_React$Component) {
         className: ""
       }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6 text-success text-right"
-      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.props.approve,
         className: "btn btn-outline-success w-100 mt-4"
-      }, "Accept Bid")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Accept Bid") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-footer bg-white text-left"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn  btn-sm btn-outline-danger disabled",

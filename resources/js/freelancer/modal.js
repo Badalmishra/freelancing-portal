@@ -31,7 +31,14 @@ export default class Modal extends React.Component{
                     on your job {this.props.bidForDescription.jobs?this.props.bidForDescription.jobs.body:"lol"}.
                     Click on his name above to view profile.<br></br>
                     Or click here to approve this bid. <br></br>
-                    <button className="btn btn-outline-success w-100 mt-4">Accept Bid</button>
+                    {this.props.approve?
+                        <button onClick={this.props.approve} 
+                            className="btn btn-outline-success w-100 mt-4">
+                                Accept Bid
+                        </button>
+                        :
+                        null
+                    }
                 </div>
                 <div className="modal-footer bg-white text-left">
                     <span className="btn  btn-sm btn-outline-danger disabled" 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\jobs;
+use App\bids;
 use App\jobSkills;
 
 class jobsController extends Controller
@@ -17,7 +18,7 @@ class jobsController extends Controller
 
     public function index()
     {
-        $jobs =  jobs::with(['jobSkills.skills','user'])->get();
+        $jobs =  jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
        // $jobs= $jobs->reverse();
       /// error_log(json_encode($jobs));
         return json_encode($jobs);
@@ -60,7 +61,7 @@ class jobsController extends Controller
         }
         
         //error_log(jobs::with('jobSkills.skills')->get());
-        $jobs =  jobs::with('jobSkills.skills')->get();
+        $jobs =  jobs::where('status',1)->with('jobSkills.skills')->get();
         return json_encode($jobs);
     }
 
@@ -97,7 +98,15 @@ class jobsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //$user_id=Auth::guard('api')->id();
+        $bid =bids::find($id);
+        $job = jobs::find($bid->jobs_id);
+        $job->assignedTo=$bid->user_id;
+        $job->status = 0;
+        $redundantBids= $job->bids()->where('id','!=',$bid->id)->delete();
+        $job->save();
+        $jobs= jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
+        return json_encode($jobs);
     }
 
     /**

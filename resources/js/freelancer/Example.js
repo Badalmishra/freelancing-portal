@@ -173,7 +173,9 @@ export default class Example extends Component {
                     </div>
                 </div>
             <Modal
-            bidForDescription={this.state.bidForDescription}/>
+            bidForDescription={this.state.bidForDescription}
+            
+            />
                 
             </div>
            
