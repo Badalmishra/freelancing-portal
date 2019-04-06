@@ -38,7 +38,7 @@ export default class Example extends Component {
              }
              ,()=>{
                 console.log(this.state.jobForDescription);
-                
+                {this.state.jobForDescription?
                 axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
                 .then(res => {
                   window.bids=res.data;
@@ -52,6 +52,7 @@ export default class Example extends Component {
                    });
                   
                 })
+            :null}
             }
              );
           })

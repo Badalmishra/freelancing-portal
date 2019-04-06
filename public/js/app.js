@@ -26521,15 +26521,17 @@ function (_Component) {
           jobForDescription: jobs[0] ? jobs[0] : null
         }, function () {
           console.log(_this2.state.jobForDescription);
-          axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this2.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
-            window.bids = res.data;
-            console.log(res.data); // alert(this.props.job.id+"lol");
-            // jobs=jobs.reverse();
+          {
+            _this2.state.jobForDescription ? axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this2.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+              window.bids = res.data;
+              console.log(res.data); // alert(this.props.job.id+"lol");
+              // jobs=jobs.reverse();
 
-            _this2.setState({
-              bids: res.data.reverse()
-            });
-          });
+              _this2.setState({
+                bids: res.data.reverse()
+              });
+            }) : null;
+          }
         });
       });
     }
