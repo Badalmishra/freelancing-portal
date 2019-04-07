@@ -7,7 +7,7 @@ export default class Decription extends React.Component{
 
     render(){
         return(
-            <div className="card ml-0 ">
+            <div className="card ml-0 animated jello">
                 <div className="card-header bg-primary">{this.props.job.body}</div>
                 <div className="card-body">
                     <p className="text-success lead">Description</p>

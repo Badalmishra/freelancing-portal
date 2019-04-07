@@ -11,14 +11,14 @@ export default class Messages extends React.Component{
                 {
                                 this.a= this.props.error?
                                 
-                                    <div className="alert alert-danger">{this.props.error}</div>
+                                    <div className="alert alert-danger ">{this.props.error}</div>
                                 
                                 :null
                             }
                             {
                                 this.b= this.props.alert?
                                 
-                                    <div className="text-success lead">{this.props.alert}</div>
+                                    <div className="text-success lead animated rubbeBand">{this.props.alert}</div>
                                 
                                 :null
                             }

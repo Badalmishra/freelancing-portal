@@ -2,11 +2,15 @@
 
 @section('content')
 <link rel="stylesheet" href="css/login.css">
+<script src="https://unpkg.com/scrollreveal">
+</script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 <div class="bg-info py-5 " id="logo">
     <div class="container py-0">
         <div class="row ">
-            <div class="col-md-8 " >
-                <h1 class="text-success display-3 mt-5" >
+            <div class="col-md-8 animated fadeInDown" >
+                <h1 class="text-success display-3 mt-5 " >
                     Kaam <span class="text-dark">Dhan</span>dha
                     
                 </h1>
@@ -15,7 +19,7 @@
                 </h3>
             </div>
             <div class="col-md-4">
-            <div class="card" >
+            <div class="card animated fadeInUp" >
                     <div class="card-header">{{ __('Login') }}</div>
 
                     <div class="card-body">
@@ -50,7 +54,7 @@
                                 </div>
                             
 
-                                <div class="mt-3">
+                                <div class="mt-3 animated fadeInRight">
                                     <button type="submit" class="form-stuff btn btn-primary w-100">
                                         {{ __('Login') }}
                                     </button>
@@ -73,10 +77,11 @@
 </div>
 
 <div class="p-4 p-md-5 text-center">
-    <h1 class="">What's it all about
+    <h1 class="punchline">
+        <span class="">What's it all about</span>
         <hr class="lead bg-success w-50">
     </h1>
-    <div class="card-deck mx-md-5 pt-md-5">
+    <div class="card-deck mx-md-5 pt-md-5  ">
         <div class="card bg-dark text-light info">
             <div class="card-body">
                 <h2 class="card-title text-center   ">Explore</h2>
@@ -85,14 +90,14 @@
                
             </div>
         </div>
-        <div class="card bg-white text-dark info">
+        <div class="card bg-white text-dark info animated fadeInUp">
             <div class="card-body">
                 <h2 class="card-title text-center   ">Serve</h2>
                 <hr class="bg-info">
                 <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
             </div>
         </div>
-        <div class="card bg-primary text-light info">
+        <div class="card bg-primary text-light info animated fadeInLeft">
             <div class="card-body">
                 <h2 class="card-title text-center   ">Earn</h2>
                 <hr class="bg-white">
@@ -101,4 +106,10 @@
         </div>
     </div>
 </div>
+<script>
+ScrollReveal({ reset: true });
+ScrollReveal().reveal('.punchline'  );
+ScrollReveal().reveal('.card' );
+
+</script>
 @endsection

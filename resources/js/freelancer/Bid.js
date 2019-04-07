@@ -9,8 +9,8 @@ export default class Bid extends React.Component{
     
     render() {
       return (
-        <div className=" bid ">
-          <div className=" row" >
+        <div className=" bid animated jello ">
+          <div className=" row " >
             <p onClick={this.props.showBid?this.props.showBid.bind(this,this.props.theBid):null} 
             className={this.props.deleteBid?"col-9 list-group-item eachBid":"col-12 list-group-item eachBid"}
             >

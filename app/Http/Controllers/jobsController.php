@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\jobs;
 use App\bids;
 use App\jobSkills;
+use  App\notifications;
 
 class jobsController extends Controller
 {
@@ -102,9 +103,15 @@ class jobsController extends Controller
         $bid =bids::find($id);
         $job = jobs::find($bid->jobs_id);
         $job->assignedTo=$bid->user_id;
-        $job->status = 0;
-        $redundantBids= $job->bids()->where('id','!=',$bid->id)->delete();
-        $job->save();
+        $job->status           = 0;
+        $redundantBids         = $job->bids()->where('id','!=',$bid->id)->delete();
+                    $job->save();
+        $notification          = new notifications;
+        $notification->user_id = $bid->user_id;
+        $notification->jobs_id = $bid->jobs_id;
+        $notification->status = 0;
+        $notification->body    = "Your Bid was Approved Happy Coding!!!";
+                    $notification->save();
         $jobs= jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
         return json_encode($jobs);
     }
@@ -126,8 +133,8 @@ class jobsController extends Controller
             $job->bids()->delete();
             $job->jobSkills()->delete();
             $job->delete();
-        $jobs =  jobs::all();
-        return json_encode($jobs);            
+            $jobs= jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
+            return json_encode($jobs);            
         }
         else{
             return json_encode("404");

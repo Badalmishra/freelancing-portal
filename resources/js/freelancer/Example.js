@@ -127,9 +127,16 @@ export default class Example extends Component {
     render() {
         return (
             
-            <div className="px-3">
-                <div className="row">
-                    <div className="col-md-3 px-0">
+            <div className=" bg-white">
+                
+                <div className=" py-5 tag" id="formM">
+                    <div className="row w-50 search mx-auto">
+                        <input className="form-component col-9" placeholder="Search by skill"></input>
+                        <button className="col-3 btn btn-success form-component">Search</button>
+                    </div>
+                </div>
+                <div className="row px-md-4 lay  py-4 bg-default">
+                    <div className="col-md-3 px-2">
                        
                             <Messages 
                                 error={this.state.error} 
@@ -141,7 +148,7 @@ export default class Example extends Component {
                                 /> 
                             
                     </div>
-                    <div className="col-md-4 px-2">
+                    <div className="col-md-5 px-2">
                     {   this.state.jobForDescription?
                         <Description
                             upbid={this.upbid.bind(this)}
@@ -152,7 +159,7 @@ export default class Example extends Component {
                             :null
                     }        
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-4 px-2">
                         <div className="card">        
                             <div className="card-body p-0 ">
                             <div className=" list-group-item bg-success text-white">All Bids</div>
@@ -172,11 +179,16 @@ export default class Example extends Component {
                         </div>
                     </div>
                 </div>
+               
             <Modal
             bidForDescription={this.state.bidForDescription}
             
             />
-                
+                 <button className=" naughty-button btn btn-lg btn-primary">
+                    <i className="fa fa-bell"></i>
+                </button>
+
+            
             </div>
            
         );

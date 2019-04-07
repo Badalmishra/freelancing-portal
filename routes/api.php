@@ -22,4 +22,7 @@ Route::middleware('auth:api')->resource('bids','bidsController');
 Route::middleware('auth:api')->resource('jobs', 'jobsController');
 
 Route::middleware('auth:api')->resource('skills', 'skillsController');
+
+Route::middleware('auth:api')->resource('notifications', 'notificationsController');
+
 //Route::resource('jobs', 'jobsController');

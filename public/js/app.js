@@ -1754,6 +1754,26 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/indexof/index.js":
+/*!***************************************!*\
+  !*** ./node_modules/indexof/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+var indexOf = [].indexOf;
+
+module.exports = function(arr, obj){
+  if (indexOf) return arr.indexOf(obj);
+  for (var i = 0; i < arr.length; ++i) {
+    if (arr[i] === obj) return i;
+  }
+  return -1;
+};
+
+/***/ }),
+
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
@@ -26104,6 +26124,155 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/vm-browserify/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/vm-browserify/index.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var indexOf = __webpack_require__(/*! indexof */ "./node_modules/indexof/index.js");
+
+var Object_keys = function (obj) {
+    if (Object.keys) return Object.keys(obj)
+    else {
+        var res = [];
+        for (var key in obj) res.push(key)
+        return res;
+    }
+};
+
+var forEach = function (xs, fn) {
+    if (xs.forEach) return xs.forEach(fn)
+    else for (var i = 0; i < xs.length; i++) {
+        fn(xs[i], i, xs);
+    }
+};
+
+var defineProp = (function() {
+    try {
+        Object.defineProperty({}, '_', {});
+        return function(obj, name, value) {
+            Object.defineProperty(obj, name, {
+                writable: true,
+                enumerable: false,
+                configurable: true,
+                value: value
+            })
+        };
+    } catch(e) {
+        return function(obj, name, value) {
+            obj[name] = value;
+        };
+    }
+}());
+
+var globals = ['Array', 'Boolean', 'Date', 'Error', 'EvalError', 'Function',
+'Infinity', 'JSON', 'Math', 'NaN', 'Number', 'Object', 'RangeError',
+'ReferenceError', 'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError',
+'decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent', 'escape',
+'eval', 'isFinite', 'isNaN', 'parseFloat', 'parseInt', 'undefined', 'unescape'];
+
+function Context() {}
+Context.prototype = {};
+
+var Script = exports.Script = function NodeScript (code) {
+    if (!(this instanceof Script)) return new Script(code);
+    this.code = code;
+};
+
+Script.prototype.runInContext = function (context) {
+    if (!(context instanceof Context)) {
+        throw new TypeError("needs a 'context' argument.");
+    }
+    
+    var iframe = document.createElement('iframe');
+    if (!iframe.style) iframe.style = {};
+    iframe.style.display = 'none';
+    
+    document.body.appendChild(iframe);
+    
+    var win = iframe.contentWindow;
+    var wEval = win.eval, wExecScript = win.execScript;
+
+    if (!wEval && wExecScript) {
+        // win.eval() magically appears when this is called in IE:
+        wExecScript.call(win, 'null');
+        wEval = win.eval;
+    }
+    
+    forEach(Object_keys(context), function (key) {
+        win[key] = context[key];
+    });
+    forEach(globals, function (key) {
+        if (context[key]) {
+            win[key] = context[key];
+        }
+    });
+    
+    var winKeys = Object_keys(win);
+
+    var res = wEval.call(win, this.code);
+    
+    forEach(Object_keys(win), function (key) {
+        // Avoid copying circular objects like `top` and `window` by only
+        // updating existing context properties or new properties in the `win`
+        // that was only introduced after the eval.
+        if (key in context || indexOf(winKeys, key) === -1) {
+            context[key] = win[key];
+        }
+    });
+
+    forEach(globals, function (key) {
+        if (!(key in context)) {
+            defineProp(context, key, win[key]);
+        }
+    });
+    
+    document.body.removeChild(iframe);
+    
+    return res;
+};
+
+Script.prototype.runInThisContext = function () {
+    return eval(this.code); // maybe...
+};
+
+Script.prototype.runInNewContext = function (context) {
+    var ctx = Script.createContext(context);
+    var res = this.runInContext(ctx);
+
+    forEach(Object_keys(ctx), function (key) {
+        context[key] = ctx[key];
+    });
+
+    return res;
+};
+
+forEach(Object_keys(Script.prototype), function (name) {
+    exports[name] = Script[name] = function (code) {
+        var s = Script(code);
+        return s[name].apply(s, [].slice.call(arguments, 1));
+    };
+});
+
+exports.createScript = function (code) {
+    return exports.Script(code);
+};
+
+exports.createContext = Script.createContext = function (context) {
+    var copy = new Context();
+    if(typeof context === 'object') {
+        forEach(Object_keys(context), function (key) {
+            copy[key] = context[key];
+        });
+    }
+    return copy;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -26223,21 +26392,6 @@ function (_React$Component) {
       this.props.skillManagement(event.target.name);
     }
   }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      //console.log("hello");
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/skills?api_token=" + window.token).then(function (res) {
-        window.skills = res.data;
-        var skills = res.data; // jobs=jobs.reverse();
-
-        _this2.setState({
-          skills: skills
-        });
-      });
-    }
-  }, {
     key: "click",
     value: function click() {
       //this.forceUpdate();
@@ -26254,15 +26408,15 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "form",
-        className: "p-3"
+        className: "p-3 animated fadeInDown"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "text-success"
+        className: "text-success animated fadeInLeft"
       }, "Add Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row px-3 mb-2"
+        className: "row px-3 mb-2 animated fadeInRight"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         placeholder: "Name",
         id: "input",
@@ -26302,19 +26456,19 @@ function (_React$Component) {
         onChange: this.props.change,
         value: this.props.Link,
         className: "form-control mb-2"
-      }), this.state.skills.map(function (skill, key) {
+      }), this.props.skills.map(function (skill, key) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           key: key
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "button",
           placeholder: "Enter a relevent key skill",
-          className: "skill btn btn-outline-primary btn-sm blank-box",
+          className: "fadeInDown skill btn btn-outline-primary btn-sm blank-box",
           value: skill.name,
-          onClick: _this3.check.bind(_this3),
+          onClick: _this2.check.bind(_this2),
           name: skill.id
         }));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: ""
+        className: " animated fadeInLeft"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: " btn btn-outline-primary w-100",
         onClick: this.click.bind(this)
@@ -26381,7 +26535,7 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card ml-0 "
+        className: "card ml-0 animated jello"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-primary"
       }, this.props.job.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26448,6 +26602,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Description */ "./resources/js/components/Description.js");
 /* harmony import */ var _freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../freelancer/Bid */ "./resources/js/freelancer/Bid.js");
 /* harmony import */ var _freelancer_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../freelancer/modal */ "./resources/js/freelancer/modal.js");
+/* harmony import */ var vm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vm */ "./node_modules/vm-browserify/index.js");
+/* harmony import */ var vm__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vm__WEBPACK_IMPORTED_MODULE_9__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26467,6 +26623,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -26501,6 +26658,7 @@ function (_Component) {
       jobForDescription: "",
       alert: "",
       error: "",
+      skills: "",
       jobSkills: []
     };
     window.jobs = _this.state.jobs;
@@ -26536,9 +26694,23 @@ function (_Component) {
       });
     }
   }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/skills?api_token=" + window.token).then(function (res) {
+        window.skills = res.data;
+        var skills = res.data; // jobs=jobs.reverse();
+
+        _this3.setState({
+          skills: skills
+        });
+      });
+    }
+  }, {
     key: "delete",
     value: function _delete() {
-      var _this3 = this;
+      var _this4 = this;
 
       var index = event.target.id;
       var data = {
@@ -26549,34 +26721,34 @@ function (_Component) {
         window.res = res;
 
         if (res.data == '404') {
-          _this3.setState({
+          _this4.setState({
             error: "This job was not posted by you"
           });
 
           setTimeout(function () {
-            return _this3.setState({
+            return _this4.setState({
               error: ""
             });
           }, 3000);
         } else {
           var jobs = res.data;
 
-          _this3.setState({
+          _this4.setState({
             jobs: jobs
           });
 
-          _this3.setState({
+          _this4.setState({
             alert: "This job was deleted"
           });
 
-          if (index == _this3.state.jobForDescription.id) {
-            _this3.setState({
-              jobForDescription: _this3.state.jobs[0] ? _this3.state.jobs[0] : null
+          if (index == _this4.state.jobForDescription.id) {
+            _this4.setState({
+              jobForDescription: _this4.state.jobs[0] ? _this4.state.jobs[0] : null
             });
           }
 
           setTimeout(function () {
-            return _this3.setState({
+            return _this4.setState({
               alert: ""
             });
           }, 3000);
@@ -26592,7 +26764,7 @@ function (_Component) {
   }, {
     key: "addJob",
     value: function addJob() {
-      var _this4 = this;
+      var _this5 = this;
 
       var body = [this.state.Name, this.state.Description, this.state.Money, this.state.Time, this.state.Link, this.state.jobSkills];
       var user_id = 1;
@@ -26601,7 +26773,7 @@ function (_Component) {
       }).then(function (res) {
         window.res = res;
 
-        _this4.setState({
+        _this5.setState({
           jobs: res.data,
           jobForDescription: res.data[0],
           Name: "",
@@ -26611,31 +26783,31 @@ function (_Component) {
           Link: "",
           jobSkills: [],
           alert: "The Job Has Been Added Successfully"
-        }, console.log(_this4.state.alert));
+        }, console.log(_this5.state.alert));
 
         setTimeout(function () {
-          return _this4.setState({
+          return _this5.setState({
             alert: ""
           });
         }, 4000);
-        console.log(_this4.state.jobs);
+        console.log(_this5.state.jobs);
       });
     }
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
-      var _this5 = this;
+      var _this6 = this;
 
       this.setState({
         jobForDescription: param
       }, function () {
-        console.log(_this5.state.jobForDescription);
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this5.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+        console.log(_this6.state.jobForDescription);
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this6.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
           window.bids = res.data;
           console.log(res.data); // alert(this.props.job.id+"lol");
           // jobs=jobs.reverse();
 
-          _this5.setState({
+          _this6.setState({
             bids: res.data.reverse()
           });
         });
@@ -26663,7 +26835,7 @@ function (_Component) {
   }, {
     key: "approve",
     value: function approve() {
-      var _this6 = this;
+      var _this7 = this;
 
       var id = this.state.bidForDescription.id;
       var data = {
@@ -26673,13 +26845,12 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + id + '?api_token=' + window.token, data).then(function (res) {
         console.log(res.data);
 
-        _this6.setState({
+        _this7.setState({
           bidForDescription: "",
           jobs: res.data.reverse()
         }, function () {
           console.log("done");
-
-          _this6.setJobForDescription(_this6.state.jobs[0]);
+          _this7.state.jobs[0] ? _this7.setJobForDescription(_this7.state.jobs[0]) : null;
         });
       }).catch(function (err) {
         return console.log(err);
@@ -26689,13 +26860,13 @@ function (_Component) {
   }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this7 = this;
+      var _this8 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this7.state.bidForDescription);
+        console.log(_this8.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -26703,15 +26874,15 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this8 = this;
+      var _this9 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row  bg-primary lay add-background"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "  py-5 col-md-4 px-md-5 col-sm-12 "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        className: "  py-5 col-md-4 px-md-5  "
+      }, this.state.skills ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
         click: this.addJob.bind(this),
         Name: this.state.Name,
         change: this.change.bind(this),
@@ -26719,11 +26890,12 @@ function (_Component) {
         Time: this.state.Time,
         Money: this.state.Money,
         Link: this.state.Link,
+        skills: this.state.skills,
         skillManagement: this.skillManagement.bind(this)
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "bg-dark px-md-5 py-5 col-md-8  col-sm-12 text-center"
+      }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "bg-dark  py-5 col-md-8   text-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "display-2 py-5"
+        className: "display-2 py-5 animated rotateInDownRight"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "bracket"
       }, "<"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -26736,15 +26908,15 @@ function (_Component) {
         error: this.state.error,
         alert: this.state.alert
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "tools bg-white pb-5"
+        className: "tools bg-white lay"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "text-center lay p-3 px-5 "
+        className: "text-center  p-3 px-5 lay"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: " text-black"
       }, "Manage Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
         className: " bg-success "
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row  bg-white lay px-5"
+        className: "row  bg-white lay px-md-5 px-sm-0 px-xs-0"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-4"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_table__WEBPACK_IMPORTED_MODULE_5__["default"], {
@@ -26765,7 +26937,7 @@ function (_Component) {
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           theBid: bids,
-          showBid: _this8.showBid.bind(_this8)
+          showBid: _this9.showBid.bind(_this9)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription,
@@ -26837,9 +27009,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.a = this.props.error ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "alert alert-danger"
+        className: "alert alert-danger "
       }, this.props.error) : null, this.b = this.props.alert ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "text-success lead"
+        className: "text-success lead animated rubbeBand"
       }, this.props.alert) : null);
     }
   }]);
@@ -26898,9 +27070,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " bid "
+        className: " bid animated jello "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " row"
+        className: " row "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
         className: this.props.deleteBid ? "col-9 list-group-item eachBid" : "col-12 list-group-item eachBid"
@@ -26979,7 +27151,7 @@ function (_React$Component) {
         className: "modal-dialog w-75",
         role: "document"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-content"
+        className: "modal-content animated jello"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-header bg-primary text-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {

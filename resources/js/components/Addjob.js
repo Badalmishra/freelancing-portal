@@ -22,19 +22,6 @@ export default class Addjob extends React.Component{
         //alert(event.target.value);
          this.props.skillManagement(event.target.name);     
     }
-    componentWillMount(){
-        //console.log("hello");
-        
-        axios.get(`api/skills?api_token=`+window.token)
-        .then(res => {
-          window.skills=res.data;
-          const skills = res.data;
-         // jobs=jobs.reverse();
-          this.setState({ 
-              skills:skills,
-           });
-        })
-    }
     click(){
         //this.forceUpdate();
         var but=document.getElementsByClassName('skill');
@@ -47,11 +34,12 @@ export default class Addjob extends React.Component{
     }
     render(){
         return(
-        <div id="form" className="p-3">
-            <h2 className="text-success">Add Jobs</h2>     
+            
+        <div id="form" className="p-3 animated fadeInDown">
+            <h2 className="text-success animated fadeInLeft">Add Jobs</h2>     
             <hr></hr>
             
-            <div className="row px-3 mb-2">
+            <div className="row px-3 mb-2 animated fadeInRight">
                 <input 
                     placeholder="Name" 
                     id="input" type="text"  
@@ -90,13 +78,13 @@ export default class Addjob extends React.Component{
                     value={this.props.Link}  className="form-control mb-2" 
                     />
                  {
-                     this.state.skills.map((skill,key) =>{
+                     this.props.skills.map((skill,key) =>{
                          return(
                             <span key={key}> 
                             <input 
                             type="button"
                                 placeholder="Enter a relevent key skill"
-                                className="skill btn btn-outline-primary btn-sm blank-box"
+                                className="fadeInDown skill btn btn-outline-primary btn-sm blank-box"
                                 
                                 value={skill.name}
                                 
@@ -114,7 +102,7 @@ export default class Addjob extends React.Component{
             
 
 
-            <div className="">
+            <div className=" animated fadeInLeft">
                <button className=" btn btn-outline-primary w-100" onClick={this.click.bind(this)}>Add <i className="fas fa-paper-plane "></i></button>
             </div>
         </div>

@@ -4,6 +4,11 @@
     <script>
     window.token='{{Auth::user()->api_token}}';
     </script>
-            <div id="example" class="w-100 "></div>
+            <div id="example" class="lay "></div>
     <script src="js/app.js"></script>
+    <script>
+        ScrollReveal({ reset: true });
+        ScrollReveal().reveal('.punchline'  );
+
+    </script>
  @endsection

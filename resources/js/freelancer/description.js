@@ -109,10 +109,15 @@ export default class Decription extends React.Component{
                             })
                         }
                     </div>
-                    <hr></hr>
                     <small className="text-success">
                         Posted By: {this.props.job.user.name}
                     </small>
+                    <hr></hr>
+                   
+                    <Makebid
+                                job={this.props.job.id}
+                                click={this.makeBid.bind(this)}
+                                />
                 </div>
                 <div className="card-footer ">
                     <span className="btn  btn-sm btn-outline-success disabled" 
@@ -131,13 +136,8 @@ export default class Decription extends React.Component{
                         </span>
                         
                     </div>
-                    
-                        <Makebid
-                            job={this.props.job.id}
-                            click={this.makeBid.bind(this)}
-                            />
-                       
                 </div>
+                
                 
             </div>
         )

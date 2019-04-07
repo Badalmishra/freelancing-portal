@@ -7,6 +7,7 @@ import Table from '../freelancer/table';
 import Description from './Description';
 import Bid from '../freelancer/Bid';
 import Modal from '../freelancer/modal';
+import { Script } from 'vm';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,7 @@ export default class Example extends Component {
             jobForDescription:"",
             alert:"",
             error:"",
+            skills:"",
             jobSkills:[],
         };
         window.jobs=this.state.jobs;
@@ -56,7 +58,18 @@ export default class Example extends Component {
             }
              );
           })
-      
+
+     }
+     componentWillMount(){
+        axios.get(`api/skills?api_token=`+window.token)
+        .then(res => {
+          window.skills=res.data;
+          const skills = res.data;
+         // jobs=jobs.reverse();
+          this.setState({ 
+              skills:skills,
+           });
+        })
      }
     delete(){
         var index =event.target.id;
@@ -183,7 +196,7 @@ export default class Example extends Component {
 
                 ()=>{
                     console.log("done");
-                    this.setJobForDescription(this.state.jobs[0]);
+                   this.state.jobs[0]? this.setJobForDescription(this.state.jobs[0]):null;
                 }
             );
         })
@@ -207,7 +220,8 @@ export default class Example extends Component {
         return (
             <div className="p-0 ">
                 <div className="row  bg-primary lay add-background">
-                    <div className="  py-5 col-md-4 px-md-5 col-sm-12 ">
+                    <div className="  py-5 col-md-4 px-md-5  ">
+                        {this.state.skills?
                         <Addjob 
                             click={this.addJob.bind(this)} 
                             Name={this.state.Name}
@@ -216,12 +230,16 @@ export default class Example extends Component {
                             Time={this.state.Time}
                             Money={this.state.Money}
                             Link={this.state.Link}
+                            skills={this.state.skills}
                             skillManagement={this.skillManagement.bind(this)}
                             />
+                        
+                    
+                        :null}
                     </div>
-                    <div className="bg-dark px-md-5 py-5 col-md-8  col-sm-12 text-center">
+                    <div className="bg-dark  py-5 col-md-8   text-center">
                                 
-                        <div className="display-2 py-5">
+                        <div className="display-2 py-5 animated rotateInDownRight">
                         <span className="bracket">{"<"}</span>
                         <span className="text-primary">Ask the </span><br></br> 
                         <span className="ml-5 px-4 text-primary">Geeks</span>
@@ -233,13 +251,13 @@ export default class Example extends Component {
                                     />
                     </div>
                 </div>
-                <div className="tools bg-white pb-5">
-                    <div className="text-center lay p-3 px-5 "> 
+                <div className="tools bg-white lay">
+                    <div className="text-center  p-3 px-5 lay"> 
 
                         <h1 className=" text-black">Manage Jobs</h1>
                         <hr className=" bg-success "></hr>
                     </div>
-                    <div className="row  bg-white lay px-5">
+                    <div className="row  bg-white lay px-md-5 px-sm-0 px-xs-0">
 
                         <div className="col-md-4"> 
                                     <Table 
@@ -278,6 +296,7 @@ export default class Example extends Component {
                     approve={this.approve.bind(this)}
                 />
                 <div className="p-5 bg-dark"></div>
+              
              </div> 
         );
     }

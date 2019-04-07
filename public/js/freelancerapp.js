@@ -26182,9 +26182,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " bid "
+        className: " bid animated jello "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " row"
+        className: " row "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         onClick: this.props.showBid ? this.props.showBid.bind(this, this.props.theBid) : null,
         className: this.props.deleteBid ? "col-9 list-group-item eachBid" : "col-12 list-group-item eachBid"
@@ -26366,9 +26366,12 @@ function (_React$Component) {
           className: "btn disabled btn-outline-dark btn-sm",
           key: data.skills.id
         }, data.skills.name);
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         className: "text-success"
-      }, "Posted By: ", this.props.job.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Posted By: ", this.props.job.user.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        job: this.props.job.id,
+        click: this.makeBid.bind(this)
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn  btn-sm btn-outline-success disabled",
@@ -26385,10 +26388,7 @@ function (_React$Component) {
         className: "btn btn-sm btn-outline-dark disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
-      }), this.props.bids.length, " Bids")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        job: this.props.job.id,
-        click: this.makeBid.bind(this)
-      })));
+      }), this.props.bids.length, " Bids"))));
     }
   }]);
 
@@ -26603,11 +26603,21 @@ function (_Component) {
       var _this6 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "px-3"
+        className: " bg-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row"
+        className: " py-5 tag",
+        id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-3 px-0"
+        className: "row w-50 search mx-auto"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-component col-9",
+        placeholder: "Search by skill"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "col-3 btn btn-success form-component"
+      }, "Search"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row px-md-4 lay  py-4 bg-default"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-3 px-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_3__["default"], {
         error: this.state.error,
         alert: this.state.alert
@@ -26615,14 +26625,14 @@ function (_Component) {
         jobs: this.state.jobs,
         click: this.setJobForDescription.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-4 px-2"
+        className: "col-md-5 px-2"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_5__["default"], {
         upbid: this.upbid.bind(this),
         job: this.state.jobForDescription,
         api_token: this.state.api_token,
         bids: this.state.bids
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-5"
+        className: "col-md-4 px-2"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26640,7 +26650,11 @@ function (_Component) {
         });
       }) : null))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_7__["default"], {
         bidForDescription: this.state.bidForDescription
-      }));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: " naughty-button btn btn-lg btn-primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-bell"
+      })));
     }
   }]);
 
@@ -26723,33 +26737,39 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "p-1 "
+        className: " ",
+        id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "One line proposal",
         className: "form-control ",
         name: "body",
         onChange: this.change.bind(this),
         value: this.state.body
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "Refference project",
         className: "form-control",
         name: "refrence",
         onChange: this.change.bind(this),
         value: this.state.refrence
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row px-3"
+        className: "row lay"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "Max Price",
         className: "col-6 form-control",
         name: "price",
         onChange: this.change.bind(this),
         value: this.state.price
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "Max Days",
         className: "col-6 form-control",
         name: "days",
         onChange: this.change.bind(this),
         value: this.state.days
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-lg btn-success w-100",
         onClick: this.addBidClick.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-paper-plane mr-2"
+        className: "fas fa-paper-plane "
       }), "Make Bid"));
     }
   }]);
@@ -26886,7 +26906,7 @@ function (_React$Component) {
         className: "modal-dialog w-75",
         role: "document"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-content"
+        className: "modal-content animated jello"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-header bg-primary text-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {

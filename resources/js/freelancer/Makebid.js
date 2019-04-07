@@ -21,31 +21,38 @@ export default class Makebid extends React.Component{
         }
         render(){
         return(
-            <div  className="p-1 ">
+            <div  className=" " id="formM">
+              
                 <input 
+                    placeholder="One line proposal"
                     className="form-control " name="body" 
                     onChange={this.change.bind(this)} 
                     value={this.state.body}>
                 </input>
                 <input 
+                    placeholder="Refference project"
                     className="form-control" name="refrence" 
                     onChange={this.change.bind(this)} 
                     value={this.state.refrence}>
                 </input>
-                <div className="row px-3">
+                <div className="row lay">
                 <input 
+                    placeholder="Max Price"
                     className="col-6 form-control" name="price" 
                     onChange={this.change.bind(this)} 
                     value={this.state.price}>
                 </input>
                 <input 
+                    placeholder="Max Days"
                     className="col-6 form-control" name="days" 
                     onChange={this.change.bind(this)} 
                     value={this.state.days}>
                 </input>
                 </div>
-                <button   onClick={this.addBidClick.bind(this)}>
-                    <i className="fas fa-paper-plane mr-2"></i> 
+                <button  
+                    className="btn btn-lg btn-success w-100"
+                     onClick={this.addBidClick.bind(this)}>
+                    <i className="fas fa-paper-plane "></i> 
                         Make Bid
                 </button>
             </div>
