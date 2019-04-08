@@ -26659,7 +26659,8 @@ function (_Component) {
       alert: "",
       error: "",
       skills: "",
-      jobSkills: []
+      jobSkills: [],
+      notifications: []
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -27143,7 +27144,6 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal fade",
         id: "exampleModal",
-        tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLabel",
         "aria-hidden": "true"
@@ -27155,10 +27155,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-header bg-primary text-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        class: "modal-title"
+        className: "modal-title"
       }, "Bid Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        class: "close",
+        className: "close",
         "data-dismiss": "modal",
         "aria-label": "Close"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

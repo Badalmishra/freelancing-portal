@@ -19,6 +19,7 @@ export default class Example extends Component {
             bidForDescription:[],
             alert:"",
             error:"",
+            notifications:[],
         };
         window.jobs=this.state.jobs;
     }
@@ -44,7 +45,9 @@ export default class Example extends Component {
                });
               
             })
-        })
+        });
+        this.pullNotifications();
+
      }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
@@ -124,6 +127,18 @@ export default class Example extends Component {
                      }
               });
       }
+      pullNotifications(){
+        axios.get(`api/notifications?api_token=`+window.token).then(
+            (res)=>{
+                console.log(res.data);
+                
+                this.setState({
+                notifications:res.data,
+                    
+                });
+            }
+        )
+    }
     render() {
         return (
             
@@ -184,8 +199,10 @@ export default class Example extends Component {
             bidForDescription={this.state.bidForDescription}
             
             />
-                 <button className=" naughty-button btn btn-lg btn-primary">
+                 <button onClick={this.pullNotifications.bind(this)}
+                        className=" naughty-button btn btn-lg btn-primary">
                     <i className="fa fa-bell"></i>
+                    <i className="num">{this.state.notifications.length}</i>
                 </button>
 
             

@@ -26467,7 +26467,8 @@ function (_Component) {
       Money: "",
       bidForDescription: [],
       alert: "",
-      error: ""
+      error: "",
+      notifications: []
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -26496,6 +26497,7 @@ function (_Component) {
           });
         });
       });
+      this.pullNotifications();
     }
   }, {
     key: "setJobForDescription",
@@ -26598,9 +26600,22 @@ function (_Component) {
       });
     }
   }, {
+    key: "pullNotifications",
+    value: function pullNotifications() {
+      var _this6 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/notifications?api_token=" + window.token).then(function (res) {
+        console.log(res.data);
+
+        _this6.setState({
+          notifications: res.data
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this6 = this;
+      var _this7 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " bg-white"
@@ -26645,16 +26660,19 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_6__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this6.showBid.bind(_this6),
-          deleteBid: _this6.deleteBid.bind(_this6)
+          showBid: _this7.showBid.bind(_this7),
+          deleteBid: _this7.deleteBid.bind(_this7)
         });
       }) : null))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_7__["default"], {
         bidForDescription: this.state.bidForDescription
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.pullNotifications.bind(this),
         className: " naughty-button btn btn-lg btn-primary"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-bell"
-      })));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "num"
+      }, this.state.notifications.length)));
     }
   }]);
 
@@ -26898,7 +26916,6 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal fade",
         id: "exampleModal",
-        tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "exampleModalLabel",
         "aria-hidden": "true"
@@ -26910,10 +26927,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "modal-header bg-primary text-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        class: "modal-title"
+        className: "modal-title"
       }, "Bid Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         type: "button",
-        class: "close",
+        className: "close",
         "data-dismiss": "modal",
         "aria-label": "Close"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {

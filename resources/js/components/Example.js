@@ -25,6 +25,7 @@ export default class Example extends Component {
             error:"",
             skills:"",
             jobSkills:[],
+            notifications:[],
         };
         window.jobs=this.state.jobs;
     }
@@ -58,7 +59,6 @@ export default class Example extends Component {
             }
              );
           })
-
      }
      componentWillMount(){
         axios.get(`api/skills?api_token=`+window.token)
@@ -215,7 +215,8 @@ export default class Example extends Component {
         });
 
         window.the=this.state.bidForDescription;        
-     }
+    }
+
     render() {
         return (
             <div className="p-0 ">
