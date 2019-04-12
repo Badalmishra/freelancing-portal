@@ -87,7 +87,7 @@ export default class Decription extends React.Component{
                     
                    
                     <p>{this.props.job.description}</p>
-                    
+                    <hr></hr>
                     {
                         this.props.job.linkToReferenceProject!=""?
                         <a className="btn btn-warning btn-sm" href={this.props.job.linkToReferenceProject}>
@@ -98,8 +98,7 @@ export default class Decription extends React.Component{
                         No Reference Project <i className="fa fa-paperclip ml-2"></i> 
                         </a>
                     }
-                    <div className="btn-group d-block text-success">
-                    Skills:<br></br>
+                    <div className="btn-group mt-4 d-block text-success">
                         {
                             this.props.job.job_skills.map((data)=>{
                                 return(

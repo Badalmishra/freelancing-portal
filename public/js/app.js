@@ -26932,7 +26932,7 @@ function (_Component) {
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-3  "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " list-group-item bg-success text-white"
+        className: " list-group-item bg-success text-white bidsholder"
       }, "All Bids"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "fix-scroll box"
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {

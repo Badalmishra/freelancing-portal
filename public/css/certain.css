@@ -2,17 +2,6 @@
   margin:0 0 0 0 !important;
   
 }
-/* html,body,main,#example{
-  margin: 0 0 0 0 !important;
-  padding: 0px 0px 0px 0px;
-  width: 100vw !important;
-} */
-.add-background{
-  /* background: url('../images/form.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed; */
-}
 
 .naughty-button{
   position: fixed;
@@ -79,12 +68,15 @@ body{
 .fix-scroll{
   max-height: 15rem;
   overflow-y: scroll;
-  overflow-x: auto;
+  overflow-x: hidden;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: none;
 }
 .eachBid:hover{
   background-color: rgba(91, 66, 225, 0.4)!important;
   cursor: pointer;
+  transform: skewY(0deg); /* Standard syntax */
+
 }
 .bid :nth-child(){
   background: rgba(91, 66, 225, 0.4)!important;
@@ -92,6 +84,9 @@ body{
 .box{
   max-height: 50rem;
   overflow-y:scroll;
+  -ms-overflow-style: none;
+
+ 
 }
 #formM *{
   border-radius:0px !important;
@@ -100,12 +95,27 @@ body{
 #formM input{
  margin-top: 10px !important;
 }
-.tag{
-  border-bottom: 1px solid green; 
-}
+
 .num{
   position: absolute;
   top: -10px;
   z-index: 1000;
   color:red;
+}
+.wow{
+ 
+    background-image: linear-gradient(to bottom right, white 50%, skyblue 50%);
+    background-repeat: no-repeat;
+
+}
+.bidsholder{
+
+  transform: skewY(4deg); 
+  transition: transform .4s,box-shadow .4s;
+  box-shadow: 15px 15px 15px darkcyan;
+}
+.bidsholder:hover{
+  transform: skewY(0deg); 
+  box-shadow: 8px 8px 5px black;
+
 }

@@ -277,7 +277,7 @@ export default class Example extends Component {
                             }
                             </div>
                             <div className="col-md-3  ">       
-                                    <div className=" list-group-item bg-success text-white">All Bids</div>
+                                    <div className=" list-group-item bg-success text-white bidsholder">All Bids</div>
                                         <div className="fix-scroll box">
                                         {this.state.bids!=""?
                                         this.state.bids.map((bids)=>{

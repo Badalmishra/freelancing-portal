@@ -144,13 +144,16 @@ export default class Example extends Component {
             
             <div className=" bg-white">
                 
-                <div className=" py-5 tag" id="formM">
+                <div className=" pt-5 pb-3 tag  bg-light text-dark text-center" id="formM">
+                    <h1 className="">Dash Board
+                        <hr className="w-75"></hr>
+                    </h1>
                     <div className="row w-50 search mx-auto">
                         <input className="form-component col-9" placeholder="Search by skill"></input>
                         <button className="col-3 btn btn-success form-component">Search</button>
                     </div>
                 </div>
-                <div className="row px-md-4 lay  py-4 bg-default">
+                <div className="row px-md-4 lay  py-4 bg-default wow">
                     <div className="col-md-3 px-2">
                        
                             <Messages 
@@ -174,10 +177,10 @@ export default class Example extends Component {
                             :null
                     }        
                     </div>
-                    <div className="col-md-4 px-2">
-                        <div className="card">        
+                    <div className="col-md-4 px-2 " >
+                        <div className="card bidsholder">        
                             <div className="card-body p-0 ">
-                            <div className=" list-group-item bg-success text-white">All Bids</div>
+                            <div className=" list-group-item bg-success text-white ">All Bids</div>
                                 <div className="fix-scroll">
                                     {   this.state.bids?
                                         this.state.bids.map((bid,id)=>{
