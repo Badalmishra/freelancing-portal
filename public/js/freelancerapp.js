@@ -26754,7 +26754,15 @@ function (_React$Component) {
   }, {
     key: "addBidClick",
     value: function addBidClick() {
-      this.props.click(["mybid", "https://www.google.com", this.props.job, 200, 30]); //console.log("make bid has"+this.props.job);
+      var payload = [this.state.body, this.state.refrence, this.props.job, this.state.price, this.state.days];
+      this.props.click(payload);
+      this.setState({
+        body: "",
+        refrence: "",
+        job: "",
+        price: "",
+        days: ""
+      }); //console.log("make bid has"+this.props.job);
     }
   }, {
     key: "toggleForm",
