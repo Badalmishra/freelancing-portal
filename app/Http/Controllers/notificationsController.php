@@ -14,8 +14,8 @@ class notificationsController extends Controller
      */
     public function index()
     {
-        $notification = notifications::all();
-        return json_encode($notification);
+        $notifications= Auth::guard('api')->user()->notifications()->get();
+           return json_encode($notifications);
     }
 
     /**
@@ -48,8 +48,6 @@ class notificationsController extends Controller
     public function show($id)
     {
        
-        $all = notifications::truncate();;
-        return json_encode("doen");
     }
 
     /**
@@ -72,7 +70,13 @@ class notificationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $notifications= Auth::guard('api')->user()->notifications()->get();
+        foreach ($notifications as $notification) {
+            $notification->status =1;
+            $notification->save();
+        }
+        $notifications= Auth::guard('api')->user()->notifications()->get();
+        return json_encode(200);
     }
 
     /**

@@ -104,7 +104,7 @@ body{
 }
 .wow{
  
-    background-image: linear-gradient(to bottom right, white 50%, skyblue 50%);
+    background-image: linear-gradient(to bottom right, white 50%, #3490dc 50%);
     background-repeat: no-repeat;
 
 }

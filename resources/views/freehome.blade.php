@@ -5,6 +5,8 @@
     <script>
     window.token='{{Auth::user()->api_token}}';
     </script>
-            <div id="freehome" class="w-100 px-2"></div>
+            <div id="freehome" class="w-100 ">
+         
+            </div>
     <script src="js/freelancerapp.js"></script>
 @endsection

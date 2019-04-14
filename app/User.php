@@ -36,6 +36,10 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\bids');
     }
+    public function notifications()
+    {
+        return $this->hasMany('App\notifications');
+    }
     /**
      * The attributes that should be cast to native types.
      *

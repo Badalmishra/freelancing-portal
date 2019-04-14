@@ -6,6 +6,7 @@ import Table from './table';
 import Description from './Description';
 import Bid from './Bid';
 import Modal from './modal';
+import NaughtyModal from './naugthyModel';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -127,24 +128,109 @@ export default class Example extends Component {
                      }
               });
       }
-      pullNotifications(){
-        axios.get(`api/notifications?api_token=`+window.token).then(
+      async pullNotifications(){
+
+       await axios.get(`api/notifications?api_token=`+window.token).then(
             (res)=>{
-                console.log(res.data);
-                
+                //console.log(res.data);
                 this.setState({
                 notifications:res.data,
                     
                 });
             }
         )
+    
+    
+    }
+    markSeen(){
+       
+        var data ={
+            "_method":"put",
+            "somedata":"oho",
+        };
+        axios.post('api/notifications/1?api_token='+window.token,data)
+        .then(res => {
+            this.pullNotifications().then(()=>{
+                console.log("haha");
+                
+                $('#naughtyModal').modal('show');
+            }
+            );
+            console.log(this.state.notifications);
+            
+            
+        })
+        .catch(err => console.log(err));
     }
     render() {
         return (
             
             <div className=" bg-white">
-                
-                <div className=" pt-5 pb-3 tag  bg-light text-dark text-center" id="formM">
+                <div className="row  bg-primary lay add-background">
+                    <div className="  py-5 col-md-4 px-md-5  ">
+                        
+                    </div>
+                    <div className="bg-dark  py-4  col-md-8   text-center">
+                                
+                        <div className="display-3 pt-4 animated rotateInDownRight">
+                        <span className="bracket">{"<"}</span>
+                        <span className="text-primary">Hall Of Fame</span>
+                        <span className="bracket">{"/>"}</span><br></br> 
+                        </div>
+                        <span className="d-block px-4 text-white">Active Projects</span>
+                        <div className=" pt-4 row lay justify-content-center">
+                            <div className="card col mx-2 p-0 text-left bg-dark">
+                                <div className="card-header bg-primary">
+                                    Project Name
+                                </div>
+                                <div className="card-body text-primary">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Temporibus nisi autem ad, culpa quae error impedit
+                                </div>
+                                <div className="card-footer bg-success ">
+                                    <small>Owner Name</small>
+                                    <small > dead line</small>
+                                    <button className="btn btn-sm btn-outline-dark  ml-4">
+                                       Complete
+                                    </button> 
+                                </div>
+                            </div>
+                            <div className="card col mx-2 p-0 text-left bg-dark">
+                                <div className="card-header bg-primary">
+                                    Project Name
+                                </div>
+                                <div className="card-body text-primary">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Temporibus nisi autem ad, culpa quae error impedit
+                                </div>
+                                <div className="card-footer bg-success">
+                                    <small>Owner Name</small>
+                                    <small> dead line</small>
+                                    <button className="btn btn-sm btn-outline-dark  ml-4">
+                                       Complete
+                                    </button> 
+                                </div>
+                            </div>
+                            <div className="card col mx-2 p-0 text-left bg-dark">
+                                <div className="card-header bg-primary">
+                                    Project Name
+                                </div>
+                                <div className="card-body text-primary">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                                Temporibus nisi autem ad, culpa quae error impedit
+                                </div>
+                                <div className="card-footer bg-success">
+                                    <small>Owner Name</small>
+                                    <small> dead line</small>
+                                    <button className="btn btn-sm btn-outline-dark  ml-4">
+                                       Complete
+                                    </button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className=" pt-5 pb-3 tag  bg-secondary text-white text-center" id="formM">
                     <h1 className="">Dash Board
                         <hr className="w-75"></hr>
                     </h1>
@@ -153,7 +239,9 @@ export default class Example extends Component {
                         <button className="col-3 btn btn-success form-component">Search</button>
                     </div>
                 </div>
-                <div className="row px-md-4 lay  py-4 bg-default wow">
+                
+                <div className="row px-md-4 lay  py-5 bg-default wow">
+                
                     <div className="col-md-3 px-2">
                        
                             <Messages 
@@ -202,10 +290,13 @@ export default class Example extends Component {
             bidForDescription={this.state.bidForDescription}
             
             />
-                 <button onClick={this.pullNotifications.bind(this)}
+            <NaughtyModal 
+            noughties={this.state.notifications}
+            />
+                 <button onClick={this.markSeen.bind(this)}
                         className=" naughty-button btn btn-lg btn-primary">
                     <i className="fa fa-bell"></i>
-                    <i className="num">{this.state.notifications.length}</i>
+                    <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
                 </button>
 
             
