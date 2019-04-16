@@ -39,7 +39,20 @@ class bidsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $already3 = Auth::guard('api')->user()->bids()->get();
+        $alreadyonit = Auth::guard('api')->user()->bids()->where('jobs_id',$request->body[2])->get();
+        if(count($alreadyonit)>0) //if already bided on the same job
+        {
+            $message = array("error" => "Allready have a bid on this job");
+            return json_encode($message);
+        }
+        if(count($already3)>2) // if has 3 active bids
+        {
+            $message = array("error" => "Allready have 3 active bids.(this might include active projects)");
+            return json_encode($message);
+        }
+        
         $bid = new bids;
         error_log($request);
         $bid->user_id   = Auth::guard('api')->id();

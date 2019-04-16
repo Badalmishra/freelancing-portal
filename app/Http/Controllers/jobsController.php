@@ -74,8 +74,7 @@ class jobsController extends Controller
      */
     public function show($id)
     {
-        $jobs =  jobs::with('jobSkills.skills')
-        ->get('');
+        $jobs =  Auth::guard('api')->user()->activeJobs()->get();
         return json_encode($jobs);
     }
 

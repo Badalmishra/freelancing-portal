@@ -23,3 +23,11 @@
     background-color: rgba(91, 66, 225, 0.4)!important;
     cursor: pointer;
 }
+.myRow{
+    margin-top: 3%;
+}
+.myDef{
+    text-align: left
+    /* padding-left:2rem;
+    padding-right: 2rem; */
+}

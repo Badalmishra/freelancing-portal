@@ -82,9 +82,8 @@ body{
   background: rgba(91, 66, 225, 0.4)!important;
 }
 .box{
-  max-height: 50rem;
+  height: 20rem;
   overflow-y:scroll;
-  -ms-overflow-style: none;
 
  
 }

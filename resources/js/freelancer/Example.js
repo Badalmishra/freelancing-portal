@@ -21,6 +21,8 @@ export default class Example extends Component {
             alert:"",
             error:"",
             notifications:[],
+            activeJobs:[], 
+            dummy:[]
         };
         window.jobs=this.state.jobs;
     }
@@ -49,6 +51,17 @@ export default class Example extends Component {
         });
         this.pullNotifications();
 
+        axios.get(`api/active/?api_token=`+window.token).then(
+            data => {
+                console.log(data.data);
+                this.setState({activeJobs:data.data},
+                    this.printDummy()
+                    );
+                window.ac=data.data;
+               
+            }
+            
+        )
      }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
@@ -78,22 +91,22 @@ export default class Example extends Component {
         });
 
         window.the=this.state.bidForDescription;        
-     }
-      getToken(params){
+    }
+    getToken(params){
     
         this.setState({
             api_token:params,
         });
             alert(params);
-      }
-      upbid(params){
+    }
+    upbid(params){
           //alert(params);
           this.setState({
               bids:params,
           });
 
-      }
-      deleteBid(params){
+    }
+    deleteBid(params){
         var index =params;
         console.log(params);
             var data ={
@@ -127,8 +140,8 @@ export default class Example extends Component {
                          ,3000);
                      }
               });
-      }
-      async pullNotifications(){
+    }
+    async pullNotifications(){
 
        await axios.get(`api/notifications?api_token=`+window.token).then(
             (res)=>{
@@ -150,18 +163,38 @@ export default class Example extends Component {
         };
         axios.post('api/notifications/1?api_token='+window.token,data)
         .then(res => {
-            this.pullNotifications().then(()=>{
-                console.log("haha");
-                
-                $('#naughtyModal').modal('show');
-            }
-            );
-            console.log(this.state.notifications);
-            
-            
+                this.pullNotifications().then(()=>{
+                    $('#naughtyModal').modal('show');
+                }
+            ); 
         })
         .catch(err => console.log(err));
     }
+
+    printDummy(){
+        var dummy=[];
+        for (let index = 1; index < 3-this.state.activeJobs.length; index++) {
+            dummy.push(
+                <div key={index} className="card col mx-2 p-0 text-left bg-dark">
+                <div className="card-header bg-primary">
+                    Coming Soon
+                </div>
+                <div className="card-body text-primary">
+                Go get it!
+                </div>
+                <div className="card-footer bg-success">
+                    <small>----------</small>
+                    <small>----------</small>
+                    <button className="btn btn-sm btm-disabled btn-outline-dark  ml-4">
+                       Coming Soon
+                    </button> 
+                </div>
+            </div>
+            )
+            
+        }
+        this.setState({dummy:dummy});
+   }
     render() {
         return (
             
@@ -179,54 +212,36 @@ export default class Example extends Component {
                         </div>
                         <span className="d-block px-4 text-white">Active Projects</span>
                         <div className=" pt-4 row lay justify-content-center">
+                            
+                            {this.state.activeJobs?
+                                this.state.activeJobs.map((activeJob)=>{
+                            return(
                             <div className="card col mx-2 p-0 text-left bg-dark">
                                 <div className="card-header bg-primary">
-                                    Project Name
+                                    {activeJob.body}
                                 </div>
                                 <div className="card-body text-primary">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Temporibus nisi autem ad, culpa quae error impedit
-                                </div>
-                                <div className="card-footer bg-success ">
-                                    <small>Owner Name</small>
-                                    <small > dead line</small>
-                                    <button className="btn btn-sm btn-outline-dark  ml-4">
-                                       Complete
-                                    </button> 
-                                </div>
-                            </div>
-                            <div className="card col mx-2 p-0 text-left bg-dark">
-                                <div className="card-header bg-primary">
-                                    Project Name
-                                </div>
-                                <div className="card-body text-primary">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Temporibus nisi autem ad, culpa quae error impedit
+                                {activeJob.description}
                                 </div>
                                 <div className="card-footer bg-success">
                                     <small>Owner Name</small>
-                                    <small> dead line</small>
+                                    <small> {activeJob.left} days left</small>
                                     <button className="btn btn-sm btn-outline-dark  ml-4">
                                        Complete
                                     </button> 
                                 </div>
                             </div>
-                            <div className="card col mx-2 p-0 text-left bg-dark">
-                                <div className="card-header bg-primary">
-                                    Project Name
-                                </div>
-                                <div className="card-body text-primary">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Temporibus nisi autem ad, culpa quae error impedit
-                                </div>
-                                <div className="card-footer bg-success">
-                                    <small>Owner Name</small>
-                                    <small> dead line</small>
-                                    <button className="btn btn-sm btn-outline-dark  ml-4">
-                                       Complete
-                                    </button> 
-                                </div>
-                            </div>
+                            )
+                            })
+                            :null
+                            }
+                            
+                            { 
+                               this.state.dummy.map((d)=>{
+                                   return d;
+                               }) 
+                            }
+
                         </div>
                     </div>
                 </div>

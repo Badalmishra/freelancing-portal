@@ -10,13 +10,16 @@
     <div class="container py-0">
         <div class="row ">
             <div class="col-md-8 animated fadeInDown" >
-                <h1 class="text-success display-3 mt-5 " >
+                <h1 class="text-primary display-3 mt-5 " >
                     Kaam <span class="text-dark">Dhan</span>dha
                     
                 </h1>
                 <h3 class="">
                         No More Overheads
                 </h3>
+                <div class=" btn btn-lg btn-outline-success">
+                    About Us
+                </div>
             </div>
             <div class="col-md-4">
             <div class="card animated fadeInUp" >
@@ -76,33 +79,44 @@
     </div>
 </div>
 
-<div class="p-4 p-md-5 text-center">
-    <h1 class="punchline">
-        <span class="">What's it all about</span>
-        <hr class="lead bg-success w-50">
+<div class="p-4 p-md-5  bg-white">
+    <h1 class="punchline pt-4">
+        <span class="">What's it about</span>
+        <hr class="lead bg-success w-25 mr-auto">
     </h1>
-    <div class="card-deck mx-md-5 pt-md-5  ">
-        <div class="card bg-dark text-light info">
-            <div class="card-body">
-                <h2 class="card-title text-center   ">Explore</h2>
-                <hr class="bg-info">
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-               
-            </div>
+    <div class="row  myRow">
+        <div class="col-md-4 myDef">
+            <h1 class="punchline Explore">
+                <span class="">Explore</span>
+                <hr class="lead bg-success ">
+            </h1>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur 
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+            </p>
         </div>
-        <div class="card bg-white text-dark info animated fadeInUp">
-            <div class="card-body">
-                <h2 class="card-title text-center   ">Serve</h2>
-                <hr class="bg-info">
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
+        <div class="col-md-4 myDef">
+            <h1 class="punchline Explore">
+                <span class="">Learn</span>
+                <hr class="lead bg-dark ">
+            </h1>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur 
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+            </p>
         </div>
-        <div class="card bg-primary text-light info animated fadeInLeft">
-            <div class="card-body">
-                <h2 class="card-title text-center   ">Earn</h2>
-                <hr class="bg-white">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content</p>
-            </div>
+        <div class="col-md-4 myDef">
+            <h1 class="punchline Explore">
+                <span class="">Earn</span>
+                <hr class="lead bg-info ">
+            </h1>
+            <p>
+                Lorem, ipsum dolor sit amet consectetur 
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+                adipisicing elit. Excepturi fugit dolores rem odio dolor molestiae officia non ea cumque corrupti.
+            </p>
         </div>
     </div>
 </div>

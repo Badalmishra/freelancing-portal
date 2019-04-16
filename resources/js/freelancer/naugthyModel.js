@@ -10,7 +10,7 @@ export default class NaughtyModal extends React.Component{
     }
     componentDidUpdate(){
         console.log(this.props);
-        
+        window.n = this.props.noughties;
     }
     render() {
       return (
@@ -27,8 +27,10 @@ export default class NaughtyModal extends React.Component{
                     <ul className="list-group">
                         {
                             this.props.noughties.map(naughty => {
-                            return(<li className="list-group-item" key={naughty.id}>
-                                {naughty.body} Please check active projects.
+                            return(<li className="list-group-item " key={naughty.id}>
+                                {naughty.body} Please check active projects. For Project: {naughty.jobs.body}
+                                <br></br>
+                                <small className="text-secondary">{naughty.created_at}</small>
                             </li>)
                             
                         })

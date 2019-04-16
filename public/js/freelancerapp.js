@@ -27048,7 +27048,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Decription).call(this, props));
     _this.state = {
-      bids: [] //window.prop =this.props.job.id;
+      error: "" //window.prop =this.props.job.id;
 
     };
     return _this;
@@ -27065,14 +27065,21 @@ function (_React$Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/bids?api_token=' + window.token, {
         body: body
       }).then(function (res) {
-        window.res = res;
-        console.log(res.data);
+        if (res.data.error) {
+          console.log(res.data.error);
 
-        _this2.setState({
-          bids: res.data
-        });
+          _this2.setState({
+            error: res.data.error
+          });
 
-        _this2.props.upbid(res.data);
+          setTimeout(function () {
+            return _this2.setState({
+              error: ""
+            });
+          }, 3000);
+        } else {
+          _this2.props.upbid(res.data);
+        }
       }).catch(function (err) {
         console.log(err);
       });
@@ -27160,7 +27167,9 @@ function (_React$Component) {
         }, data.skills.name);
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         className: "text-success"
-      }, "Posted By: ", this.props.job.user.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, "Posted By: ", this.props.job.user.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.state.error ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "alert alert-danger"
+      }, this.state.error) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Makebid__WEBPACK_IMPORTED_MODULE_4__["default"], {
         job: this.props.job.id,
         click: this.makeBid.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -27270,7 +27279,9 @@ function (_Component) {
       bidForDescription: [],
       alert: "",
       error: "",
-      notifications: []
+      notifications: [],
+      activeJobs: [],
+      dummy: []
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -27300,6 +27311,15 @@ function (_Component) {
         });
       });
       this.pullNotifications();
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
+        console.log(data.data);
+
+        _this2.setState({
+          activeJobs: data.data
+        }, _this2.printDummy());
+
+        window.ac = data.data;
+      });
     }
   }, {
     key: "setJobForDescription",
@@ -27446,13 +27466,34 @@ function (_Component) {
       };
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/notifications/1?api_token=' + window.token, data).then(function (res) {
         _this7.pullNotifications().then(function () {
-          console.log("haha");
           $('#naughtyModal').modal('show');
         });
-
-        console.log(_this7.state.notifications);
       }).catch(function (err) {
         return console.log(err);
+      });
+    }
+  }, {
+    key: "printDummy",
+    value: function printDummy() {
+      var dummy = [];
+
+      for (var index = 1; index < 3 - this.state.activeJobs.length; index++) {
+        dummy.push(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          key: index,
+          className: "card col mx-2 p-0 text-left bg-dark"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-header bg-primary"
+        }, "Coming Soon"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-body text-primary"
+        }, "Go get it!"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-footer bg-success"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "----------"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "----------"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          className: "btn btn-sm btm-disabled btn-outline-dark  ml-4"
+        }, "Coming Soon"))));
+      }
+
+      this.setState({
+        dummy: dummy
       });
     }
   }, {
@@ -27480,37 +27521,21 @@ function (_Component) {
         className: "d-block px-4 text-white"
       }, "Active Projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " pt-4 row lay justify-content-center"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card col mx-2 p-0 text-left bg-dark"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-header bg-primary"
-      }, "Project Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body text-primary"
-      }, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus nisi autem ad, culpa quae error impedit"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-footer bg-success "
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, " dead line"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "btn btn-sm btn-outline-dark  ml-4"
-      }, "Complete"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card col mx-2 p-0 text-left bg-dark"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-header bg-primary"
-      }, "Project Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body text-primary"
-      }, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus nisi autem ad, culpa quae error impedit"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-footer bg-success"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, " dead line"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "btn btn-sm btn-outline-dark  ml-4"
-      }, "Complete"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card col mx-2 p-0 text-left bg-dark"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-header bg-primary"
-      }, "Project Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-body text-primary"
-      }, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus nisi autem ad, culpa quae error impedit"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card-footer bg-success"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, " dead line"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-        className: "btn btn-sm btn-outline-dark  ml-4"
-      }, "Complete")))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card col mx-2 p-0 text-left bg-dark"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-header bg-primary"
+        }, activeJob.body), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-body text-primary"
+        }, activeJob.description), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-footer bg-success"
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, " ", activeJob.left, " days left"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+          className: "btn btn-sm btn-outline-dark  ml-4"
+        }, "Complete")));
+      }) : null, this.state.dummy.map(function (d) {
+        return d;
+      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " pt-5 pb-3 tag  bg-secondary text-white text-center",
         id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
@@ -27941,6 +27966,7 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       console.log(this.props);
+      window.n = this.props.noughties;
     }
   }, {
     key: "render",
@@ -27973,9 +27999,11 @@ function (_React$Component) {
         className: "list-group"
       }, this.props.noughties.map(function (naughty) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          className: "list-group-item",
+          className: "list-group-item ",
           key: naughty.id
-        }, naughty.body, " Please check active projects.");
+        }, naughty.body, " Please check active projects. For Project: ", naughty.jobs.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+          className: "text-secondary"
+        }, naughty.created_at));
       }))))));
     }
   }]);

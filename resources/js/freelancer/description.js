@@ -8,8 +8,7 @@ export default class Decription extends React.Component{
     constructor(props){
         super(props);
         this.state={
-                bids:[],
-               
+            error:"",
         }
         //window.prop =this.props.job.id;
     }
@@ -22,14 +21,17 @@ export default class Decription extends React.Component{
         params=params.slice();
         axios.post('api/bids?api_token='+window.token, { body })
             .then(res => {
-                window.res=res;
-                console.log(res.data);
-                
-                this.setState({ 
-                    bids:res.data,
-                    
-                 });
+               if(res.data.error){
+                   console.log(res.data.error);
+                   this.setState({
+                    error:res.data.error,
+                    });
+
+                    setTimeout(()=>this.setState({error:"",})
+                    ,3000);
+               }else{
                  this.props.upbid(res.data);
+               }
                
         }).catch(err => {
             console.log(err);
@@ -112,7 +114,13 @@ export default class Decription extends React.Component{
                         Posted By: {this.props.job.user.name}
                     </small>
                     <hr></hr>
-                   
+                   {
+                       this.state.error?
+                       
+                           <div className="alert alert-danger">{this.state.error}</div>
+                       
+                       :null
+                   }
                     <Makebid
                                 job={this.props.job.id}
                                 click={this.makeBid.bind(this)}

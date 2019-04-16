@@ -32,6 +32,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\jobs');
     }
+    public function activeJobs()
+    {
+        $jobs =$this->hasMany('App\jobs','assignedTo');
+        return $jobs->where('status',0);
+    }
     public function bids()
     {
         return $this->hasMany('App\bids');

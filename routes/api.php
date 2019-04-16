@@ -25,4 +25,6 @@ Route::middleware('auth:api')->resource('skills', 'skillsController');
 
 Route::middleware('auth:api')->resource('notifications', 'notificationsController');
 
+Route::middleware('auth:api')->resource('active', 'activeJobs');
+
 //Route::resource('jobs', 'jobsController');

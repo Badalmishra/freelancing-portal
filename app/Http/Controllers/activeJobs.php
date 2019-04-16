@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
 
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\notifications;
-class notificationsController extends Controller
+use App\jobs;
+
+class activeJobs extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,11 +16,15 @@ class notificationsController extends Controller
      */
     public function index()
     {
-        $notifications= Auth::guard('api')->user()->notifications()->with(['jobs.user'])->get();
-        // foreach ($notifications as $notification) {
-        //     $notification->job
-        // }
-           return json_encode($notifications);
+        $jobs =  Auth::guard('api')->user()->activeJobs()->with('bids')->get();
+        foreach ($jobs as $job) {
+            $date = time();
+            $last= strtotime($job->bids[0]->created_at ."+".$job->bids[0]->time." days" ) ;    
+            $sub= $last-$date;
+            $job->left=round($sub / (60 * 60 * 24));
+            error_log($last);
+        }
+        return json_encode($jobs);
     }
 
     /**
@@ -39,7 +45,7 @@ class notificationsController extends Controller
      */
     public function store(Request $request)
     {
-        $user= Auth::gaurd('api')->id;
+        //
     }
 
     /**
@@ -50,7 +56,7 @@ class notificationsController extends Controller
      */
     public function show($id)
     {
-       
+        //
     }
 
     /**
@@ -73,13 +79,7 @@ class notificationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $notifications= Auth::guard('api')->user()->notifications()->get();
-        foreach ($notifications as $notification) {
-            $notification->status =1;
-            $notification->save();
-        }
-        $notifications= Auth::guard('api')->user()->notifications()->with(['jobs.user'])->get();
-        return json_encode(200);
+        //
     }
 
     /**
