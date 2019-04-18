@@ -70,17 +70,13 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'type' => $data['type'],
             'password' => Hash::make($data['password']),
-
         ]);
     }
     protected function registered(Request $request, $user)
 
     {
-
         $newUser=User::find($user->id);
         $newUser->api_token=Hash::make(str_random(60));
-       
         $newUser->save();
-
     }
 }

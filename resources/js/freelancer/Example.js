@@ -51,17 +51,14 @@ export default class Example extends Component {
         });
         this.pullNotifications();
 
-        axios.get(`api/active/?api_token=`+window.token).then(
-            data => {
-                console.log(data.data);
-                this.setState({activeJobs:data.data},
-                    this.printDummy()
-                    );
-                window.ac=data.data;
-               
-            }
-            
-        )
+        axios.get(`api/active/?api_token=`+window.token)
+        .then(data => {
+            console.log(data.data);
+            this.setState({activeJobs:data.data},
+            this.printDummy()
+                );
+            window.ac=data.data;
+        });
      }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
@@ -194,7 +191,7 @@ export default class Example extends Component {
             
         }
         this.setState({dummy:dummy});
-   }
+    }
     render() {
         return (
             
@@ -211,21 +208,32 @@ export default class Example extends Component {
                         <span className="bracket">{"/>"}</span><br></br> 
                         </div>
                         <span className="d-block px-4 text-white">Active Projects</span>
-                        <div className=" pt-4 row lay justify-content-center">
+                        <div className=" pt-5 row lay pb-4 justify-content-center">
                             
                             {this.state.activeJobs?
                                 this.state.activeJobs.map((activeJob)=>{
                             return(
-                            <div className="card col mx-2 p-0 text-left bg-dark">
+                            <div key={activeJob.id} className="card col mx-2 p-0 text-left bg-dark">
                                 <div className="card-header bg-primary">
                                     {activeJob.body}
                                 </div>
-                                <div className="card-body text-primary">
+                                <div className="card-body text-primary pb-0">
                                 {activeJob.description}
+                                <span className="d-block btn-group w-100 mb-0">
+                                    {
+                                        activeJob.job_skills.map(js=>{
+                                            return(
+                                               <button className="btn btn-outline-success btn-sm py-0 " >
+                                                    {js.skills.name}
+                                               </button>
+                                            )
+                                        })
+                                    }
+                                    </span>
                                 </div>
                                 <div className="card-footer bg-success">
                                     <small>Owner Name</small>
-                                    <small> {activeJob.left} days left</small>
+                                    <small className="text-white"> {activeJob.left} days left</small>
                                     <button className="btn btn-sm btn-outline-dark  ml-4">
                                        Complete
                                     </button> 

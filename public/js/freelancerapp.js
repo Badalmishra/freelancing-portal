@@ -27520,17 +27520,26 @@ function (_Component) {
       }, "/>"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
         className: "d-block px-4 text-white"
       }, "Active Projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: " pt-4 row lay justify-content-center"
+        className: " pt-5 row lay pb-4 justify-content-center"
       }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          key: activeJob.id,
           className: "card col mx-2 p-0 text-left bg-dark"
         }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "card-header bg-primary"
         }, activeJob.body), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-body text-primary"
-        }, activeJob.description), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          className: "card-body text-primary pb-0"
+        }, activeJob.description, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+          className: "d-block btn-group w-100 mb-0"
+        }, activeJob.job_skills.map(function (js) {
+          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+            className: "btn btn-outline-success btn-sm py-0 "
+          }, js.skills.name);
+        }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
           className: "card-footer bg-success"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, " ", activeJob.left, " days left"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+          className: "text-white"
+        }, " ", activeJob.left, " days left"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
           className: "btn btn-sm btn-outline-dark  ml-4"
         }, "Complete")));
       }) : null, this.state.dummy.map(function (d) {

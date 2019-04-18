@@ -1,11 +1,66 @@
 .form-stuff{
     border-radius:0px !important; 
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+    border-top-color:#38c172;
+    border-left-color:#38c172;
+}
+.x{
+    background: rgb(69, 79, 88);
+    /* background:white; */
+    box-shadow: 15px 15px 15px black;
+    border-top-color: rgba(0,0,0,0);
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+    border-top-color:#38c172;
+    border-left-color:#38c172;
 }
 #logo{
-    background: url('../images/lol.jpg');
+    /* background: url('../images/lol.jpg');
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover; */
     background-attachment: fixed;
+    background:rgb(69, 79, 88);
+    padding-left: 10%;
+   
+}
+#logo h3,#logo div{
+    margin-left: 4%;
+}
+#logo div{
+    margin-top: 4%;
+    cursor: pointer;
+}
+.login-form{
+    width: 80%;
+}
+.that{
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+}
+.that-up{
+    border-top-color: rgba(0,0,0,0);
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+}
+.abt{
+    font-size: 200%;
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+}
+.abt:hover{
+    background: rgba(0,0,0,0);
+    color: white!important;
+    border-bottom-color:#2176bd;
+    border-right-color: #2176bd;
+}
+.abt:hover span{
+    color: white!important;
+
+}
+.whole{
+    padding-top: 7%;
+    padding-bottom: 7%;
 }
 #logo-text{
     text-shadow:2px 2px  black;

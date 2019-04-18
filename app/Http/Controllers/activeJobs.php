@@ -16,7 +16,7 @@ class activeJobs extends Controller
      */
     public function index()
     {
-        $jobs =  Auth::guard('api')->user()->activeJobs()->with('bids')->get();
+        $jobs =  Auth::guard('api')->user()->activeJobs()->with(['bids','jobSkills.skills'])->get();
         foreach ($jobs as $job) {
             $date = time();
             $last= strtotime($job->bids[0]->created_at ."+".$job->bids[0]->time." days" ) ;    
