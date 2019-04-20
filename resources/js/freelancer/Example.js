@@ -160,8 +160,16 @@ export default class Example extends Component {
     }
     complete(params){
         console.log(params);
-        
+
+        var data ={
+            "_method":"put",
+            "somedata":params,
+        };
+        var id = params[0];
+        axios.post('api/active/'+id+'?api_token='+window.token,data).
+        then(res =>console.log(res.data));
     }
+
     render() {
         return (
             

@@ -79,7 +79,10 @@ class activeJobs extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $job= jobs::find($id);
+        $job->final_link =$request->somedata[1];
+        $job->save();
+        return $job;
     }
 
     /**

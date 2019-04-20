@@ -27473,6 +27473,14 @@ function (_Component) {
     key: "complete",
     value: function complete(params) {
       console.log(params);
+      var data = {
+        "_method": "put",
+        "somedata": params
+      };
+      var id = params[0];
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/active/' + id + '?api_token=' + window.token, data).then(function (res) {
+        return console.log(res.data);
+      });
     }
   }, {
     key: "render",
