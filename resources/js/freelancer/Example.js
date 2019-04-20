@@ -7,6 +7,7 @@ import Description from './Description';
 import Bid from './Bid';
 import Modal from './modal';
 import NaughtyModal from './naugthyModel';
+import Active from './active';
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -21,15 +22,13 @@ export default class Example extends Component {
             alert:"",
             error:"",
             notifications:[],
-            activeJobs:[], 
-            dummy:[]
+            activeJobs:"", 
         };
         window.jobs=this.state.jobs;
     }
     componentDidMount() {
         axios.get(`api/jobs?api_token=`+window.token)
         .then(res => {
-          window.jobs=res.data;
           const jobs = res.data.reverse();
          // jobs=jobs.reverse();
           this.setState({ 
@@ -37,28 +36,20 @@ export default class Example extends Component {
               jobForDescription:jobs[0]?jobs[0]:null,
            });
            axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
-            .then(res => {
-              window.bids=res;
-        
-             // alert(this.props.job.id+"lol");
-             // jobs=jobs.reverse();
-              this.setState({ 
-                  bids:res.data.reverse(),
-                  
-               });
-              
-            })
+            .then(res => this.setState({ bids:res.data.reverse(),}));
         });
         this.pullNotifications();
 
         axios.get(`api/active/?api_token=`+window.token)
         .then(data => {
-            console.log(data.data);
-            this.setState({activeJobs:data.data},
-            this.printDummy()
-                );
-            window.ac=data.data;
-        });
+            console.log(data);
+            if (data.data.length >0) {
+                
+                
+                this.setState({activeJobs:data.data});
+            }
+            
+            });
      }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
@@ -167,30 +158,9 @@ export default class Example extends Component {
         })
         .catch(err => console.log(err));
     }
-
-    printDummy(){
-        var dummy=[];
-        for (let index = 1; index < 3-this.state.activeJobs.length; index++) {
-            dummy.push(
-                <div key={index} className="card col mx-2 p-0 text-left bg-dark">
-                <div className="card-header bg-primary">
-                    Coming Soon
-                </div>
-                <div className="card-body text-primary">
-                Go get it!
-                </div>
-                <div className="card-footer bg-success">
-                    <small>----------</small>
-                    <small>----------</small>
-                    <button className="btn btn-sm btm-disabled btn-outline-dark  ml-4">
-                       Coming Soon
-                    </button> 
-                </div>
-            </div>
-            )
-            
-        }
-        this.setState({dummy:dummy});
+    complete(params){
+        console.log(params);
+        
     }
     render() {
         return (
@@ -200,56 +170,44 @@ export default class Example extends Component {
                     <div className="  py-5 col-md-4 px-md-5  ">
                         
                     </div>
-                    <div className="bg-dark  py-4  col-md-8   text-center">
+                    <div className="side  py-4 px-5 col-md-8   text-center">
                                 
                         <div className="display-3 pt-4 animated rotateInDownRight">
                         <span className="bracket">{"<"}</span>
                         <span className="text-primary">Hall Of Fame</span>
                         <span className="bracket">{"/>"}</span><br></br> 
                         </div>
-                        <span className="d-block px-4 text-white">Active Projects</span>
-                        <div className=" pt-5 row lay pb-4 justify-content-center">
-                            
-                            {this.state.activeJobs?
+                        <hr className="bg-success"></hr>
+                        <div className=" pt-5 row lay pb-3 justify-content-center">
+                        {this.state.activeJobs?
                                 this.state.activeJobs.map((activeJob)=>{
                             return(
-                            <div key={activeJob.id} className="card col mx-2 p-0 text-left bg-dark">
-                                <div className="card-header bg-primary">
-                                    {activeJob.body}
-                                </div>
-                                <div className="card-body text-primary pb-0">
-                                {activeJob.description}
-                                <span className="d-block btn-group w-100 mb-0">
-                                    {
-                                        activeJob.job_skills.map(js=>{
-                                            return(
-                                               <button className="btn btn-outline-success btn-sm py-0 " >
-                                                    {js.skills.name}
-                                               </button>
-                                            )
-                                        })
-                                    }
-                                    </span>
-                                </div>
-                                <div className="card-footer bg-success">
-                                    <small>Owner Name</small>
-                                    <small className="text-white"> {activeJob.left} days left</small>
-                                    <button className="btn btn-sm btn-outline-dark  ml-4">
-                                       Complete
-                                    </button> 
-                                </div>
+                           <Active
+                            key={activeJob.id}
+                            activeJob={activeJob}
+                            complete={this.complete.bind(this)}
+                           />
+                           )
+                        })
+                        :
+                        <div  className="card  col-md-4mx-2 p-0 text-left side">
+                            <div className="card-header bg-primary">
+                                No active projects
                             </div>
-                            )
-                            })
-                            :null
-                            }
+                            <div className="card-body text-success    ">
+                                <small className="d-block">-----------</small>
                             
-                            { 
-                               this.state.dummy.map((d)=>{
-                                   return d;
-                               }) 
-                            }
-
+                                <small className="d-block">===========</small>
+                                <input className="z w-100 py-0"></input>
+                            </div>
+                            <div className="card-footer bg-success">
+                                <button className="btn w-100 btn-sm btn-outline-dark ">
+                                Complete
+                                </button> 
+                            </div>
+                        </div>
+                        }
+                           
                         </div>
                     </div>
                 </div>

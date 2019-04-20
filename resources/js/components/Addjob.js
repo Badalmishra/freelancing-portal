@@ -35,7 +35,7 @@ export default class Addjob extends React.Component{
     render(){
         return(
             
-        <div id="form" className="p-3 animated fadeInDown">
+        <div id="form" className="p-3 animated fadeInDown x">
             <h2 className="text-success animated fadeInLeft">Add Jobs</h2>     
             <hr></hr>
             

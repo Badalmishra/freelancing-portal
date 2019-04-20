@@ -103,6 +103,7 @@ class jobsController extends Controller
         $job = jobs::find($bid->jobs_id);
         $job->assignedTo=$bid->user_id;
         $job->status           = 0;
+        
         $redundantBids         = $job->bids()->where('id','!=',$bid->id)->delete();
                     $job->save();
         $notification          = new notifications;

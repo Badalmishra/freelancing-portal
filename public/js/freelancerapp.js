@@ -27224,6 +27224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Bid */ "./resources/js/freelancer/Bid.js");
 /* harmony import */ var _modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modal */ "./resources/js/freelancer/modal.js");
 /* harmony import */ var _naugthyModel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./naugthyModel */ "./resources/js/freelancer/naugthyModel.js");
+/* harmony import */ var _active__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./active */ "./resources/js/freelancer/active.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -27258,6 +27259,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Example =
 /*#__PURE__*/
 function (_Component) {
@@ -27280,8 +27282,7 @@ function (_Component) {
       alert: "",
       error: "",
       notifications: [],
-      activeJobs: [],
-      dummy: []
+      activeJobs: ""
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -27293,7 +27294,6 @@ function (_Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/jobs?api_token=" + window.token).then(function (res) {
-        window.jobs = res.data;
         var jobs = res.data.reverse(); // jobs=jobs.reverse();
 
         _this2.setState({
@@ -27302,23 +27302,20 @@ function (_Component) {
         });
 
         axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bids/" + _this2.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
-          window.bids = res; // alert(this.props.job.id+"lol");
-          // jobs=jobs.reverse();
-
-          _this2.setState({
+          return _this2.setState({
             bids: res.data.reverse()
           });
         });
       });
       this.pullNotifications();
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
-        console.log(data.data);
+        console.log(data);
 
-        _this2.setState({
-          activeJobs: data.data
-        }, _this2.printDummy());
-
-        window.ac = data.data;
+        if (data.data.length > 0) {
+          _this2.setState({
+            activeJobs: data.data
+          });
+        }
       });
     }
   }, {
@@ -27473,28 +27470,9 @@ function (_Component) {
       });
     }
   }, {
-    key: "printDummy",
-    value: function printDummy() {
-      var dummy = [];
-
-      for (var index = 1; index < 3 - this.state.activeJobs.length; index++) {
-        dummy.push(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          key: index,
-          className: "card col mx-2 p-0 text-left bg-dark"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-header bg-primary"
-        }, "Coming Soon"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-body text-primary"
-        }, "Go get it!"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-footer bg-success"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "----------"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "----------"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-          className: "btn btn-sm btm-disabled btn-outline-dark  ml-4"
-        }, "Coming Soon"))));
-      }
-
-      this.setState({
-        dummy: dummy
-      });
+    key: "complete",
+    value: function complete(params) {
+      console.log(params);
     }
   }, {
     key: "render",
@@ -27508,7 +27486,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "  py-5 col-md-4 px-md-5  "
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "bg-dark  py-4  col-md-8   text-center"
+        className: "side  py-4 px-5 col-md-8   text-center"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "display-3 pt-4 animated rotateInDownRight"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
@@ -27517,34 +27495,33 @@ function (_Component) {
         className: "text-primary"
       }, "Hall Of Fame"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
         className: "bracket"
-      }, "/>"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-        className: "d-block px-4 text-white"
-      }, "Active Projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: " pt-5 row lay pb-4 justify-content-center"
+      }, "/>"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", {
+        className: "bg-success"
+      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: " pt-5 row lay pb-3 justify-content-center"
       }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob) {
-        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
-          className: "card col mx-2 p-0 text-left bg-dark"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-header bg-primary"
-        }, activeJob.body), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-body text-primary pb-0"
-        }, activeJob.description, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-          className: "d-block btn-group w-100 mb-0"
-        }, activeJob.job_skills.map(function (js) {
-          return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-            className: "btn btn-outline-success btn-sm py-0 "
-          }, js.skills.name);
-        }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-          className: "card-footer bg-success"
-        }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", null, "Owner Name"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
-          className: "text-white"
-        }, " ", activeJob.left, " days left"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
-          className: "btn btn-sm btn-outline-dark  ml-4"
-        }, "Complete")));
-      }) : null, this.state.dummy.map(function (d) {
-        return d;
-      })))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+          activeJob: activeJob,
+          complete: _this8.complete.bind(_this8)
+        });
+      }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card  col-md-4mx-2 p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-header bg-primary"
+      }, "No active projects"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-body text-success    "
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+        className: "d-block"
+      }, "-----------"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("small", {
+        className: "d-block"
+      }, "==========="), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+        className: "z w-100 py-0"
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "card-footer bg-success"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        className: "btn w-100 btn-sm btn-outline-dark "
+      }, "Complete")))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " pt-5 pb-3 tag  bg-secondary text-white text-center",
         id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
@@ -27747,6 +27724,104 @@ function (_React$Component) {
   }]);
 
   return Makebid;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/active.js":
+/*!*******************************************!*\
+  !*** ./resources/js/freelancer/active.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Active; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Active =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Active, _React$Component);
+
+  function Active(props) {
+    var _this;
+
+    _classCallCheck(this, Active);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Active).call(this, props));
+    _this.state = {
+      value: ""
+    };
+    return _this;
+  }
+
+  _createClass(Active, [{
+    key: "handle",
+    value: function handle() {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "click",
+    value: function click() {
+      var job_id = this.props.activeJob.id;
+      var input = this.state.value;
+      var params = [job_id, input];
+      this.props.complete(params);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card  col-md-4mx-2 p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header bg-primary"
+      }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body text-success    "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "Started at: ", this.props.activeJob.updated_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "Time Left : ", this.props.activeJob.left, " Days"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "value",
+        value: this.state.value,
+        onChange: this.handle.bind(this),
+        className: "z w-100 py-0"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer bg-success"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.click.bind(this),
+        className: "btn w-100 btn-sm btn-outline-dark "
+      }, "Complete")));
+    }
+  }]);
+
+  return Active;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

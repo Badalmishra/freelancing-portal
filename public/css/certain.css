@@ -26,11 +26,7 @@
 .bracket{
   color:white;
 }
-#form{
-    border:0.5px solid steelblue;
-    box-shadow: 10px 10px 15px black;
-    background:white;
-  }
+
 .mouse{
   cursor: pointer;
 }
@@ -94,7 +90,31 @@ body{
 #formM input{
  margin-top: 10px !important;
 }
+.z{
+  background: rgb(69, 79, 88);
+  border-radius:0px !important;
+  margin-top: 10px;
+  
+}
+.side{
+  background: rgb(69, 79, 88);
 
+}
+.x{
+  background: rgb(69, 79, 88);
+  /* background:white; */
+  box-shadow: 15px 15px 15px black;
+  border-bottom-color:#2176bd;
+  border-right-color: #2176bd;
+  border-top-color:#38c172;
+  border-left-color:#38c172;
+}
+.x input,.x button,.x textarea{
+  border-bottom-color:#2176bd;
+  border-right-color: #2176bd;
+  border-top-color:#38c172;
+  border-left-color:#38c172;
+}
 .num{
   position: absolute;
   top: -10px;

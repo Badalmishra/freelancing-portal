@@ -26412,7 +26412,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "form",
-        className: "p-3 animated fadeInDown"
+        className: "p-3 animated fadeInDown x"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "text-success animated fadeInLeft"
       }, "Add Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
