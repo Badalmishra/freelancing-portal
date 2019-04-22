@@ -19,7 +19,7 @@ class activeJobs extends Controller
         $jobs =  Auth::guard('api')->user()->activeJobs()->get();
         foreach ($jobs as $job) {
             $date = time();
-            $last= strtotime($job->bids[0]->created_at ."+".$job->bids[0]->time." days" ) ;    
+            $last= strtotime($job->bids[0]->updated_at ."+".$job->bids[0]->time." days" ) ;    
             $sub= $last-$date;
             $job->left=round($sub / (60 * 60 * 24));
             error_log($last);

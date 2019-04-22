@@ -27790,6 +27790,11 @@ function (_React$Component) {
   }
 
   _createClass(Active, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      console.log(this.props.activeJob);
+    }
+  }, {
     key: "handle",
     value: function handle() {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
@@ -27815,14 +27820,17 @@ function (_React$Component) {
         className: "d-block"
       }, "Started at: ", this.props.activeJob.updated_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
         className: "d-block"
-      }, "Time Left : ", this.props.activeJob.left, " Days"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Time Left : ", this.props.activeJob.left, " Days"), this.props.activeJob.final_link ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        placeholder: "Project Google Drive Link",
         name: "value",
         value: this.state.value,
         onChange: this.handle.bind(this),
-        className: "z w-100 py-0"
+        className: "z w-100 py-0 form-control"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer bg-success"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn w-100 btn-sm btn-success disabled"
+      }, "Completional awaited") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.click.bind(this),
         className: "btn w-100 btn-sm btn-outline-dark "
       }, "Complete")));

@@ -7,6 +7,10 @@ export default class Active extends React.Component{
          value:"",
       }
     }
+    componentWillMount(){
+        console.log(this.props.activeJob);
+        
+    }
     handle(){
         this.setState({
             [event.target.name]:event.target.value,
@@ -30,12 +34,27 @@ export default class Active extends React.Component{
                                     <small className="d-block">Started at: {this.props.activeJob.updated_at}</small>
                                  
                                     <small className="d-block">Time Left : {this.props.activeJob.left} Days</small>
-                                    <input name="value" value={this.state.value} onChange={this.handle.bind(this)} className="z w-100 py-0"></input>
+                                {
+                                    this.props.activeJob.final_link?
+                                        null                                        
+                                        :
+                                        <input placeholder="Project Google Drive Link" name="value" value={this.state.value} onChange={this.handle.bind(this)} className="z w-100 py-0 form-control"></input>
+                                        
+                                        
+                                }    
                                 </div>
                                 <div className="card-footer bg-success">
-                                    <button  onClick={this.click.bind(this)} className="btn w-100 btn-sm btn-outline-dark ">
-                                       Complete
-                                    </button> 
+                                   {
+                                        this.props.activeJob.final_link?
+                                        <button   className="btn w-100 btn-sm btn-success disabled">
+                                            Completional awaited
+                                        </button>
+                                        :
+                                        <button  onClick={this.click.bind(this)} className="btn w-100 btn-sm btn-outline-dark ">
+                                            Complete
+                                        </button>
+                                   }
+ 
                                 </div>
                             </div>
           

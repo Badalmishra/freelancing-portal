@@ -100,6 +100,8 @@ class jobsController extends Controller
     {
         //$user_id=Auth::guard('api')->id();
         $bid =bids::find($id);
+        $bid->status = 0;
+        $bid->save();
         $job = jobs::find($bid->jobs_id);
         $job->assignedTo=$bid->user_id;
         $job->status           = 0;
