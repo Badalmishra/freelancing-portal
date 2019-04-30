@@ -27815,17 +27815,17 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-primary"
       }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body text-success    "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
-        className: "d-block"
-      }, "Started at: ", this.props.activeJob.updated_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
-        className: "d-block"
-      }, "Time Left : ", this.props.activeJob.left, " Days"), this.props.activeJob.final_link ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "card-body text-success   text-center "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "text-white"
+      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "form-control py-0 pt-2 "
+      }, "Processing Your Request") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         placeholder: "Project Google Drive Link",
         name: "value",
         value: this.state.value,
         onChange: this.handle.bind(this),
-        className: "z w-100 py-0 form-control"
+        className: "z w-100  form-control py-0"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer bg-success"
       }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

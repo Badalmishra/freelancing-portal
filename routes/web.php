@@ -29,3 +29,12 @@ Route::middleware('auth:web')->get('/', function () {
 Route::get('/main', function(){
     return view('reactmainfree');
 });
+
+
+Route::get('/pay', 'PaymentController@index');
+// route for processing payment
+
+Route::post('paypal', 'PaymentController@payWithpaypal');
+// route for check status of the payment
+
+Route::get('status', 'PaymentController@getPaymentStatus');

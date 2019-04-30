@@ -30,15 +30,14 @@ export default class Active extends React.Component{
                                 <div className="card-header bg-primary">
                                     {this.props.activeJob.body}
                                 </div>
-                                <div className="card-body text-success    ">
-                                    <small className="d-block">Started at: {this.props.activeJob.updated_at}</small>
-                                 
-                                    <small className="d-block">Time Left : {this.props.activeJob.left} Days</small>
+                                <div className="card-body text-success   text-center ">
+                                  <h1 className="text-white">{this.props.activeJob.left}</h1>
+                                   <p>Days Left</p>
                                 {
                                     this.props.activeJob.final_link?
-                                        null                                        
+                                        <span className="form-control py-0 pt-2 ">Processing Your Request</span>                                       
                                         :
-                                        <input placeholder="Project Google Drive Link" name="value" value={this.state.value} onChange={this.handle.bind(this)} className="z w-100 py-0 form-control"></input>
+                                        <input placeholder="Project Google Drive Link" name="value" value={this.state.value} onChange={this.handle.bind(this)} className="z w-100  form-control py-0"></input>
                                         
                                         
                                 }    
