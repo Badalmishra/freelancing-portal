@@ -9,4 +9,8 @@ class transactions extends Model
     protected $fillable = [
         'status',
     ];
+    public function jobs()
+    {
+        return $this->belongsTo('App\jobs');
+    }
 }

@@ -34,8 +34,9 @@ class User extends Authenticatable
     }
     public function activeJobs()
     {
-        $jobs =$this->hasMany('App\jobs','assignedTo');
-        return $jobs->where('status',0);
+        $jobs =$this->hasMany('App\jobs','assignedTo')->with('transactions')->where('status',0);
+         
+        return $jobs;
     }
     public function bids()
     {

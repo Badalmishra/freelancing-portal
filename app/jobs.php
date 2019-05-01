@@ -18,4 +18,8 @@ class jobs extends Model
     {
         return $this->hasMany('App\jobSkills');
     }
+    public function transactions()
+    {
+        return $this->hasOne('App\transactions');
+    }
 }
