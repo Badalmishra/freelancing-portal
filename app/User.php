@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -34,10 +34,14 @@ class User extends Authenticatable
     }
     public function activeJobs()
     {
-        $jobs =$this->hasMany('App\jobs','assignedTo')->with('transactions')->where('status',0);
-         
+        if (Auth::user()->type=='client') {
+            $jobs =$this->hasMany('App\jobs')->with('transactions')->where('status',0);    # code...
+        }else{
+            $jobs =$this->hasMany('App\jobs','assignedTo')->with('transactions')->where('status',0);
+        }
         return $jobs;
     }
+    
     public function bids()
     {
         return $this->hasMany('App\bids');

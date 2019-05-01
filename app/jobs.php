@@ -5,7 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class jobs extends Model
-{
+{   
+    protected $fillable = [
+        'final_link',
+    ];
     public function user()
     {
         return $this->belongsTo('App\User');

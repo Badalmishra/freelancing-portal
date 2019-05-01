@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Finallinkandtheprice extends Migration
+class Finallink extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class Finallinkandtheprice extends Migration
     public function up()
     {
         Schema::table('jobs', function (Blueprint $table) {
-            $table->string('final_link');
+            $table->string('final_link')->nullable();
         });
     }
 
