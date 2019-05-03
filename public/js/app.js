@@ -1754,26 +1754,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/indexof/index.js":
-/*!***************************************!*\
-  !*** ./node_modules/indexof/index.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
-var indexOf = [].indexOf;
-
-module.exports = function(arr, obj){
-  if (indexOf) return arr.indexOf(obj);
-  for (var i = 0; i < arr.length; ++i) {
-    if (arr[i] === obj) return i;
-  }
-  return -1;
-};
-
-/***/ }),
-
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
@@ -26124,155 +26104,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./node_modules/vm-browserify/index.js":
-/*!*********************************************!*\
-  !*** ./node_modules/vm-browserify/index.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var indexOf = __webpack_require__(/*! indexof */ "./node_modules/indexof/index.js");
-
-var Object_keys = function (obj) {
-    if (Object.keys) return Object.keys(obj)
-    else {
-        var res = [];
-        for (var key in obj) res.push(key)
-        return res;
-    }
-};
-
-var forEach = function (xs, fn) {
-    if (xs.forEach) return xs.forEach(fn)
-    else for (var i = 0; i < xs.length; i++) {
-        fn(xs[i], i, xs);
-    }
-};
-
-var defineProp = (function() {
-    try {
-        Object.defineProperty({}, '_', {});
-        return function(obj, name, value) {
-            Object.defineProperty(obj, name, {
-                writable: true,
-                enumerable: false,
-                configurable: true,
-                value: value
-            })
-        };
-    } catch(e) {
-        return function(obj, name, value) {
-            obj[name] = value;
-        };
-    }
-}());
-
-var globals = ['Array', 'Boolean', 'Date', 'Error', 'EvalError', 'Function',
-'Infinity', 'JSON', 'Math', 'NaN', 'Number', 'Object', 'RangeError',
-'ReferenceError', 'RegExp', 'String', 'SyntaxError', 'TypeError', 'URIError',
-'decodeURI', 'decodeURIComponent', 'encodeURI', 'encodeURIComponent', 'escape',
-'eval', 'isFinite', 'isNaN', 'parseFloat', 'parseInt', 'undefined', 'unescape'];
-
-function Context() {}
-Context.prototype = {};
-
-var Script = exports.Script = function NodeScript (code) {
-    if (!(this instanceof Script)) return new Script(code);
-    this.code = code;
-};
-
-Script.prototype.runInContext = function (context) {
-    if (!(context instanceof Context)) {
-        throw new TypeError("needs a 'context' argument.");
-    }
-    
-    var iframe = document.createElement('iframe');
-    if (!iframe.style) iframe.style = {};
-    iframe.style.display = 'none';
-    
-    document.body.appendChild(iframe);
-    
-    var win = iframe.contentWindow;
-    var wEval = win.eval, wExecScript = win.execScript;
-
-    if (!wEval && wExecScript) {
-        // win.eval() magically appears when this is called in IE:
-        wExecScript.call(win, 'null');
-        wEval = win.eval;
-    }
-    
-    forEach(Object_keys(context), function (key) {
-        win[key] = context[key];
-    });
-    forEach(globals, function (key) {
-        if (context[key]) {
-            win[key] = context[key];
-        }
-    });
-    
-    var winKeys = Object_keys(win);
-
-    var res = wEval.call(win, this.code);
-    
-    forEach(Object_keys(win), function (key) {
-        // Avoid copying circular objects like `top` and `window` by only
-        // updating existing context properties or new properties in the `win`
-        // that was only introduced after the eval.
-        if (key in context || indexOf(winKeys, key) === -1) {
-            context[key] = win[key];
-        }
-    });
-
-    forEach(globals, function (key) {
-        if (!(key in context)) {
-            defineProp(context, key, win[key]);
-        }
-    });
-    
-    document.body.removeChild(iframe);
-    
-    return res;
-};
-
-Script.prototype.runInThisContext = function () {
-    return eval(this.code); // maybe...
-};
-
-Script.prototype.runInNewContext = function (context) {
-    var ctx = Script.createContext(context);
-    var res = this.runInContext(ctx);
-
-    forEach(Object_keys(ctx), function (key) {
-        context[key] = ctx[key];
-    });
-
-    return res;
-};
-
-forEach(Object_keys(Script.prototype), function (name) {
-    exports[name] = Script[name] = function (code) {
-        var s = Script(code);
-        return s[name].apply(s, [].slice.call(arguments, 1));
-    };
-});
-
-exports.createScript = function (code) {
-    return exports.Script(code);
-};
-
-exports.createContext = Script.createContext = function (context) {
-    var copy = new Context();
-    if(typeof context === 'object') {
-        forEach(Object_keys(context), function (key) {
-            copy[key] = context[key];
-        });
-    }
-    return copy;
-};
-
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -26602,8 +26433,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Description__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Description */ "./resources/js/components/Description.js");
 /* harmony import */ var _freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../freelancer/Bid */ "./resources/js/freelancer/Bid.js");
 /* harmony import */ var _freelancer_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../freelancer/modal */ "./resources/js/freelancer/modal.js");
-/* harmony import */ var vm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vm */ "./node_modules/vm-browserify/index.js");
-/* harmony import */ var vm__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(vm__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _active__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./active */ "./resources/js/components/active.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26660,7 +26490,8 @@ function (_Component) {
       error: "",
       skills: "",
       jobSkills: [],
-      notifications: []
+      notifications: [],
+      activeJobs: ""
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -26692,6 +26523,15 @@ function (_Component) {
             }) : null;
           }
         });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
+        console.log(data);
+
+        if (data.data.length > 0) {
+          _this2.setState({
+            activeJobs: data.data
+          });
+        }
       });
     }
   }, {
@@ -26945,7 +26785,30 @@ function (_Component) {
         approve: this.approve.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-5 bg-dark"
-      }));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " pt-5 row lay pb-3 justify-content-center"
+      }, this.state.activeJobs != "" ? this.state.activeJobs.map(function (activeJob) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_9__["default"], {
+          key: activeJob.id,
+          activeJob: activeJob
+        });
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card  col-md-4mx-2 p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header bg-primary"
+      }, "No active projects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body text-success    "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "-----------"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "==========="), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "z w-100 py-0"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer bg-success"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn w-100 btn-sm btn-outline-dark "
+      }, "Pay"))))));
     }
   }]);
 
@@ -26957,6 +26820,87 @@ function (_Component) {
 if (document.getElementById('example')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Example, null), document.getElementById('example'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/active.js":
+/*!*******************************************!*\
+  !*** ./resources/js/components/active.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Active; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Active =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Active, _React$Component);
+
+  function Active(props) {
+    _classCallCheck(this, Active);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Active).call(this, props));
+  }
+
+  _createClass(Active, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card col-md-3  mx-1 x  p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header bg-dark text-white"
+      }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body bg-dark text-success   text-center "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "text-white"
+      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: this.props.activeJob.final_link,
+        className: "btn btn-info btn-sm w-100"
+      }, "Project Files") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer "
+      }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        action: "/paypal",
+        method: "post"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        name: "job",
+        value: this.props.activeJob.id,
+        hidden: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "submit",
+        value: "pay",
+        className: "btn btn-success btn-sm w-100"
+      })) : null));
+    }
+  }]);
+
+  return Active;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
 
 /***/ }),
 
@@ -27258,9 +27202,9 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "list-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item active"
+        className: " list-group-item active"
       }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box"
+        className: "box "
       }, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item "
       }, " Empty List...") : //if jobs array is empty 
@@ -27268,7 +27212,7 @@ function (_React$Component) {
         return (// if there are some jobs
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
             key: key,
-            className: " list-group list-group-horizontal  w-100"
+            className: " list-group list-group-horizontal   w-100"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             onClick: _this.props.click.bind(_this, job),
             className: _this.props.delete ? "list-group-item col-9 mouse" : "list-group-item col-12 mouse"

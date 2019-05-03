@@ -7,7 +7,7 @@ import Table from '../freelancer/table';
 import Description from './Description';
 import Bid from '../freelancer/Bid';
 import Modal from '../freelancer/modal';
-import { Script } from 'vm';
+import Active  from "./active";
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +26,7 @@ export default class Example extends Component {
             skills:"",
             jobSkills:[],
             notifications:[],
+            activeJobs:"",
         };
         window.jobs=this.state.jobs;
     }
@@ -58,7 +59,17 @@ export default class Example extends Component {
             :null}
             }
              );
-          })
+          });
+        axios.get(`api/active/?api_token=`+window.token)
+        .then(data => {
+            console.log(data);
+            if (data.data.length >0) {
+                
+                
+                this.setState({activeJobs:data.data});
+            }
+            
+            });
      }
      componentWillMount(){
         axios.get(`api/skills?api_token=`+window.token)
@@ -296,8 +307,38 @@ export default class Example extends Component {
                     bidForDescription={this.state.bidForDescription}
                     approve={this.approve.bind(this)}
                 />
-                <div className="p-5 bg-dark"></div>
-              
+                <div className="p-5 bg-dark">
+                    
+                <div className=" pt-5 row lay pb-3 justify-content-center">
+                    {this.state.activeJobs!=""?
+                        this.state.activeJobs.map((activeJob)=>{
+                            return(
+                                <Active
+                                key={activeJob.id}
+                                activeJob={activeJob}
+                               />
+                               )
+                            })
+                            :
+                        <div  className="card  col-md-4mx-2 p-0 text-left side">
+                            <div className="card-header bg-primary">
+                                No active projects
+                            </div>
+                            <div className="card-body text-success    ">
+                                <small className="d-block">-----------</small>
+                            
+                                <small className="d-block">===========</small>
+                                <input className="z w-100 py-0"></input>
+                            </div>
+                            <div className="card-footer bg-success">
+                                <button className="btn w-100 btn-sm btn-outline-dark ">
+                                Pay
+                                </button> 
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
              </div> 
         );
     }

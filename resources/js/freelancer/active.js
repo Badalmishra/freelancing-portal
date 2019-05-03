@@ -26,11 +26,11 @@ export default class Active extends React.Component{
       return (
     
           
-                            <div  className="card  col-md-4mx-2 p-0 text-left side">
-                                <div className="card-header bg-primary">
+                            <div  className="card  mx-1 x  p-0 text-left side">
+                                <div className="card-header bg-dark text-white">
                                     {this.props.activeJob.body}
                                 </div>
-                                <div className="card-body text-success   text-center ">
+                                <div className="card-body bg-dark text-success   text-center ">
                                   <h1 className="text-white">{this.props.activeJob.left}</h1>
                                    <p>Days Left</p>
                                 {
@@ -42,14 +42,14 @@ export default class Active extends React.Component{
                                         
                                 }    
                                 </div>
-                                <div className="card-footer bg-success">
+                                <div className="card-footer bg-dark">
                                    {
                                         this.props.activeJob.final_link?
                                         <button   className="btn w-100 btn-sm btn-success disabled">
                                             Completional awaited
                                         </button>
                                         :
-                                        <button  onClick={this.click.bind(this)} className="btn w-100 btn-sm btn-outline-dark ">
+                                        <button  onClick={this.click.bind(this)} className="btn w-100 btn-sm btn-outline-success ">
                                             Complete
                                         </button>
                                    }

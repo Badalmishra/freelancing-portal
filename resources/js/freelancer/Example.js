@@ -167,7 +167,14 @@ export default class Example extends Component {
         };
         var id = params[0];
         axios.post('api/active/'+id+'?api_token='+window.token,data).
-        then(res =>console.log(res.data));
+        then(res =>
+            {
+                console.log(res.data);
+                this.setState({
+                    activeJobs:res.data,
+                });
+            }
+        );
     }
 
     render() {
@@ -229,7 +236,7 @@ export default class Example extends Component {
                     </div>
                 </div>
                 
-                <div className="row px-md-4 lay  py-5 bg-default wow">
+                <div className="row px-md-4 lay  py-5  ">
                 
                     <div className="col-md-3 px-2">
                        
@@ -283,7 +290,7 @@ export default class Example extends Component {
             noughties={this.state.notifications}
             />
                  <button onClick={this.markSeen.bind(this)}
-                        className=" naughty-button btn btn-lg btn-primary">
+                        className=" naughty-button btn btn-lg btn-primary x">
                     <i className="fa fa-bell"></i>
                     <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
                 </button>

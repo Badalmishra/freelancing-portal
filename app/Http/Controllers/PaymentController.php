@@ -19,6 +19,7 @@ use Session;
 use URL;
 use App\jobs;
 use App\transactions;
+use App\notifications;
 class PaymentController extends Controller
 
 {
@@ -278,9 +279,21 @@ class PaymentController extends Controller
             
             \Session::put('success', 'Payment success');
             $transaction= $transactions[0];
+            ///$jobs =  jobs::where('id',$transaction->jobs_id)->get();
             $transaction->status=1;
             $transaction->save();
-            return Redirect::to('/pay');
+            
+            $job= jobs::find($transaction->jobs_id);
+            $job->status=2;
+            $job->save();
+            $notification  = new notifications;
+
+            $notification->user_id = $job->assignedTo;
+            $notification->jobs_id = $transaction->jobs_id;
+            $notification->status = 0;
+            $notification->body    = "Payment recieved for an project please check balance section";
+            $notification->save();
+            return Redirect::to('/');
 
 
 

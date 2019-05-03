@@ -27143,9 +27143,9 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card ml-0 "
+        className: "card ml-0 x text-white"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header bg-primary"
+        className: "card-header "
       }, this.props.job.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
@@ -27472,6 +27472,8 @@ function (_Component) {
   }, {
     key: "complete",
     value: function complete(params) {
+      var _this8 = this;
+
       console.log(params);
       var data = {
         "_method": "put",
@@ -27479,13 +27481,17 @@ function (_Component) {
       };
       var id = params[0];
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/active/' + id + '?api_token=' + window.token, data).then(function (res) {
-        return console.log(res.data);
+        console.log(res.data);
+
+        _this8.setState({
+          activeJobs: res.data
+        });
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this8 = this;
+      var _this9 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
@@ -27511,7 +27517,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
           activeJob: activeJob,
-          complete: _this8.complete.bind(_this8)
+          complete: _this9.complete.bind(_this9)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -27544,7 +27550,7 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "col-3 btn btn-success form-component"
       }, "Search"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row px-md-4 lay  py-5 bg-default wow"
+        className: "row px-md-4 lay  py-5  "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-md-3 px-2"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -27574,8 +27580,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this8.showBid.bind(_this8),
-          deleteBid: _this8.deleteBid.bind(_this8)
+          showBid: _this9.showBid.bind(_this9),
+          deleteBid: _this9.deleteBid.bind(_this9)
         });
       }) : null))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription
@@ -27583,7 +27589,7 @@ function (_Component) {
         noughties: this.state.notifications
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         onClick: this.markSeen.bind(this),
-        className: " naughty-button btn btn-lg btn-primary"
+        className: " naughty-button btn btn-lg btn-primary x"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
         className: "fa fa-bell"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
@@ -27811,11 +27817,11 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card  col-md-4mx-2 p-0 text-left side"
+        className: "card  mx-1 x  p-0 text-left side"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-header bg-primary"
+        className: "card-header bg-dark text-white"
       }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-body text-success   text-center "
+        className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"
       }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -27827,12 +27833,12 @@ function (_React$Component) {
         onChange: this.handle.bind(this),
         className: "z w-100  form-control py-0"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "card-footer bg-success"
+        className: "card-footer bg-dark"
       }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-success disabled"
       }, "Completional awaited") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.click.bind(this),
-        className: "btn w-100 btn-sm btn-outline-dark "
+        className: "btn w-100 btn-sm btn-outline-success "
       }, "Complete")));
     }
   }]);
@@ -28175,9 +28181,9 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "list-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "list-group-item active"
+        className: " list-group-item active"
       }, "All Jobs"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "box"
+        className: "box "
       }, this.props.jobs.length == 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "list-group-item "
       }, " Empty List...") : //if jobs array is empty 
@@ -28185,7 +28191,7 @@ function (_React$Component) {
         return (// if there are some jobs
           react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
             key: key,
-            className: " list-group list-group-horizontal  w-100"
+            className: " list-group list-group-horizontal   w-100"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
             onClick: _this.props.click.bind(_this, job),
             className: _this.props.delete ? "list-group-item col-9 mouse" : "list-group-item col-12 mouse"

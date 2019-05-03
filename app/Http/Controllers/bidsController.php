@@ -40,7 +40,7 @@ class bidsController extends Controller
      */
     public function store(Request $request)
     {   
-        $already3 = Auth::guard('api')->user()->bids()->where("id","!=",2)->get();
+        $already3 = Auth::guard('api')->user()->bids()->where("status","!=",2)->get();
         $alreadyonit = Auth::guard('api')->user()->bids()->where('jobs_id',$request->body[2])->get();
         if(count($alreadyonit)>0) //if already bided on the same job
         {

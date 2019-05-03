@@ -44,4 +44,17 @@ class LoginController extends Controller
         $newUser->save();
         
     }
+    public function logout(Request $request)
+    {   
+        $user = User::find($this->guard()->id());
+        $user->api_token ="";
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/');
+    }
+    
 }

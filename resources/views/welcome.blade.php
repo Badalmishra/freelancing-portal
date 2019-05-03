@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="css/certain.css">
     <script>
     window.token='{{Auth::user()->api_token}}';
+    window.csrf='{{ csrf_field() }}';
     </script>
             <div id="example" class="lay "></div>
     <script src="js/app.js"></script>
