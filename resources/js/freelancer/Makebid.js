@@ -41,7 +41,7 @@ export default class Makebid extends React.Component{
             <div  className=" " id="formM">
               <button
                     onClick={this.toggleForm.bind(this)} 
-                    className="w-100 btn btn-outline-dark btn-sm">
+                    className="w-100 btn btn-outline-dark btn-sm text-info">
                     {this.state.form?"Hide":"Show"}    Bid Form
                     </button>
               {this.state.form?  

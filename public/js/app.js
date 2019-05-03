@@ -26784,9 +26784,13 @@ function (_Component) {
         bidForDescription: this.state.bidForDescription,
         approve: this.approve.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "p-5 bg-dark"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " pt-5 row lay pb-3 justify-content-center"
+        className: "p-5 pt-4 text-center bg-dark"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "text-primary "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-success"
+      }, "Active"), " Jobs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " pt-4 row lay pb-3 justify-content-center"
       }, this.state.activeJobs != "" ? this.state.activeJobs.map(function (activeJob) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_9__["default"], {
           key: activeJob.id,

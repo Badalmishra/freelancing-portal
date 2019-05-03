@@ -307,9 +307,13 @@ export default class Example extends Component {
                     bidForDescription={this.state.bidForDescription}
                     approve={this.approve.bind(this)}
                 />
-                <div className="p-5 bg-dark">
+                <div className="p-5 pt-4 text-center bg-dark">
+                <h1 className="text-primary ">
+                <span className="text-success">Active</span> Jobs
+                <hr></hr>
+                </h1>
+                <div className=" pt-4 row lay pb-3 justify-content-center">
                     
-                <div className=" pt-5 row lay pb-3 justify-content-center">
                     {this.state.activeJobs!=""?
                         this.state.activeJobs.map((activeJob)=>{
                             return(

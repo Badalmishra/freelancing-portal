@@ -20,6 +20,7 @@ use URL;
 use App\jobs;
 use App\transactions;
 use App\notifications;
+use App\bids;
 class PaymentController extends Controller
 
 {
@@ -286,6 +287,10 @@ class PaymentController extends Controller
             $job= jobs::find($transaction->jobs_id);
             $job->status=2;
             $job->save();
+            $bids = bids::where('jobs_id',$job->id)->get();
+            $bid=$bids[0];
+            $bid->status=2;
+            $bid->save();
             $notification  = new notifications;
 
             $notification->user_id = $job->assignedTo;
@@ -309,6 +314,6 @@ class PaymentController extends Controller
 
     }
 
-
+    
 
 }

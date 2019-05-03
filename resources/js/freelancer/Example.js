@@ -236,9 +236,9 @@ export default class Example extends Component {
                     </div>
                 </div>
                 
-                <div className="row px-md-4 lay  py-5  ">
+                <div className="row  lay    ">
                 
-                    <div className="col-md-3 px-2">
+                    <div className="col-md-3 py-5">
                        
                             <Messages 
                                 error={this.state.error} 
@@ -250,7 +250,7 @@ export default class Example extends Component {
                                 /> 
                             
                     </div>
-                    <div className="col-md-5 px-2">
+                    <div className="col-md-5 bg-primary py-5">
                     {   this.state.jobForDescription?
                         <Description
                             upbid={this.upbid.bind(this)}
@@ -261,8 +261,8 @@ export default class Example extends Component {
                             :null
                     }        
                     </div>
-                    <div className="col-md-4 px-2 " >
-                        <div className="card bidsholder">        
+                    <div className="col-md-4  bg-dark py-5" >
+                               
                             <div className="card-body p-0 ">
                             <div className=" list-group-item bg-success text-white ">All Bids</div>
                                 <div className="fix-scroll">
@@ -279,7 +279,7 @@ export default class Example extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                 </div>
                
             <Modal
@@ -289,14 +289,16 @@ export default class Example extends Component {
             <NaughtyModal 
             noughties={this.state.notifications}
             />
-                 <button onClick={this.markSeen.bind(this)}
-                        className=" naughty-button btn btn-lg btn-primary x">
-                    <i className="fa fa-bell"></i>
-                    <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
-                </button>
-
-            
+            <button onClick={this.markSeen.bind(this)}
+                    className=" naughty-button btn btn-lg btn-primary x">
+                <i className="fa fa-bell"></i>
+                <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
+            </button>
+            <div className="p-5 bg-white">
+                <Transactions/>
             </div>
+            
+        </div>
            
         );
     }

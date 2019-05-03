@@ -27162,7 +27162,7 @@ function (_React$Component) {
         className: "btn-group mt-4 d-block text-success"
       }, this.props.job.job_skills.map(function (data) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "btn disabled btn-outline-dark btn-sm",
+          className: "btn disabled btn-outline-dark btn-sm text-success",
           key: data.skills.id
         }, data.skills.name);
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
@@ -27182,11 +27182,11 @@ function (_React$Component) {
       }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "time btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-sm btn-outline-primary disabled   "
+        className: "btn btn-sm btn-outline-info disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fa fa-clock mr-2"
       }), this.props.job.maxDays, " Days"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "btn btn-sm btn-outline-dark disabled   "
+        className: "btn btn-sm btn-outline-warning disabled   "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-crosshairs mr-2"
       }), this.props.bids.length, " Bids"))));
@@ -27550,9 +27550,9 @@ function (_Component) {
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "col-3 btn btn-success form-component"
       }, "Search"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row px-md-4 lay  py-5  "
+        className: "row  lay    "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-3 px-2"
+        className: "col-md-3 py-5"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
         error: this.state.error,
         alert: this.state.alert
@@ -27560,16 +27560,14 @@ function (_Component) {
         jobs: this.state.jobs,
         click: this.setJobForDescription.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-5 px-2"
+        className: "col-md-5 bg-primary py-5"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_6__["default"], {
         upbid: this.upbid.bind(this),
         job: this.state.jobForDescription,
         api_token: this.state.api_token,
         bids: this.state.bids
       }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-4 px-2 "
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "card bidsholder"
+        className: "col-md-4  bg-dark py-5"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -27583,7 +27581,7 @@ function (_Component) {
           showBid: _this9.showBid.bind(_this9),
           deleteBid: _this9.deleteBid.bind(_this9)
         });
-      }) : null))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
+      }) : null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_naugthyModel__WEBPACK_IMPORTED_MODULE_9__["default"], {
         noughties: this.state.notifications
@@ -27596,7 +27594,9 @@ function (_Component) {
         className: "num"
       }, this.state.notifications.filter(function (n) {
         return !n.status;
-      }).length)));
+      }).length)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "p-5 bg-white"
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(Transactions, null)));
     }
   }]);
 
@@ -27699,7 +27699,7 @@ function (_React$Component) {
         id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.toggleForm.bind(this),
-        className: "w-100 btn btn-outline-dark btn-sm"
+        className: "w-100 btn btn-outline-dark btn-sm text-info"
       }, this.state.form ? "Hide" : "Show", "    Bid Form"), this.state.form ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "animated fadeInDown"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -28070,10 +28070,7 @@ function (_React$Component) {
 
   _createClass(NaughtyModal, [{
     key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log(this.props);
-      window.n = this.props.noughties;
-    }
+    value: function componentDidUpdate() {}
   }, {
     key: "render",
     value: function render() {

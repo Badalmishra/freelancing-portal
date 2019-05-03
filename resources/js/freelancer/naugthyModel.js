@@ -9,8 +9,6 @@ export default class NaughtyModal extends React.Component{
      
     }
     componentDidUpdate(){
-        console.log(this.props);
-        window.n = this.props.noughties;
     }
     render() {
       return (

@@ -104,7 +104,7 @@ export default class Decription extends React.Component{
                         {
                             this.props.job.job_skills.map((data)=>{
                                 return(
-                                <button className="btn disabled btn-outline-dark btn-sm"
+                                <button className="btn disabled btn-outline-dark btn-sm text-success"
                                      key={data.skills.id}>{data.skills.name}
                                      </button>)
                             })
@@ -133,11 +133,11 @@ export default class Decription extends React.Component{
                         {this.props.job.maxMoney}
                     </span>
                     <div className="time btn-group">
-                        <span className="btn btn-sm btn-outline-primary disabled   ">
+                        <span className="btn btn-sm btn-outline-info disabled   ">
                             <i className="fa fa-clock mr-2"></i> 
                             {this.props.job.maxDays} Days
                         </span> 
-                        <span className="btn btn-sm btn-outline-dark disabled   ">
+                        <span className="btn btn-sm btn-outline-warning disabled   ">
                             <i className="fas fa-crosshairs mr-2"></i> 
                             {this.props.bids.length} Bids
                         </span>
