@@ -144,9 +144,8 @@ class jobsController extends Controller
     }
     public function transactions(){
         $user_id=Auth::guard('api')->id();
-       //    $transactions = transactions::All()->get();
-        $transactions = transactions::whereHas('jobs', function ($query) {
-            $query->where('assignedTo','!=', '$user_id');
+        $transactions = transactions::whereHas('jobs', function ($query) use($user_id) {
+            $query->where('assignedTo','=',  $user_id);
         })->get();
         return json_encode($transactions);
     }
