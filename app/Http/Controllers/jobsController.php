@@ -7,7 +7,7 @@ use App\jobs;
 use App\bids;
 use App\jobSkills;
 use  App\notifications;
-
+use App\transactions;
 class jobsController extends Controller
 {
     /**
@@ -141,5 +141,13 @@ class jobsController extends Controller
         else{
             return json_encode("404");
         }
+    }
+    public function transactions(){
+        $user_id=Auth::guard('api')->id();
+       //    $transactions = transactions::All()->get();
+        $transactions = transactions::whereHas('jobs', function ($query) {
+            $query->where('assignedTo','!=', '$user_id');
+        })->get();
+        return json_encode($transactions);
     }
 }

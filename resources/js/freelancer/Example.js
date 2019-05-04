@@ -8,6 +8,7 @@ import Bid from './Bid';
 import Modal from './modal';
 import NaughtyModal from './naugthyModel';
 import Active from './active';
+import Transactions from "./Transactions";
 export default class Example extends Component {
     constructor(props) {
         super(props);
