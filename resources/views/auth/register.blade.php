@@ -53,11 +53,30 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                        <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
+                            <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
                             <select name="type" class="form-control col-md-6">
                                 <option value="client">Client</option>
                                 <option value="freelancer">Freelancer</option>
                             </select>
+                            @if ($errors->has('type'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="paypal" class="col-md-4 col-form-label text-md-right">Paypal Account</label>
+
+                            <div class="col-md-6">
+                                <input id="paypal" type="text" class="form-control{{ $errors->has('paypal') ? ' is-invalid' : '' }}" name="paypal" required>
+
+                                @if ($errors->has('paypal'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('paypal') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>

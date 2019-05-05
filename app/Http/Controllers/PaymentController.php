@@ -25,6 +25,8 @@ use App\jobs;
 use App\transactions;
 use App\notifications;
 use App\bids;
+use App\User;
+
 class PaymentController extends Controller
 
 {
@@ -318,35 +320,39 @@ class PaymentController extends Controller
 
     }
 
-    public function batchPayout()
+    public function batchPayout(Request $request)
     {
-        $payouts    =   new Payout();
-        $senderBatchHeader  = new PayoutSenderBatchHeader();
+        
+        $transaction = transactions::find($request->id);
+        $price=$transaction->jobs->bids[0]->price;
+        $user = User::find($transaction->jobs->assignedTo);
+        // $payouts    =   new Payout();
+        // $senderBatchHeader  = new PayoutSenderBatchHeader();
     
-        $senderBatchHeader->setSenderBatchId(uniqid())
-            ->setEmailSubject("You have a ");
+        // $senderBatchHeader->setSenderBatchId(uniqid())
+        //     ->setEmailSubject("You have a ");
     
-        $senderItem1    =   new PayoutItem();
-        $senderItem1->setRecipientType('Email')
-            ->setNote("New Payment")
-            ->setReceiver('mayank@gol.com')
-            ->setSenderItemId(uniqid())
-            ->setAmount(new Currency('{
-            "value":"5",
-            "currency":"USD"
-            }'));
+        // $senderItem1    =   new PayoutItem();
+        // $senderItem1->setRecipientType('Email')
+        //     ->setNote("New Payment")
+        //     ->setReceiver('mayank@gol.com')
+        //     ->setSenderItemId(uniqid())
+        //     ->setAmount(new Currency('{
+        //     "value":"5",
+        //     "currency":"USD"
+        //     }'));
     
-        $payouts->setSenderBatchHeader($senderBatchHeader)
-            ->addItem($senderItem1);
+        // $payouts->setSenderBatchHeader($senderBatchHeader)
+        //     ->addItem($senderItem1);
     
-        $request    =   clone $payouts;
+        // $request    =   clone $payouts;
     
-        try{
-            $output =   $payouts->create(null, $this->_api_context);
-        }catch (Exception $ex){
-            return $ex->getMessage();
-        }
-        return $output;
+        // try{
+        //     $output =   $payouts->create(null, $this->_api_context);
+        // }catch (Exception $ex){
+        //     return $ex->getMessage();
+        // }
+        return $user->paypal;
     }
 
 }
