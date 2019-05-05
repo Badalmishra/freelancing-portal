@@ -47,7 +47,7 @@ class bidsController extends Controller
             $message = array("error" => "Allready have a bid on this job");
             return json_encode($message);
         }
-        if(count($already3)>2) // if has 3 active bids
+        if(count($already3)>2 ) // if has 3 active bids
         {
             $message = array("error" => "Allready have 3 active bids.(this might include active projects)");
             return json_encode($message);
@@ -56,7 +56,7 @@ class bidsController extends Controller
         $bid = new bids;
         error_log($request);
         $bid->user_id   = Auth::guard('api')->id();
-        $bid->jobs_id    = $request->body[2];
+        $bid->jobs_id   = $request->body[2];
         $bid->price     = $request->body[3];
         $bid->time      = $request->body[4];
         $bid->proposal  = $request->body[0];

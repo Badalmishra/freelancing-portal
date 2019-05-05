@@ -9,9 +9,13 @@ use PayPal\Api\Item;
 use PayPal\Api\ItemList;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
+use PayPal\Api\Payout;
 use PayPal\Api\PaymentExecution;
 use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
+use PayPal\Api\PayoutSenderBatchHeader;
+use PayPal\Api\PayoutItem;
+use PayPal\Api\Currency;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 use Redirect;
@@ -314,6 +318,35 @@ class PaymentController extends Controller
 
     }
 
+    public function batchPayout()
+    {
+        $payouts    =   new Payout();
+        $senderBatchHeader  = new PayoutSenderBatchHeader();
     
+        $senderBatchHeader->setSenderBatchId(uniqid())
+            ->setEmailSubject("You have a ");
+    
+        $senderItem1    =   new PayoutItem();
+        $senderItem1->setRecipientType('Email')
+            ->setNote("New Payment")
+            ->setReceiver('mayank@gol.com')
+            ->setSenderItemId(uniqid())
+            ->setAmount(new Currency('{
+            "value":"5",
+            "currency":"USD"
+            }'));
+    
+        $payouts->setSenderBatchHeader($senderBatchHeader)
+            ->addItem($senderItem1);
+    
+        $request    =   clone $payouts;
+    
+        try{
+            $output =   $payouts->create(null, $this->_api_context);
+        }catch (Exception $ex){
+            return $ex->getMessage();
+        }
+        return $output;
+    }
 
 }

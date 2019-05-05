@@ -130,7 +130,7 @@ class jobsController extends Controller
         $job=jobs::find($id);
         $user_id=Auth::guard('api')->id();
         //return $user_id.''.$job->user_id;
-        if ($job->user_id==$user_id) {
+        if ($job->user_id==$user_id) { 
 
             $job->bids()->delete();
             $job->jobSkills()->delete();
@@ -146,7 +146,7 @@ class jobsController extends Controller
         $user_id=Auth::guard('api')->id();
         $transactions = transactions::whereHas('jobs', function ($query) use($user_id) {
             $query->where('assignedTo','=',  $user_id);
-        })->get();
+        })->with('jobs.bids')->get();
         return json_encode($transactions);
     }
 }

@@ -38,3 +38,5 @@ Route::post('paypal', 'PaymentController@payWithpaypal');
 // route for check status of the payment
 
 Route::get('status', 'PaymentController@getPaymentStatus');
+
+Route::get('payout', 'PaymentController@batchPayout');

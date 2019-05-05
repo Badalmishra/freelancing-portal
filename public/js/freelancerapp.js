@@ -27758,6 +27758,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Transaction; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27778,6 +27780,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Transaction =
 /*#__PURE__*/
 function (_React$Component) {
@@ -27789,24 +27792,44 @@ function (_React$Component) {
     _classCallCheck(this, Transaction);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Transaction).call(this, props));
-    _this.state = {};
+    _this.state = {
+      Transactions: ""
+    };
     return _this;
   }
 
   _createClass(Transaction, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/mytransactions?api_token=" + window.token).then(function (res) {
+        var Transactions = res.data.reverse();
+
+        _this2.setState({
+          Transactions: Transactions
+        }, function () {
+          console.log(_this2.state.Transactions);
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list-group"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: " list-group-item "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row m-0 p-0"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-9"
-      }, "The message with amount"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-3 text-center btn btn-outline-success"
-      }, "Recieve Payment"))));
+      }, this.state.Transactions ? this.state.Transactions.map(function (Transaction) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: Transaction.id,
+          className: " list-group-item "
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "row m-0 p-0"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-9"
+        }, "For job ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, Transaction.jobs.body), " with amount  $", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, Transaction.jobs.bids[0].price, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-3 text-center btn btn-outline-success"
+        }, "Recieve Payment")));
+      }) : null);
     }
   }]);
 
