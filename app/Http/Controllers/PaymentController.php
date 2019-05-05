@@ -26,6 +26,8 @@ use App\transactions;
 use App\notifications;
 use App\bids;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class PaymentController extends Controller
 
@@ -78,6 +80,8 @@ class PaymentController extends Controller
     public function payWithpaypal(Request $request)
 
     {
+        $self_id= Auth::user()->id;
+
 
         $payer = new Payer();
 
@@ -89,91 +93,98 @@ class PaymentController extends Controller
 
 
         $job =jobs::where('id',$request->get('job'))->get();
-        
-        $price = $job[0]->bids()->first()->price;
-        $item_1->setName('Item 1') /** item name **/
+        $user_id =$job[0]->user_id;
+            if ($self_id==$user_id) {
+                # code...
+            
+            $price = $job[0]->bids()->first()->price;
+            $item_1->setName('Item 1') /** item name **/
 
-            ->setCurrency('USD')
+                ->setCurrency('USD')
 
-            ->setQuantity(1)
+                ->setQuantity(1)
 
-            ->setPrice($price); /** unit price **/
-
-
-
-        $item_list = new ItemList();
-
-        $item_list->setItems(array($item_1));
+                ->setPrice($price); /** unit price **/
 
 
 
-        $amount = new Amount();
+            $item_list = new ItemList();
 
-        $amount->setCurrency('USD')
-
-            ->setTotal($price);
+            $item_list->setItems(array($item_1));
 
 
 
-        $transaction = new Transaction();
+            $amount = new Amount();
 
-        $transaction->setAmount($amount)
+            $amount->setCurrency('USD')
 
-            ->setItemList($item_list)
-
-            ->setDescription('Your transaction description');
+                ->setTotal($price);
 
 
 
-        $redirect_urls = new RedirectUrls();
+            $transaction = new Transaction();
 
-        $redirect_urls->setReturnUrl(URL::to('status')) /** Specify return URL **/
+            $transaction->setAmount($amount)
 
-            ->setCancelUrl(URL::to('status'));
+                ->setItemList($item_list)
 
-
-
-        $payment = new Payment();
-
-        $payment->setIntent('Sale')
-
-            ->setPayer($payer)
-
-            ->setRedirectUrls($redirect_urls)
-
-            ->setTransactions(array($transaction));
-
-        /** dd($payment->create($this->_api_context));exit; **/
-
-        try {
+                ->setDescription('Your transaction description');
 
 
 
-            $payment->create($this->_api_context);
+            $redirect_urls = new RedirectUrls();
+
+            $redirect_urls->setReturnUrl(URL::to('status')) /** Specify return URL **/
+
+                ->setCancelUrl(URL::to('status'));
 
 
 
-        } catch (\PayPal\Exception\PPConnectionException $ex) {
+            $payment = new Payment();
+
+            $payment->setIntent('Sale')
+
+                ->setPayer($payer)
+
+                ->setRedirectUrls($redirect_urls)
+
+                ->setTransactions(array($transaction));
+
+            /** dd($payment->create($this->_api_context));exit; **/
+
+            try {
 
 
 
-            if (\Config::get('app.debug')) {
+                $payment->create($this->_api_context);
 
 
 
-                \Session::put('error', 'Connection timeout');
-
-                return Redirect::to('/pay');
+            } catch (\PayPal\Exception\PPConnectionException $ex) {
 
 
 
-            } else {
+                if (\Config::get('app.debug')) {
 
 
 
-                \Session::put('error', 'Some error occur, sorry for inconvenient');
+                    \Session::put('error', 'Connection timeout');
 
-                return Redirect::to('/pay');
+                    return Redirect::to('/pay');
+
+
+
+                } else {
+
+
+
+                    \Session::put('error', 'Some error occur, sorry for inconvenient');
+
+                    return Redirect::to('/pay');
+
+
+
+                }
 
 
 
@@ -181,21 +192,21 @@ class PaymentController extends Controller
 
 
 
-        }
+            foreach ($payment->getLinks() as $link) {
 
 
 
-        foreach ($payment->getLinks() as $link) {
+                if ($link->getRel() == 'approval_url') {
 
 
 
-            if ($link->getRel() == 'approval_url') {
+                    $redirect_url = $link->getHref();
+
+                    break;
 
 
 
-                $redirect_url = $link->getHref();
-
-                break;
+                }
 
 
 
@@ -203,37 +214,36 @@ class PaymentController extends Controller
 
 
 
+            /** add payment ID to session **/
+            $transactions = new transactions;
+            $transactions->pid = $payment->getId();
+            $transactions->jobs_id =$request->get('job');
+            $transactions->save();
+            Session::put('paypal_payment_id', $payment->getId());
+
+
+
+            if (isset($redirect_url)) {
+
+
+
+                /** redirect to paypal **/
+
+                return Redirect::away($redirect_url);
+
+
+
+            }
+
+
+
+            \Session::put('error', 'Unknown error occurred');
+
+            return Redirect::to('/pay');
         }
-
-
-
-        /** add payment ID to session **/
-        $transactions = new transactions;
-        $transactions->pid = $payment->getId();
-        $transactions->jobs_id =$request->get('job');
-        $transactions->save();
-        Session::put('paypal_payment_id', $payment->getId());
-
-
-
-        if (isset($redirect_url)) {
-
-
-
-            /** redirect to paypal **/
-
-            return Redirect::away($redirect_url);
-
-
-
+        else{
+            return "lol, we nibbas poor, don't hack";
         }
-
-
-
-        \Session::put('error', 'Unknown error occurred');
-
-        return Redirect::to('/pay');
-
 
 
     }
@@ -322,37 +332,50 @@ class PaymentController extends Controller
 
     public function batchPayout(Request $request)
     {
-        
+        $self_id= Auth::guard('api')->user()->id;
+
         $transaction = transactions::find($request->id);
         $price=$transaction->jobs->bids[0]->price;
         $user = User::find($transaction->jobs->assignedTo);
-        // $payouts    =   new Payout();
-        // $senderBatchHeader  = new PayoutSenderBatchHeader();
+        $paypal =$user->paypal;
+        if ($user->id == $self_id) {
+        
+        $payouts    =   new Payout();
+        $senderBatchHeader  = new PayoutSenderBatchHeader();
     
-        // $senderBatchHeader->setSenderBatchId(uniqid())
-        //     ->setEmailSubject("You have a ");
+        $senderBatchHeader->setSenderBatchId(uniqid())
+            ->setEmailSubject("You have a payment");
     
-        // $senderItem1    =   new PayoutItem();
-        // $senderItem1->setRecipientType('Email')
-        //     ->setNote("New Payment")
-        //     ->setReceiver('mayank@gol.com')
-        //     ->setSenderItemId(uniqid())
-        //     ->setAmount(new Currency('{
-        //     "value":"5",
-        //     "currency":"USD"
-        //     }'));
+        $senderItem1    =   new PayoutItem();
+        $senderItem1->setRecipientType('Email')
+            ->setNote("New Payment")
+            ->setReceiver($paypal)
+            ->setSenderItemId(uniqid())
+            ->setAmount(new Currency('{
+            "value":'.$price.',
+            "currency":"USD"
+            }'));
     
-        // $payouts->setSenderBatchHeader($senderBatchHeader)
-        //     ->addItem($senderItem1);
+        $payouts->setSenderBatchHeader($senderBatchHeader)
+            ->addItem($senderItem1);
     
-        // $request    =   clone $payouts;
+        $request    =   clone $payouts;
     
-        // try{
-        //     $output =   $payouts->create(null, $this->_api_context);
-        // }catch (Exception $ex){
-        //     return $ex->getMessage();
-        // }
-        return $user->paypal;
+        try{
+            $output =   $payouts->create(null, $this->_api_context);
+        }catch (Exception $ex){
+            return $ex->getMessage();
+        }
+        $transaction->status =0;
+        $transaction->save();
+        $useri=Auth::guard('api')->id();
+        $mytransactions = transactions::whereHas('jobs', function ($query) use($useri) {
+            $query->where('assignedTo','=',  $useri);
+        })->with('jobs.bids')->where('status',1)->get();
+        return json_encode($mytransactions);
+        }else{
+            return "lol don't hack, we nibbas are poor";
+        }
     }
 
 }

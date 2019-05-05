@@ -27597,7 +27597,7 @@ function (_Component) {
       }, this.state.notifications.filter(function (n) {
         return !n.status;
       }).length)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "p-5 bg-white"
+        className: "p-5 x"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Transactions__WEBPACK_IMPORTED_MODULE_11__["default"], null)));
     }
   }]);
@@ -27793,7 +27793,9 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Transaction).call(this, props));
     _this.state = {
-      Transactions: ""
+      Transactions: "",
+      Message: "",
+      Processing: false
     };
     return _this;
   }
@@ -27814,22 +27816,57 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "click",
+    value: function click(e) {
+      var _this3 = this;
+
+      this.setState({
+        Processing: true
+      });
+      var id = e.target.id;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('api/payout/' + id + '/?api_token=' + window.token).then(function (res) {
+        console.log(res.data);
+
+        _this3.setState({
+          Processing: false,
+          Transactions: res.data,
+          Message: "Payment sent to your paypal acount"
+        }, console.log(_this3.state.alert));
+
+        setTimeout(function () {
+          _this3.setState({
+            Message: ""
+          });
+        }, 4000);
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list-group"
-      }, this.state.Transactions ? this.state.Transactions.map(function (Transaction) {
+        className: "list-group p-4 mt-5 bg-secondary w-50 "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: " text-white "
+      }, "Your Payments"), this.state.Message ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "alert alert-primary"
+      }, this.state.Message) : null, this.state.Transactions && !this.state.Processing ? this.state.Transactions.map(function (Transaction) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: Transaction.id,
           className: " list-group-item "
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "row m-0 p-0"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "col-9"
+          className: "col-9 pt-4"
         }, "For job ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, Transaction.jobs.body), " with amount  $", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, Transaction.jobs.bids[0].price, " ")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: Transaction.id,
+          onClick: _this4.click.bind(_this4),
           className: "col-3 text-center btn btn-outline-success"
         }, "Recieve Payment")));
-      }) : null);
+      }) : null, this.state.Processing ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "text-success"
+      }, "Processing your Request ...") : null);
     }
   }]);
 

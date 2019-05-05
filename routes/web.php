@@ -39,4 +39,3 @@ Route::post('paypal', 'PaymentController@payWithpaypal');
 
 Route::get('status', 'PaymentController@getPaymentStatus');
 
-Route::get('payout/{id}', 'PaymentController@batchPayout');

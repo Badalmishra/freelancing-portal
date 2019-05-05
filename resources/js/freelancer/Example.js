@@ -295,7 +295,7 @@ export default class Example extends Component {
                 <i className="fa fa-bell"></i>
                 <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
             </button>
-            <div className="p-5 bg-white">
+            <div className="p-5 x">
                 <Transactions/>
             </div>
             
