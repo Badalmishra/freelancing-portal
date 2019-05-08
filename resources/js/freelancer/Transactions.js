@@ -46,6 +46,8 @@ export default class Transaction extends React.Component{
     render(){
         return(
             <div className="list-group p-4 mt-5 bg-secondary w-50 ">
+           
+            <img src="/images/giphy.gif" className={this.state.Processing?null:"hide"} ></img>
             <h2 className=" text-white ">
                  Your Payments
             </h2>

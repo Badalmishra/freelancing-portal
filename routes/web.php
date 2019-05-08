@@ -26,7 +26,7 @@ Route::middleware('auth:web')->get('/', function () {
         return redirect('/home');
     }
 });
-Route::get('/main', function(){
+Route::middleware('auth:web')->get('/main', function(){
     return view('reactmainfree');
 });
 
@@ -39,3 +39,5 @@ Route::post('paypal', 'PaymentController@payWithpaypal');
 
 Route::get('status', 'PaymentController@getPaymentStatus');
 
+Route::get('status', 'PaymentController@getPaymentStatus');
+Route::middleware('auth:web')->get('profile','profileController@index');

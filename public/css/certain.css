@@ -2,7 +2,9 @@
   margin:0 0 0 0 !important;
   
 }
-
+.hide{
+  display: none;  
+}
 .naughty-button{
   position: fixed;
   bottom: 30px;

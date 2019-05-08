@@ -72,7 +72,10 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a href="/notifications" class="nav-link">Notifications</a>
+                                <a href="/" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/profile" class="nav-link">Profile</a>
                             </li>
                         @endguest
                     </ul>

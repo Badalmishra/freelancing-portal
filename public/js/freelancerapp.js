@@ -27847,7 +27847,10 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list-group p-4 mt-5 bg-secondary w-50 "
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "/images/giphy.gif",
+        className: this.state.Processing ? null : "hide"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: " text-white "
       }, "Your Payments"), this.state.Message ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "alert alert-primary"
