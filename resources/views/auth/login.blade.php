@@ -62,7 +62,7 @@
                                     {{ __('Login') }}
                                 </button>
                                 <button type="submit" class="form-stuff that-up w-100 mx-auto d-block btn-outline-success btn">
-                                    Google <span class="text-primary">Login</span>
+                                    Register <span class="text-primary">Here</span>
                                 </button>
                                     
                                 @if (Route::has('password.request'))
