@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','type','paypal',
+        'name', 'email', 'password','type','paypal','resume','portfolio','facebook','twitter',
     ];
 
     /**
@@ -31,6 +31,10 @@ class User extends Authenticatable
     public function jobs()
     {
         return $this->hasMany('App\jobs');
+    }
+    public function reviews()
+    {
+        return $this->hasMany('App\reviews');
     }
     public function activeJobs()
     {

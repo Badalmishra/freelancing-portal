@@ -11,38 +11,21 @@
                     <img src="/images/lol.jpg" style="width:100%;height:180px"alt="">
                 </div>
                 <div class="col px-5 pt-4">
-                    <h1><i class="fa fa-user"></i> {{$user->name}}
+                    <h1><i class="fa fa-user"></i> User Name
                             <hr class="mt-0">
                     </h1>
                     
                     <small>
-                        <span><i class="fa fa-envelope"></i> {{$user->email}}</span> 
+                        <span><i class="fa fa-envelope"></i> user@mail.com</span> 
                         <br>
-                        <span>
-                            <i class="fa fa-globe-asia"></i>
-                            <a href="{{$user->portfolio}}"> {{$user->portfolio}}</a>
-                        </span>
+                        <span><i class="fa fa-globe-asia"></i> www.portfolio.com</span>
                         <br>
-                        @php
-                        $count =0;
-                        $base = count($user->reviews)
-                        @endphp
-                        @foreach ($user->reviews as $reviews)
-                            @php
-                                $count =$count + $reviews->stars;
-                            @endphp
-                        @endforeach
-                        @php
-                            $stars = intval($count/$base);
-                            $fakestar = 5-$stars
-                        @endphp
                         <span style="font-size:20px;font-weight:100;" class="text-warning ">
-                           @for ($i = 0; $i < $stars; $i++)
                             <i class="fa fa-star "></i>
-                           @endfor
-                           @for ($i = 0; $i < $fakestar; $i++)
-                            <i class="far fa-star "></i>
-                           @endfor
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
                         </span>
                     </small>
                 </div>
@@ -101,6 +84,27 @@
     <div class="pt-1 bg-secondary">
     </div>
     <div class=" bg-white p-5">
-         
+        <div class="row m-0 review w-75 mx-auto">
+            <div class="col-md-4 p-5 " style="background:black;">
+                <h1 class="text-white pl-4">
+                    Your <br>
+                    Reviews<br>
+                    Matter <br>
+                </h1>
+            </div>
+            <div class="col-md-8 p-5 bg-default" >
+                <form class="form">
+                    <input type="text" class="form-control mb-2" placeholder="Review" name="review">
+                    <select name="stars" id="" class="form-control mb-2">
+                        <option value="1">1 star</option>
+                        <option value="2">2 stars</option>
+                        <option value="3">3 stars</option>
+                        <option value="4">4 stars</option>
+                        <option value="5">5 stars</option>
+                    </select>
+                    <input type="submit" value="Submit" class="btn btn-outline-dark w-100">
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
