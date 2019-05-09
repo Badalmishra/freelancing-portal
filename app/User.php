@@ -32,10 +32,14 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\jobs');
     }
+
     public function reviews()
     {
         return $this->hasMany('App\reviews');
     }
+    
+
+
     public function activeJobs()
     {
         if (Auth::user()->type=='client') {

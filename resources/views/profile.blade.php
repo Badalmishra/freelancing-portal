@@ -25,7 +25,7 @@
                         <br>
                         @php
                         $count =0;
-                        $base = count($user->reviews)
+                        $base = count($user->reviews)?count($user->reviews):1
                         @endphp
                         @foreach ($user->reviews as $reviews)
                             @php
@@ -36,6 +36,7 @@
                             $stars = intval($count/$base);
                             $fakestar = 5-$stars
                         @endphp
+                        
                         <span style="font-size:20px;font-weight:100;" class="text-warning ">
                            @for ($i = 0; $i < $stars; $i++)
                             <i class="fa fa-star "></i>
@@ -65,14 +66,17 @@
     <div class=" p-5 bg-white" id="active">
         <h1>Completed Jobs <hr class="mt-1"></h1>
         <div class="row m-0 justify-content-center mt-5 p-5">
+            
+            @foreach ($jobs as $job)
+                
             <div  class="card  mx-1 x  p-0 text-left side col-md-3">
                 <div class="card-header bg-dark text-white">
-                    Job Name
+                    {{$job->body}}
                 </div>
                 <div class="card-body bg-dark text-success   text-center ">
-                    <h1 class="text-white">Price</h1>
-                    <p>By client Name</p>
-                    <span class="form-control py-0 pt-2 ">Ended on : 00-00-0000</span>
+                    <h1 class="text-white">{{$job->bids[0]->price}}</h1>
+                    <p>By {{$job->user->name}}</p>
+                    <span class="form-control py-0 pt-2 ">Ended on : {{$job->bids[0]->updated_at}}</span>
                 </div>
                 <div class="card-footer bg-dark">
                         <button   class="btn w-100 btn-sm btn-success disabled">
@@ -80,27 +84,22 @@
                         </button> 
                 </div>
             </div>
-            <div  class="card  mx-1 x  p-0 text-left side col-md-3">
-                <div class="card-header bg-dark text-white">
-                    Job Name
-                </div>
-                <div class="card-body bg-dark text-success   text-center ">
-                    <h1 class="text-white">Price</h1>
-                    <p>By client Name</p>
-                    <span class="form-control py-0 pt-2 ">Ended on : 00-00-0000</span>
-                </div>
-                <div class="card-footer bg-dark">
-                        <button   class="btn w-100 btn-sm btn-success disabled">
-                            Completed
-                        </button> 
-                </div>
-            </div>
-        </div>
-        
+
+            @endforeach
+        </div> 
     </div>
     <div class="pt-1 bg-secondary">
     </div>
     <div class=" bg-white p-5">
-         
+        <h2>Reviews</h2>
+        <div class="list-group">
+         @foreach ($user->reviews as $review)
+             <div class="list-group-item">
+                 <b>{{$review->body}}</b>
+                 <br>
+                 <small><i>by:{{$review->reviewer->name}}</i></small>
+             </div>
+         @endforeach
+        </div>
     </div>
 @endsection
