@@ -41,3 +41,5 @@ Route::get('status', 'PaymentController@getPaymentStatus');
 
 Route::get('status', 'PaymentController@getPaymentStatus');
 Route::middleware('auth:web')->get('profile','profileController@index');
+Route::middleware('auth:web')->get('viewer/{id}/','profileController@viewer');
+Route::middleware('auth:web')->post('makeReview/','profileController@makeReview');

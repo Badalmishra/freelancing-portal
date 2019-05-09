@@ -21,7 +21,17 @@ export default class Modal extends React.Component{
                 <div className="modal-body text-dark">
                     <div className="row">
                         <div className="col-md-6">
-                            <h3 className="">{this.props.bidForDescription.user?this.props.bidForDescription.user.name:"lol"}</h3>
+                            <h3 className="">
+                               <a href={
+                                            this.props.bidForDescription.user
+                                            ?
+                                            "/viewer/"+this.props.bidForDescription.user_id
+                                            :
+                                            null
+                                        }>
+                                {this.props.bidForDescription.user?this.props.bidForDescription.user.name:"lol"}
+                               </a>
+                            </h3>
                         </div>
                         <div className="col-md-6 text-success text-right">
                          {this.props.bidForDescription.user?this.props.bidForDescription.user.email:"lol"}

@@ -28130,7 +28130,9 @@ function (_React$Component) {
         className: "col-md-6"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: ""
-      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: this.props.bidForDescription.user ? "/viewer/" + this.props.bidForDescription.user_id : null
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6 text-success text-right"
       }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.approve,

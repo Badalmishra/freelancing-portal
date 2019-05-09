@@ -103,7 +103,7 @@
         </div>
     </div>
     <div class="pt-1 bg-secondary"></div>
-    <div class=" bg-white p-5">
+    <div class=" bg-white p-5" id="form">
         <div class="row m-0 review w-75 mx-auto">
             <div class="col-md-4 p-5 " style="background:black;">
                 <h1 class="text-white pl-4">
@@ -113,7 +113,23 @@
                 </h1>
             </div>
             <div class="col-md-8 p-5 bg-default" >
-                <form class="form">
+                @if ($message = Session::get('success'))
+                <div class="alert alert-success">
+                    
+                    <p>{!! $message !!}</p>
+                </div>
+                <?php Session::forget('success');?>
+                @endif
+
+                @if ($message = Session::get('error'))
+                <div class="alert alert-danger">
+                    <p>{!! $message !!}</p>
+                </div>
+                <?php Session::forget('error');?>
+                @endif
+                <form class="form" method="POST" action="/makeReview">
+                    @csrf
+                    <input type="text" name="id" value={{$user->id}} hidden>
                     <input type="text" class="form-control mb-2" placeholder="Review" name="review">
                     <select name="stars" id="" class="form-control mb-2">
                         <option value="1">1 star</option>
