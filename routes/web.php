@@ -13,22 +13,22 @@
 
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 Route::resource('test','testController');
 Route::resource('bids','bidsController');
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 Route::middleware('auth:web')->get('/', function () {
     if(Auth::user()->type=="client"){
         return view('welcome');
     }else{
         return redirect('/home');
     }
-});
+})->middleware('verified');
 Route::middleware('auth:web')->get('/main', function(){
     return view('reactmainfree');
-});
+})->middleware('verified');
 
 
 Route::get('/pay', 'PaymentController@index');

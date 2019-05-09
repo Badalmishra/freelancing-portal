@@ -61,9 +61,9 @@
                                 <button type="submit" class="that btn btn-outline-success text-sucess form-stuff w-100">
                                     {{ __('Login') }}
                                 </button>
-                                <button type="submit" class="form-stuff that-up w-100 mx-auto d-block btn-outline-success btn">
+                                <a href="/register" class="form-stuff that-up w-100 mx-auto d-block btn-outline-success btn text-success">
                                     Register <span class="text-primary">Here</span>
-                                </button>
+                                </a>
                                     
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
