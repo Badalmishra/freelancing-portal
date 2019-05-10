@@ -62,4 +62,11 @@ class profileController extends Controller
             return redirect('viewer/'.$request->id.'/#form');
         }
     }
+    public function addportfolio(Request $request)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->portfolio= $request->portfolio;
+        $user->save();
+        return redirect('/profile');
+    }
 }

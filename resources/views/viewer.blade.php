@@ -23,7 +23,11 @@
                         <br>
                         <span>
                             <i class="fa fa-globe-asia"></i>
+                            @if ($user->portfolio)
                             <a href="{{$user->portfolio}}"> {{$user->portfolio}}</a>
+                            @else
+                            No Portfolio Yet.
+                            @endif
                         </span>
                         <br>
                         @php
