@@ -8,8 +8,11 @@
         <div class="col-md-6 p-0">
             <div class="row m-0 bg-dark text-white p-0">
                 <div class="col-md-4 m-0 p-0">
-                    <img src="/images/lol.jpg" style="width:100%;height:180px"alt="">
-                </div>
+                        @if (isset($user->pic))
+                        <img src="{{$user->pic}}" alt="">
+                        @else
+                        <img src="/images/lol.jpg" style="width:100%;height:180px"alt="">
+                        @endif                </div>
                 <div class="col px-5 pt-4">
                     <h1><i class="fa fa-user"></i> {{$user->name}}
                             <hr class="mt-0">

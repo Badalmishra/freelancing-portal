@@ -8,10 +8,26 @@
         <div class="col-md-6 p-0">
             <div class="row m-0 bg-dark text-white p-0">
                 <div class="col-md-4 m-0 p-0">
-                    <img src="/images/lol.jpg" style="width:100%;height:180px"alt="">
+                    @if (isset($user->pic))
+                    <img src="{{$user->pic}}" alt="">
+                    @else
+                        <form action="/addpic" method="POST" class="">
+                            @csrf
+                            <div class="btn btn-group-vertical w-100 mt-4">
+                                <label class="btn btn-primary mb-0 w-100">
+                                    Browse <input type="file" name="pic" hidden>
+                                </label>                            
+                                <input type="submit" value="upload" class="btn btn-info mt-0 w-100">
+                            </div>
+                            
+                        </form>
+                        {{-- <img src="/images/lol.jpg" alt="" width="100%" height="180px"> --}}
+                    @endif
+                    
                 </div>
                 <div class="col px-5 pt-4">
-                    <h1><i class="fa fa-user"></i> {{$user->name}}
+                    <h1><i class="fa fa-user"></i> 
+                        {{$user->name}}
                             <hr class="mt-0">
                     </h1>
                     
@@ -20,7 +36,16 @@
                         <br>
                         <span>
                             <i class="fa fa-globe-asia"></i>
+                            @if ($user->portfolio)
                             <a href="{{$user->portfolio}}"> {{$user->portfolio}}</a>
+                            @else
+                            <form action="/addportfolio" style="display:inline-block;">
+                                @csrf
+                                <input type="text" name="portfolio" class="form-control form-control-sm " placeholder="enter portfolio hit enter">
+                                <input type="submit" hidden>
+                            </form>
+                            @endif
+                            
                         </span>
                         <br>
                         @php

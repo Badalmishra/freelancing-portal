@@ -55,8 +55,6 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'type' => ['required'],
             'paypal' => ['required'],
-            'resume'=>['required'],
-            'portfolio'=>['required'],
 
             ]);
     }
@@ -75,8 +73,6 @@ class RegisterController extends Controller
             'type' => $data['type'],
             'password' => Hash::make($data['password']),
             'paypal' =>$data['paypal'],
-            'resume' =>$data['resume'],
-            'portfolio'=>$data['portfolio'],
         ]);
     }
     protected function registered(Request $request, $user)
