@@ -74,9 +74,11 @@
                             <li class="nav-item">
                                 <a href="/" class="nav-link">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/profile" class="nav-link">Profile</a>
-                            </li>
+                            @if (Auth::user()->type=="freelancer")
+                                <li class="nav-item">
+                                    <a href="/profile" class="nav-link">Profile</a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>

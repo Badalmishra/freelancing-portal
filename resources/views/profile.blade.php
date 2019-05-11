@@ -3,19 +3,45 @@
 @section('content')
     <link rel="stylesheet" href="/css/pro.css">
     <link rel="stylesheet" href="/css/certain.css">
-
+    <script>
+            function myclick() {
+                //console.log("ck");
+                var label = document.getElementById("label");
+                var inp = event.target.value;
+                label.innerText = inp;
+                
+            }
+            
+        </script>
     <div class="showcase row m-0 px-5 bg-secondary">
         <div class="col-md-6 p-0">
             <div class="row m-0 bg-dark text-white p-0">
-                <div class="col-md-4 m-0 p-0">
+                <div class="col-md-4 m-0 p-0" style="height:180px;overflow-y:hidden;">
                     @if (isset($user->pic))
-                    <img src="{{$user->pic}}" alt="">
+                    <img src="storage/user/{{$user->pic}}" alt="" style="width:100%;" >
+                    <form action="/addpic" 
+                        method="POST" enctype="multipart/form-data" class="upfor">
+                        @csrf
+                        
+                        <div class="btn btn-group-vertical w-100 mt-4">
+                                
+                            <label class="btn  btn-outline-dark mb-0 w-100 sm" >
+                                    <span id="label" class="text-white p-0 d-block btn sm"></span>
+                                     Browse <input type="file" name="cover_image" onchange="myclick()" id="inp" hidden>
+                            </label>                            
+                            <input type="submit" value="upload" class="sm  btn btn-dark mt-0 w-100">
+                        </div>
+                        
+                    </form>
                     @else
-                        <form action="/addpic" method="POST" class="">
+                        <form action="/addpic" method="POST" class="" enctype="multipart/form-data">
                             @csrf
+                            
                             <div class="btn btn-group-vertical w-100 mt-4">
-                                <label class="btn btn-primary mb-0 w-100">
-                                    Browse <input type="file" name="pic" hidden>
+                                    
+                                <label class="btn btn-primary mb-0 w-100" >
+                                        <span id="label" class="text-white p-0 d-block btn "></span>
+                                         Browse <input type="file" name="cover_image" onchange="myclick()" id="inp" hidden>
                                 </label>                            
                                 <input type="submit" value="upload" class="btn btn-info mt-0 w-100">
                             </div>
@@ -41,6 +67,7 @@
                             @else
                             <form action="/addportfolio" style="display:inline-block;">
                                 @csrf
+                                
                                 <input type="text" name="portfolio" class="form-control form-control-sm " placeholder="enter portfolio hit enter">
                                 <input type="submit" hidden>
                             </form>
@@ -127,4 +154,5 @@
          @endforeach
         </div>
     </div>
+  
 @endsection

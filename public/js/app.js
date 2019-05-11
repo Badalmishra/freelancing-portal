@@ -26877,7 +26877,11 @@ function (_React$Component) {
         className: "card col-md-3  mx-1 x  p-0 text-left side"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"
-      }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.activeJob.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "float-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "viewer/" + this.props.activeJob.freelancer.id
+      }, "@", this.props.activeJob.freelancer.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"

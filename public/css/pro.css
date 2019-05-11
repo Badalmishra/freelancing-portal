@@ -7,3 +7,15 @@
 .showcase{
     padding: 8%;
 }
+.sm{
+    font-size:9px!important;
+    padding: 2px;
+}
+.upfor{
+    position:absolute;
+    bottom:1px;
+    right:1px;
+    color: brown!important;
+}
+.btn-group-vertical{
+}

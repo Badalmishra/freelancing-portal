@@ -42,7 +42,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activeJobs()
     {
         if (Auth::user()->type=='client') {
-            $jobs =$this->hasMany('App\jobs')->with('transactions')->where('status',0);    # code...
+            $jobs =$this->hasMany('App\jobs')->with(['transactions','freelancer'])->where('status',0);    # code...
         }else{
             $jobs =$this->hasMany('App\jobs','assignedTo')->with('transactions')->where('status',0);
         }

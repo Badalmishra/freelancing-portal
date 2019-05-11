@@ -10,6 +10,10 @@ export default class Active extends React.Component{
         <div  className="card col-md-3  mx-1 x  p-0 text-left side">
             <div className="card-header bg-dark text-white">
                 {this.props.activeJob.body}
+                <span className="float-right">
+                <a href={"viewer/"+this.props.activeJob.freelancer.id}>
+                  @{this.props.activeJob.freelancer.name}
+                </a></span>
             </div>
             <div className="card-body bg-dark text-success   text-center ">
               <h1 className="text-white">{this.props.activeJob.left}</h1>

@@ -25,4 +25,9 @@ class jobs extends Model
     {
         return $this->hasOne('App\transactions');
     }
+    public function freelancer()
+    {
+        return $this->belongsTo('App\User','assignedTo');
+    }
+    
 }
