@@ -7,11 +7,10 @@
     <div class="showcase row m-0 px-5 bg-secondary">
         <div class="col-md-6 p-0">
             <div class="row m-0 bg-dark text-white p-0">
-                <div class="col-md-4 m-0 p-0">
+                <div class="col-md-4 m-0 p-0" style="height:180px;overflow-y:hidden;">
                         @if (isset($user->pic))
-                        <img src="{{$user->pic}}" alt="">
-                        @else
-                        <img src="/images/lol.jpg" style="width:100%;height:180px"alt="">
+                        <img src="/storage/user/{{$user->pic}}" alt="" style="width:100%;" >                        @else
+                        <img src="/images/lol.jpg" alt="" style="width:100%;" >
                         @endif                </div>
                 <div class="col px-5 pt-4">
                     <h1><i class="fa fa-user"></i> {{$user->name}}
