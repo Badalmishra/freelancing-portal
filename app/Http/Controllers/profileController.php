@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\jobs;
 use App\reviews; 
+use App\skills; 
+use App\userskills;
 use Session;
 
 class profileController extends Controller
@@ -14,11 +16,13 @@ class profileController extends Controller
     public function index()
     {   
         if (Auth::user()->type=="freelancer") {
-            $user = User::where('id',Auth::user()->id)->with('reviews.reviewer')->get();
+            $user = User::where('id',Auth::user()->id)->with(['reviews.reviewer','userskills.skills'])->get();
+            //return $user[0]->userskills;
             $jobs =jobs::whereHas('transactions', function ($query)  {
                 $query->where('status','=',  0);
             })->where('assignedTo',Auth::user()->id)->with(['transactions','user','bids'])->get();
-            return view('profile',['user' => $user[0],'jobs'=>$jobs]);
+            $skills = skills::get();
+            return view('profile',['user' => $user[0],'jobs'=>$jobs,'skills'=>$skills]);
             //return count($jobs);
         }else {
             return redirect('/');
@@ -30,7 +34,7 @@ class profileController extends Controller
         if ($user_id == Auth::user()->id) {
             return redirect('/profile');
         }
-        $user = User::where('id',$user_id)->with('reviews.reviewer')->get();
+        $user = User::where('id',$user_id)->with(['reviews.reviewer','userskills.skills'])->get();
         if($user[0]->type=="freelancer"){
             if(isset($user[0])){
                 $jobs =jobs::whereHas('transactions', function ($query)  {
@@ -106,5 +110,28 @@ class profileController extends Controller
           $user->save();
           return redirect('/profile');
 
+    }
+    public function adduserskill(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $skills_id = $request->skills_id;
+        $yoe = $request->yoe;
+        if (!isset($yoe)) {
+            \Session::put('error', 'Enter all details');
+            return redirect('profile/#skills');
+            die();
+        }
+        $userskill = new userskills;
+        $userskill->user_id = $user_id;
+        $userskill->skills_id = $skills_id;
+        $userskill->yoe = $yoe;
+        $userskill->save();
+        return redirect('profile/#skills');
+    }
+    public function deleteskills(Request $request)
+    {
+        $userskill = userskills::find($request->id);
+        $userskill->delete();
+        return redirect('profile/#skills');
     }
 }

@@ -9,7 +9,8 @@
             <div class="row m-0 bg-dark text-white p-0">
                 <div class="col-md-4 m-0 p-0" style="height:180px;overflow-y:hidden;">
                         @if (isset($user->pic))
-                        <img src="/storage/user/{{$user->pic}}" alt="" style="width:100%;" >                        @else
+                        <img src="/storage/user/{{$user->pic}}" alt="" style="width:100%;" >                        
+                        @else
                         <img src="/images/lol.jpg" alt="" style="width:100%;" >
                         @endif                </div>
                 <div class="col px-5 pt-4">
@@ -107,6 +108,29 @@
              </div>
          @endforeach
         </div>
+    </div>
+    <div class="bg-primary p-5" id="skills">
+        @if (!count($user->userskills))
+        <div class="list-group">
+            <div class="list-group-item p-0">
+                <div class="row m-0 p-0">
+                    <div class="col skillbox p-3"><b>No Skills Yet</b></div>
+                    <div class="col p-3">for 0 years</div>
+                </div>
+            </div>
+        </div>
+        @else
+            @foreach ($user->userskills as $userskill)
+            <div class="list-group">
+                <div class="list-group-item p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col skillbox p-3"><b>{{$userskill->skills->name}}</b></div>
+                        <div class="col p-3">for {{$userskill->yoe}} years </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach  
+        @endif
     </div>
     <div class="pt-1 bg-secondary"></div>
     <div class=" bg-white p-5" id="form">

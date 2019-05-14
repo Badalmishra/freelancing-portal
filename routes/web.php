@@ -45,3 +45,7 @@ Route::middleware('auth:web')->get('viewer/{id}/','profileController@viewer');
 Route::middleware('auth:web')->post('makeReview/','profileController@makeReview');
 Route::middleware('auth:web')->get('addportfolio/','profileController@addportfolio');
 Route::middleware('auth:web')->post('addpic/','profileController@addpic');
+Route::middleware('auth:web')->post('adduserskill/','profileController@adduserskill');
+Route::middleware('auth:web')->post('deleteskills/','profileController@deleteskills');
+
+

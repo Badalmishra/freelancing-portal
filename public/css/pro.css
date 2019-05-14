@@ -19,3 +19,13 @@
 }
 .btn-group-vertical{
 }
+.form-input-skill{
+    border-radius: 0px !important;
+    /* padding: 5vh; */
+}
+.skillbox{
+    border-right: 1px solid rgb(211, 208, 208);
+}
+.border-0{
+    border-radius: 0px !important;
+}

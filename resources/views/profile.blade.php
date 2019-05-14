@@ -18,7 +18,7 @@
             <div class="row m-0 bg-dark text-white p-0">
                 <div class="col-md-4 m-0 p-0" style="height:180px;overflow-y:hidden;">
                     @if (isset($user->pic))
-                    <img src="storage/user/{{$user->pic}}" alt="" style="width:100%;" >
+                    <img src="/storage/user/{{$user->pic}}" alt="" style="width:100%;" >
                     <form action="/addpic" 
                         method="POST" enctype="multipart/form-data" class="upfor">
                         @csrf
@@ -153,6 +153,60 @@
              </div>
          @endforeach
         </div>
+    </div>
+    <div class="bg-primary p-5" id="skills">
+        @if (!count($user->userskills))
+        <div class="list-group">
+            <div class="list-group-item p-0">
+                <div class="row m-0 p-0">
+                    <div class="col skillbox p-3"><b>No Skills Yet</b></div>
+                    <div class="col p-3">for 0 years</div>
+                </div>
+            </div>
+        </div>
+        @else
+            @foreach ($user->userskills as $userskill)
+            <div class="list-group">
+                <div class="list-group-item p-0">
+                    <div class="row m-0 p-0">
+                        <div class="col skillbox p-3"><b>{{$userskill->skills->name}}</b></div>
+                        <div class="col p-3">for {{$userskill->yoe}} years </div>
+                        <form action="/deleteskills" method="POST" class="col-2 bg-danger p-0">
+                            @csrf
+                            <input type="text" name="id" hidden value={{$userskill->id}}>
+                            <input type="submit" value="Remove" class="btn-danger w-100 p-3 btn btn-lg">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endforeach  
+        @endif
+
+
+        <form action="/adduserskill" class="w-50 mt-4" method="post">
+            @csrf
+            @if ($message = Session::get('error'))
+            <div class="alert alert-danger">
+                <p>{!! $message !!}</p>
+            </div>
+            <?php Session::forget('error');?>
+            @endif
+            <div class="row m-0">
+                <div class="col-6 p-0">
+                    <select type="text" class="form-control border-0" name="skills_id">
+                        @foreach ($skills as $skill)
+                            <option class=" form-input-skill " value={{$skill->id}}>{{$skill->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6 p-0">
+                    <input type="text" class="form-control  form-input-skill" name="yoe" placeholder="Add Years of Experience">
+                </div>
+            </div>
+            <input type="submit" value="ADD" class="form-control btn btn-success form-input-skill" >
+        </form>
+        
+
     </div>
   
 @endsection
