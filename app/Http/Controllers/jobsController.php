@@ -97,23 +97,22 @@ class jobsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //$user_id=Auth::guard('api')->id();
+    {   
+        
         $bid =bids::find($id);
         $bid->status = 0;
         $bid->save();
         $job = jobs::find($bid->jobs_id);
         $job->assignedTo=$bid->user_id;
-        $job->status           = 0;
-        
-        $redundantBids         = $job->bids()->where('id','!=',$bid->id)->delete();
-                    $job->save();
-        $notification          = new notifications;
+        $job->status = 0;
+        $redundantBids = $job->bids()->where('id','!=',$bid->id)->delete();
+        $job->save();
+        $notification = new notifications;
         $notification->user_id = $bid->user_id;
         $notification->jobs_id = $bid->jobs_id;
         $notification->status = 0;
         $notification->body    = "Your Bid was Approved Happy Coding!!!";
-                    $notification->save();
+        $notification->save();
         $jobs= jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
         return json_encode($jobs);
     }

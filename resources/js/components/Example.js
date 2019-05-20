@@ -60,18 +60,9 @@ export default class Example extends Component {
             }
              );
           });
-        axios.get(`api/active/?api_token=`+window.token)
-        .then(data => {
-            console.log(data);
-            if (data.data.length >0) {
-                
-                
-                this.setState({activeJobs:data.data});
-            }
-            
-            });
-     }
-     componentWillMount(){
+        this.getActiveJobs();    
+    }
+    componentWillMount(){
         axios.get(`api/skills?api_token=`+window.token)
         .then(res => {
           window.skills=res.data;
@@ -81,7 +72,7 @@ export default class Example extends Component {
               skills:skills,
            });
         })
-     }
+    }
     delete(){
         var index =event.target.id;
         var data ={
@@ -111,6 +102,18 @@ export default class Example extends Component {
                      ,3000);
                  }
           });
+    }
+    getActiveJobs(){
+        axios.get(`api/active/?api_token=`+window.token)
+        .then(data => {
+            console.log(data);
+            if (data.data.length >0) {
+                
+                
+                this.setState({activeJobs:data.data});
+            }
+            
+            });
     }
     change(e){
        // alert(event.key);
@@ -199,22 +202,21 @@ export default class Example extends Component {
         };
         axios.post('api/jobs/'+id+'?api_token='+window.token,data)
         .then(res => {
-            console.log(res.data);
-            this.setState({
+                console.log(res.data);
+                this.setState({
                     bidForDescription:"",
                     jobs:res.data.reverse(),
                 },
-
                 ()=>{
                     console.log("done");
-                   this.state.jobs[0]? this.setJobForDescription(this.state.jobs[0]):null;
-                }
-            );
-        })
+                    this.setJobForDescription(this.state.jobs[0]?this.state.jobs[0]:"");
+                    this.getActiveJobs();
+                    alert("Check Active Jobs");
+                    }
+                );}
+            )
         .catch(err => console.log(err));
-        $('#exampleModal').modal('hide');
-        
-        
+        $('#exampleModal').modal('hide');  
     }
     showBid(params){
         console.log(this.state.bidForDescription);
@@ -227,7 +229,6 @@ export default class Example extends Component {
 
         window.the=this.state.bidForDescription;        
     }
-
     render() {
         return (
             <div className="p-0 ">

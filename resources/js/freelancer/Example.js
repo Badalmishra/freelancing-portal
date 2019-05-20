@@ -24,6 +24,8 @@ export default class Example extends Component {
             error:"",
             notifications:[],
             activeJobs:"", 
+            skills:"",
+            searchSkill:"",
         };
         window.jobs=this.state.jobs;
     }
@@ -52,6 +54,18 @@ export default class Example extends Component {
             
             });
      }
+     componentWillMount(){
+        axios.get(`api/skills?api_token=`+window.token)
+        .then(res => {
+          window.skills=res.data;
+          const skills = res.data;
+         // jobs=jobs.reverse();
+          this.setState({ 
+              skills:skills,
+              searchSkill:skills[0].id,
+           });
+        })
+    }
     setJobForDescription(param){
        this.setState({jobForDescription:param});
        axios.get(`api/bids/`+param.id+`?api_token=`+window.token)
@@ -177,7 +191,15 @@ export default class Example extends Component {
             }
         );
     }
-
+    click(){
+        this.setState({
+            searchSkill:event.target.value,
+        });
+    }
+    fetch(){
+        console.log(this.state.searchSkill);
+        
+    }
     render() {
         return (
             
@@ -232,8 +254,26 @@ export default class Example extends Component {
                         <hr className="w-75"></hr>
                     </h1>
                     <div className="row w-50 search mx-auto">
-                        <input className="form-component col-9" placeholder="Search by skill"></input>
-                        <button className="col-3 btn btn-success form-component">Search</button>
+                        <select className="form-component col-9" placeholder="Search by skill">
+                            
+                            {this.state.skills?
+                                this.state.skills.map((skill) =>{
+                                    return(
+                                        <option 
+                                        key={skill.id} 
+                                        value={skill.id}
+                                        onClick={this.click.bind(this)}
+                                        >
+                                        {skill.name}
+                                        </option>
+                                    )
+                                }):
+                                null
+                            } 
+                        </select>
+                        <button 
+                        onClick={this.fetch.bind(this)}
+                        className="col-3 btn btn-success form-component">Search</button>
                     </div>
                 </div>
                 

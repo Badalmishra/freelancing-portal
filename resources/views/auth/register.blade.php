@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/css/certain.css">
 <div class="row m-0 p-0 over">
     <div class="card x regfrm ">
-        <div class="card-header">{{ __('Register') }}</div>
+        <div class="card-header text-white">{{ __('Register') }}</div>
 
                 <div class="card-body pb-3 pt-2">
                     <form method="POST" action="{{ route('register') }}" id="form">

@@ -26524,15 +26524,7 @@ function (_Component) {
           }
         });
       });
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
-        console.log(data);
-
-        if (data.data.length > 0) {
-          _this2.setState({
-            activeJobs: data.data
-          });
-        }
-      });
+      this.getActiveJobs();
     }
   }, {
     key: "componentWillMount",
@@ -26597,6 +26589,21 @@ function (_Component) {
       });
     }
   }, {
+    key: "getActiveJobs",
+    value: function getActiveJobs() {
+      var _this5 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
+        console.log(data);
+
+        if (data.data.length > 0) {
+          _this5.setState({
+            activeJobs: data.data
+          });
+        }
+      });
+    }
+  }, {
     key: "change",
     value: function change(e) {
       // alert(event.key);
@@ -26605,7 +26612,7 @@ function (_Component) {
   }, {
     key: "addJob",
     value: function addJob() {
-      var _this5 = this;
+      var _this6 = this;
 
       var body = [this.state.Name, this.state.Description, this.state.Money, this.state.Time, this.state.Link, this.state.jobSkills];
       var user_id = 1;
@@ -26614,7 +26621,7 @@ function (_Component) {
       }).then(function (res) {
         window.res = res;
 
-        _this5.setState({
+        _this6.setState({
           jobs: res.data,
           jobForDescription: res.data[0],
           Name: "",
@@ -26624,31 +26631,31 @@ function (_Component) {
           Link: "",
           jobSkills: [],
           alert: "The Job Has Been Added Successfully"
-        }, console.log(_this5.state.alert));
+        }, console.log(_this6.state.alert));
 
         setTimeout(function () {
-          return _this5.setState({
+          return _this6.setState({
             alert: ""
           });
         }, 4000);
-        console.log(_this5.state.jobs);
+        console.log(_this6.state.jobs);
       });
     }
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
-      var _this6 = this;
+      var _this7 = this;
 
       this.setState({
         jobForDescription: param
       }, function () {
-        console.log(_this6.state.jobForDescription);
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this6.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+        console.log(_this7.state.jobForDescription);
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this7.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
           window.bids = res.data;
           console.log(res.data); // alert(this.props.job.id+"lol");
           // jobs=jobs.reverse();
 
-          _this6.setState({
+          _this7.setState({
             bids: res.data.reverse()
           });
         });
@@ -26676,7 +26683,7 @@ function (_Component) {
   }, {
     key: "approve",
     value: function approve() {
-      var _this7 = this;
+      var _this8 = this;
 
       var id = this.state.bidForDescription.id;
       var data = {
@@ -26686,12 +26693,17 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + id + '?api_token=' + window.token, data).then(function (res) {
         console.log(res.data);
 
-        _this7.setState({
+        _this8.setState({
           bidForDescription: "",
           jobs: res.data.reverse()
         }, function () {
           console.log("done");
-          _this7.state.jobs[0] ? _this7.setJobForDescription(_this7.state.jobs[0]) : null;
+
+          _this8.setJobForDescription(_this8.state.jobs[0] ? _this8.state.jobs[0] : "");
+
+          _this8.getActiveJobs();
+
+          alert("Check Active Jobs");
         });
       }).catch(function (err) {
         return console.log(err);
@@ -26701,13 +26713,13 @@ function (_Component) {
   }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this8.state.bidForDescription);
+        console.log(_this9.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -26715,7 +26727,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this9 = this;
+      var _this10 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
@@ -26778,7 +26790,7 @@ function (_Component) {
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           theBid: bids,
-          showBid: _this9.showBid.bind(_this9)
+          showBid: _this10.showBid.bind(_this10)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription,
@@ -27127,7 +27139,9 @@ function (_React$Component) {
         href: this.props.bidForDescription.user ? "/viewer/" + this.props.bidForDescription.user_id : null
       }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6 text-success text-right"
-      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal on your job", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol"), ".", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body bg-secondary"
+      }, this.props.bidForDescription.proposal), "Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.approve,
         className: "btn btn-outline-success w-100 mt-4"
       }, "Accept Bid") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -27263,8 +27277,8 @@ function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\project\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! E:\project\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! E:\freelancing-portal-master\freelancing-portal\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! E:\freelancing-portal-master\freelancing-portal\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

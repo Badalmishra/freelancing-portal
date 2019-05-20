@@ -27284,7 +27284,9 @@ function (_Component) {
       alert: "",
       error: "",
       notifications: [],
-      activeJobs: ""
+      activeJobs: "",
+      skills: "",
+      searchSkill: ""
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -27321,9 +27323,24 @@ function (_Component) {
       });
     }
   }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/skills?api_token=" + window.token).then(function (res) {
+        window.skills = res.data;
+        var skills = res.data; // jobs=jobs.reverse();
+
+        _this3.setState({
+          skills: skills,
+          searchSkill: skills[0].id
+        });
+      });
+    }
+  }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.setState({
         jobForDescription: param
@@ -27332,24 +27349,24 @@ function (_Component) {
         window.bids = res; // alert(this.props.job.id+"lol");
         // jobs=jobs.reverse();
 
-        _this3.setState({
+        _this4.setState({
           bids: res.data.reverse(),
           jobForDescription: param
         });
 
-        console.log(_this3.state.jobForDescription.id + " " + _this3.state.bids.length);
+        console.log(_this4.state.jobForDescription.id + " " + _this4.state.bids.length);
       });
     }
   }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this4 = this;
+      var _this5 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this4.state.bidForDescription);
+        console.log(_this5.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -27373,7 +27390,7 @@ function (_Component) {
   }, {
     key: "deleteBid",
     value: function deleteBid(params) {
-      var _this5 = this;
+      var _this6 = this;
 
       var index = params;
       console.log(params);
@@ -27389,31 +27406,31 @@ function (_Component) {
         console.log(res);
 
         if (res.data == '404') {
-          _this5.setState({
+          _this6.setState({
             error: "This Bid was not posted by you"
           });
 
-          console.log(_this5.state.error);
+          console.log(_this6.state.error);
           setTimeout(function () {
-            return _this5.setState({
+            return _this6.setState({
               error: ""
             });
           }, 3000);
         } else {
           var bids = res.data;
-          console.log(_this5.state.bids.length);
+          console.log(_this6.state.bids.length);
 
-          _this5.setState({
+          _this6.setState({
             bids: bids
           });
 
-          _this5.setState({
+          _this6.setState({
             alert: "This Bid was deleted"
           });
 
-          console.log(_this5.state.alert);
+          console.log(_this6.state.alert);
           setTimeout(function () {
-            return _this5.setState({
+            return _this6.setState({
               alert: ""
             });
           }, 3000);
@@ -27426,7 +27443,7 @@ function (_Component) {
       var _pullNotifications = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this6 = this;
+        var _this7 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -27435,7 +27452,7 @@ function (_Component) {
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/notifications?api_token=" + window.token).then(function (res) {
                   //console.log(res.data);
-                  _this6.setState({
+                  _this7.setState({
                     notifications: res.data
                   });
                 });
@@ -27457,14 +27474,14 @@ function (_Component) {
   }, {
     key: "markSeen",
     value: function markSeen() {
-      var _this7 = this;
+      var _this8 = this;
 
       var data = {
         "_method": "put",
         "somedata": "oho"
       };
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/notifications/1?api_token=' + window.token, data).then(function (res) {
-        _this7.pullNotifications().then(function () {
+        _this8.pullNotifications().then(function () {
           $('#naughtyModal').modal('show');
         });
       }).catch(function (err) {
@@ -27474,7 +27491,7 @@ function (_Component) {
   }, {
     key: "complete",
     value: function complete(params) {
-      var _this8 = this;
+      var _this9 = this;
 
       console.log(params);
       var data = {
@@ -27485,15 +27502,27 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/active/' + id + '?api_token=' + window.token, data).then(function (res) {
         console.log(res.data);
 
-        _this8.setState({
+        _this9.setState({
           activeJobs: res.data
         });
       });
     }
   }, {
+    key: "click",
+    value: function click() {
+      this.setState({
+        searchSkill: event.target.value
+      });
+    }
+  }, {
+    key: "fetch",
+    value: function fetch() {
+      console.log(this.state.searchSkill);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this9 = this;
+      var _this10 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
@@ -27519,7 +27548,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
           activeJob: activeJob,
-          complete: _this9.complete.bind(_this9)
+          complete: _this10.complete.bind(_this10)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -27546,10 +27575,17 @@ function (_Component) {
         className: "w-75"
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row w-50 search mx-auto"
-      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
         className: "form-component col-9",
         placeholder: "Search by skill"
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+      }, this.state.skills ? this.state.skills.map(function (skill) {
+        return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+          key: skill.id,
+          value: skill.id,
+          onClick: _this10.click.bind(_this10)
+        }, skill.name);
+      }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
+        onClick: this.fetch.bind(this),
         className: "col-3 btn btn-success form-component"
       }, "Search"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "row  lay    "
@@ -27580,8 +27616,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this9.showBid.bind(_this9),
-          deleteBid: _this9.deleteBid.bind(_this9)
+          showBid: _this10.showBid.bind(_this10),
+          deleteBid: _this10.deleteBid.bind(_this10)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription
@@ -28134,7 +28170,9 @@ function (_React$Component) {
         href: this.props.bidForDescription.user ? "/viewer/" + this.props.bidForDescription.user_id : null
       }, this.props.bidForDescription.user ? this.props.bidForDescription.user.name : "lol"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "col-md-6 text-success text-right"
-      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal \"", this.props.bidForDescription.proposal, "\" on your job ", this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol", ". Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Or click here to approve this bid. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.bidForDescription.user ? this.props.bidForDescription.user.email : "lol")), "The freelances has made a proposal on your job", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, this.props.bidForDescription.jobs ? this.props.bidForDescription.jobs.body : "lol"), ".", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body bg-secondary"
+      }, this.props.bidForDescription.proposal), "Click on his name above to view profile.", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.approve ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.props.approve,
         className: "btn btn-outline-success w-100 mt-4"
       }, "Accept Bid") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -28367,7 +28405,7 @@ __webpack_require__(/*! ./freelancer/Example */ "./resources/js/freelancer/Examp
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\project\resources\js\freelancerapp.js */"./resources/js/freelancerapp.js");
+module.exports = __webpack_require__(/*! E:\freelancing-portal-master\freelancing-portal\resources\js\freelancerapp.js */"./resources/js/freelancerapp.js");
 
 
 /***/ })

@@ -26,6 +26,8 @@ Route::middleware('auth:api')->resource('skills', 'skillsController');
 Route::middleware('auth:api')->resource('notifications', 'notificationsController');
 
 Route::middleware('auth:api')->resource('active', 'activeJobs');
+
 Route::middleware('auth:api')->get('mytransactions', 'jobsController@transactions');
+
 Route::middleware('auth:api')->get('payout/{id}', 'PaymentController@batchPayout');
 //Route::resource('jobs', 'jobsController');

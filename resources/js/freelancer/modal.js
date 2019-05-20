@@ -37,10 +37,14 @@ export default class Modal extends React.Component{
                          {this.props.bidForDescription.user?this.props.bidForDescription.user.email:"lol"}
                         </div>
                     </div>
-                    The freelances has made a proposal "{this.props.bidForDescription.proposal}" 
-                    on your job {this.props.bidForDescription.jobs?this.props.bidForDescription.jobs.body:"lol"}.
+                    The freelances has made a proposal 
+                    on your job
+                    <b>{this.props.bidForDescription.jobs?this.props.bidForDescription.jobs.body:"lol"}</b>.
+                    <div className="card-body bg-secondary"> 
+                        {this.props.bidForDescription.proposal}
+                    </div>
                     Click on his name above to view profile.<br></br>
-                    Or click here to approve this bid. <br></br>
+                    <br></br>
                     {this.props.approve?
                         <button onClick={this.props.approve} 
                             className="btn btn-outline-success w-100 mt-4">
