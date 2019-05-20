@@ -2,7 +2,7 @@
 
 @section('content')
 <link rel="stylesheet" href="/css/certain.css">
-<div class="row m-0 p-0">
+<div class="row m-0 p-0 over">
     <div class="card x regfrm ">
         <div class="card-header">{{ __('Register') }}</div>
 
@@ -96,11 +96,11 @@
                     </form>
                 </div>
             </div>
-        <div class="row m-0 col-12 p-0">
+        <div class="row m-0 col-12 p-0 round">
             <div class="col bg-warning des"></div>
             <div class="col bg-primary des"></div>
         </div>
-        <div class="row m-0 col-12 p-0">
+        <div class="row m-0 col-12 p-0 round">
             <div class="col bg-success des"></div>
             <div class="col bg-info des"></div>
         </div>
