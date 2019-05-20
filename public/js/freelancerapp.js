@@ -27342,9 +27342,7 @@ function (_Component) {
     value: function setJobForDescription(param) {
       var _this4 = this;
 
-      this.setState({
-        jobForDescription: param
-      });
+      //this.setState({jobForDescription:param});
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bids/" + param.id + "?api_token=" + window.token).then(function (res) {
         window.bids = res; // alert(this.props.job.id+"lol");
         // jobs=jobs.reverse();
@@ -27352,9 +27350,9 @@ function (_Component) {
         _this4.setState({
           bids: res.data.reverse(),
           jobForDescription: param
+        }, function () {
+          console.log(_this4.state.jobForDescription.id + " " + _this4.state.bids.length);
         });
-
-        console.log(_this4.state.jobForDescription.id + " " + _this4.state.bids.length);
       });
     }
   }, {
@@ -27517,12 +27515,28 @@ function (_Component) {
   }, {
     key: "fetch",
     value: function fetch() {
+      var _this10 = this;
+
       console.log(this.state.searchSkill);
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/jobs/' + this.state.searchSkill + '?api_token=' + window.token).then(function (res) {
+        var jobs = res.data.reverse();
+
+        _this10.setState({
+          jobs: jobs //   jobForDescription:jobs[0]?jobs[0]:null,
+
+        }, function () {
+          console.log("done");
+
+          _this10.setJobForDescription(_this10.state.jobs[0] ? _this10.state.jobs[0] : "");
+        });
+
+        console.log(jobs);
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this10 = this;
+      var _this11 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
@@ -27548,7 +27562,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
           activeJob: activeJob,
-          complete: _this10.complete.bind(_this10)
+          complete: _this11.complete.bind(_this11)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -27582,7 +27596,7 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
           key: skill.id,
           value: skill.id,
-          onClick: _this10.click.bind(_this10)
+          onClick: _this11.click.bind(_this11)
         }, skill.name);
       }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         onClick: this.fetch.bind(this),
@@ -27616,8 +27630,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this10.showBid.bind(_this10),
-          deleteBid: _this10.deleteBid.bind(_this10)
+          showBid: _this11.showBid.bind(_this11),
+          deleteBid: _this11.deleteBid.bind(_this11)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription

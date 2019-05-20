@@ -67,7 +67,7 @@ export default class Example extends Component {
         })
     }
     setJobForDescription(param){
-       this.setState({jobForDescription:param});
+       //this.setState({jobForDescription:param});
        axios.get(`api/bids/`+param.id+`?api_token=`+window.token)
             .then(res => {
               window.bids=res;
@@ -77,8 +77,8 @@ export default class Example extends Component {
               this.setState({ 
                   bids:res.data.reverse(),
                   jobForDescription:param,
-               });
-               console.log(this.state.jobForDescription.id+" "+this.state.bids.length);
+               },()=>{console.log(this.state.jobForDescription.id+" "+this.state.bids.length);});
+               
 
             })
             
@@ -198,7 +198,20 @@ export default class Example extends Component {
     }
     fetch(){
         console.log(this.state.searchSkill);
+        axios.get('api/jobs/'+this.state.searchSkill+'?api_token='+window.token)
+        .then(res => {
+          const jobs = res.data.reverse();
+          this.setState({ 
+              jobs:jobs,
+            //   jobForDescription:jobs[0]?jobs[0]:null,
+           },
+           ()=>{console.log("done");
+                this.setJobForDescription(this.state.jobs[0]?this.state.jobs[0]:"")
+            }
+           );
+        console.log(jobs);
         
+        })
     }
     render() {
         return (
