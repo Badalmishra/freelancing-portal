@@ -142,3 +142,18 @@ body{
   box-shadow: 8px 8px 5px black;
 
 }
+
+
+.regfrm{
+  position: absolute!important;
+  z-index: 999;
+  width:40%;
+  margin-left:30%;
+  margin-top: 2%;
+}
+.regfrm input{
+  margin-top: -10px!important;
+}
+.des{
+  height: 50vh;
+}
