@@ -6,11 +6,11 @@
 </script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
-<div class="  " id="">
+<div class=" big " id="">
     
     <div class="row  p-0 m-0">
         <div class="col-lg-8 animated fadeInDown whole " id="logo" >
-            <h1 class="text-success display-3 mt-5 " >
+            <h1 class="text-success display-3 mt-5 main-logo" >
                <<!---->Kaam<span class="text-primary">Dhandha</span>/>
                 
             </h1>
@@ -21,7 +21,7 @@
                 About <span class="text-primary">Us</span>
             </div>
         </div>
-        <div class="col-lg-4 bg-primary whole ">
+        <div class="col-lg-4  whole ">
         <div class="card animated fadeInUp x  mx-auto login-form" >
                 <div class="card-header text-success ">Login <span class="text-primary">Here</span> </div>
 
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div class="p-4 p-md-5  bg-white">
+<div class="p-4 p-md-5  bg- myinfo">
     <h1 class="punchline pt-4">
         <span class="">What's it about</span>
         <hr class="lead bg-success w-25 mr-auto">
