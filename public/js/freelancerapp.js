@@ -27226,6 +27226,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _naugthyModel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./naugthyModel */ "./resources/js/freelancer/naugthyModel.js");
 /* harmony import */ var _active__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./active */ "./resources/js/freelancer/active.js");
 /* harmony import */ var _Transactions__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Transactions */ "./resources/js/freelancer/Transactions.js");
+/* harmony import */ var _choice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./choice */ "./resources/js/freelancer/choice.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -27249,6 +27250,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -27286,7 +27288,8 @@ function (_Component) {
       notifications: [],
       activeJobs: "",
       skills: "",
-      searchSkill: ""
+      searchSkill: "",
+      choice: ""
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -27509,7 +27512,7 @@ function (_Component) {
     key: "click",
     value: function click() {
       this.setState({
-        searchSkill: event.target.value
+        searchSkill: event.target.key
       });
     }
   }, {
@@ -27534,6 +27537,14 @@ function (_Component) {
       });
     }
   }, {
+    key: "choice",
+    value: function choice(params) {
+      console.log(params);
+      this.setState({
+        choice: params
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this11 = this;
@@ -27544,7 +27555,9 @@ function (_Component) {
         className: "row  bg-primary lay add-background"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "  py-5 col-md-4 px-md-5  "
-      }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+      }, this.state.choice ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_choice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        job: this.state.activeJobs[this.state.choice]
+      }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "side  py-4 px-5 col-md-8   text-center"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "display-3 pt-4 animated rotateInDownRight"
@@ -27558,11 +27571,13 @@ function (_Component) {
         className: "bg-success"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " pt-5 row lay pb-3 justify-content-center"
-      }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob) {
+      }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob, index) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
           activeJob: activeJob,
-          complete: _this11.complete.bind(_this11)
+          theId: index,
+          complete: _this11.complete.bind(_this11),
+          choice: _this11.choice.bind(_this11)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -28000,13 +28015,26 @@ function (_React$Component) {
       this.props.complete(params);
     }
   }, {
+    key: "choiceClick",
+    value: function choiceClick() {
+      var id = event.target.id;
+      console.log(id);
+      this.props.choice(id);
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card  mx-1 x  p-0 text-left side"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"
-      }, this.props.activeJob.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.activeJob.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "text-warning float-right pointer",
+        onClick: this.choiceClick.bind(this),
+        id: this.props.theId
+      }, "Click For Details ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-search-plus"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"
@@ -28030,6 +28058,114 @@ function (_React$Component) {
   }]);
 
   return Active;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/freelancer/choice.js":
+/*!*******************************************!*\
+  !*** ./resources/js/freelancer/choice.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Choice; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Choice =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Choice, _React$Component);
+
+  function Choice(props) {
+    _classCallCheck(this, Choice);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Choice).call(this, props));
+  }
+
+  _createClass(Choice, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log(this.props.job);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: this.props.key,
+        className: "card ml-0 x text-white mt-5 animated tada"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header "
+      }, "Active Job"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.props.job.body), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.job.description), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), this.props.job.linkToReferenceProject != "" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-warning btn-sm",
+        href: this.props.job.linkToReferenceProject
+      }, "Link to Reference Project ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-paperclip ml-2"
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn btn-warning disableb btn-sm",
+        href: "#"
+      }, "No Reference Project ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-paperclip ml-2"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "btn-group mt-4 d-block text-success"
+      }, this.props.job.job_skills.map(function (data) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "btn disabled btn-outline-dark btn-sm text-success",
+          key: data.skills.id
+        }, data.skills.name);
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-success"
+      }, "Posted By: ", this.props.job.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-footer "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn  btn-sm btn-outline-success disabled",
+        title: "Maximum Money client is willing to pay"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-rupee-sign mr-2"
+      }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "time btn-group"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn btn-sm btn-outline-info disabled   "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fa fa-clock mr-2"
+      }), this.props.job.maxDays, " Days"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "btn btn-sm btn-outline-warning disabled   "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-crosshairs mr-2"
+      }), this.props.job.bids.length, " Bids"))));
+    }
+  }]);
+
+  return Choice;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

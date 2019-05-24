@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark  fixed-top lay" >
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                <span class="text-success">Kaam</span><span class="text-primary">Dhandha</span>
+                <span class="text-success"><i class="fa fa-skiing text-white"></i> Kaam</span><span class="text-primary">Dhandha</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -89,8 +89,41 @@
             @yield('content')
         </main>
     </div>
-    <div class="footer p-5">
-    <h1>Footer</h1>
+    <div class="footer p-5" id="about">
+        <div class="row m-0 p-0">
+            <div class="col-md-3">
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <span class="text-success"><i class="fa fa-skiing text-dark"></i> Kaam</span><span class="text-primary">Dhandha</span>
+                </a>
+            </div>
+            <div class="col-md-2">
+                <h1 class="lead text-secondary">Address</h1>
+                <p>Guwahati, Assam India.</p>
+                <p>
+                    <a href="https://www.google.com/maps/dir//26.1854991,91.7922069/@26.1856098,91.792561,17z">
+                        Find us on maps <i class="fa fa-search-location"></i>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-2 ">
+                <h1 class="lead text-secondary">Contact</h1>
+                <p>
+                    <a href="mail:badalmishr7035@gmail.com" class="text-danger">
+                        Click to send mails <i class="fa fa-envelope"></i>
+                    </a>
+                   
+                </p>
+                <p>
+                    <a href="https://badalmishra.github.io" class="">
+                        <span class="text-dark"> Badal Mishra on github<i class="fab fa-github"></i></span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-md-2 ">
+                <h1 class="lead text-secondary">No branches yet.</h1>
+                
+            </div>
+        </div>
     </div>
 </body>
 </html>

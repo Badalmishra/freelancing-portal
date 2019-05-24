@@ -54,6 +54,9 @@
     border-bottom-color:#2176bd;
     border-right-color: #2176bd;
 }
+a.abt:hover{
+    color:white!important;
+}
 .abt:hover span{
     color: white!important;
 
@@ -100,6 +103,13 @@
     color:white;
     background-attachment: fixed;
 }
+.laa{
+    background-image: url('../images/back.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    color:white;
+    background-attachment: fixed;
+}
 @media screen and (max-width: 1200px) {
     .main-logo{
         font-size:4rem;
@@ -114,4 +124,8 @@
     .main-logo{
       font-size:2rem;
     }
+  }
+
+  .icon{
+      font-size:5rem;
   }

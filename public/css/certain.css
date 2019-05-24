@@ -180,4 +180,6 @@ body{
 .over{
   overflow: hidden;
 }
-.lll{}
+.pointer{
+  cursor: pointer;
+}

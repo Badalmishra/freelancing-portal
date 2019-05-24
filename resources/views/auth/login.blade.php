@@ -17,9 +17,9 @@
             <h3 class="text-white ">
                     <span class="text-primary">No More</span> Overheads
             </h3>
-            <div class="abt btn btn-lg btn-outline-success ">
+            <a class="text-success abt btn btn-lg btn-outline-success mt-5 ml-4" href="#about">
                 About <span class="text-primary">Us</span>
-            </div>
+            </a>
         </div>
         <div class="col-lg-4  whole ">
         <div class="card animated fadeInUp x  mx-auto login-form" >
@@ -78,10 +78,42 @@
     </div>
 </div>
 
+<div class="p-5 bg-white why">
+    <h1>Why Us <i class="fa fa-search"></i> <hr class="bg-success"></h1>
+    <div class="p-5">
+        <div class="row justify-content-center p-0 m-0">
+            <div class="col-md-4 text-center">
+                <i class="fas fa-user-shield text-success icon"></i>
+                <h1 class="text-success">
+                    Secure
+                    <hr class="bg-success">
+                </h1>
+                <p class="lead">You work and money are secure with us</p>
+            </div> 
+            <div class="col-md-4 text-center">
+                <i class="fa fa-skiing text-dark icon"></i>
+                <h1 class="text-dark">
+                    Active
+                    <hr class="bg-dark">    
+                </h1>
+                <p class="lead">Always have something to work on.</p>
+            </div> 
+            <div class="col-md-4 text-center">
+                <i class="fa fa-binoculars text-primary icon"></i>
+                <h1 class="text-primary">
+                    Transparent
+                    <hr class="bg-primary">
+                </h1>
+                <p class="lead">You always know what's up.</p>
+            </div> 
+        </div>
+    </div>
+</div>
+
 <div class="p-4 p-md-5  bg- myinfo">
     <h1 class="punchline pt-4">
         <span class="">What's it about</span>
-        <hr class="lead bg-success w-25 mr-auto">
+        <hr class="lead bg-success w-25 ml-0 mr-auto">
     </h1>
     <div class="row  myRow">
         <div class="col-md-4 myDef">

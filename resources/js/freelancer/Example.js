@@ -9,6 +9,7 @@ import Modal from './modal';
 import NaughtyModal from './naugthyModel';
 import Active from './active';
 import Transactions from "./Transactions";
+import Choice from "./choice";
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -26,6 +27,7 @@ export default class Example extends Component {
             activeJobs:"", 
             skills:"",
             searchSkill:"",
+            choice:"",
         };
         window.jobs=this.state.jobs;
     }
@@ -193,7 +195,7 @@ export default class Example extends Component {
     }
     click(){
         this.setState({
-            searchSkill:event.target.value,
+            searchSkill:event.target.key,
         });
     }
     fetch(){
@@ -213,13 +215,27 @@ export default class Example extends Component {
         
         })
     }
+    choice(params){
+        console.log(params);
+        
+        this.setState({
+            choice:params,
+        });
+    }
     render() {
         return (
             
             <div className=" bg-white">
                 <div className="row  bg-primary lay add-background">
                     <div className="  py-5 col-md-4 px-md-5  ">
-                        
+                        {this.state.choice
+                        ?
+                        <Choice
+                            job={this.state.activeJobs[this.state.choice]}
+                             />
+                        :
+                        null
+                        }
                     </div>
                     <div className="side  py-4 px-5 col-md-8   text-center">
                                 
@@ -231,13 +247,15 @@ export default class Example extends Component {
                         <hr className="bg-success"></hr>
                         <div className=" pt-5 row lay pb-3 justify-content-center">
                         {this.state.activeJobs?
-                                this.state.activeJobs.map((activeJob)=>{
+                                this.state.activeJobs.map((activeJob,index)=>{
                             return(
                            <Active
-                            key={activeJob.id}
-                            activeJob={activeJob}
-                            complete={this.complete.bind(this)}
-                           />
+                                key={activeJob.id}
+                                activeJob={activeJob}
+                                theId={index}
+                                complete={this.complete.bind(this)}
+                                choice = {this.choice.bind(this)}
+                                />
                            )
                         })
                         :
