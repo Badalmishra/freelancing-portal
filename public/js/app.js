@@ -26434,6 +26434,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../freelancer/Bid */ "./resources/js/freelancer/Bid.js");
 /* harmony import */ var _freelancer_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../freelancer/modal */ "./resources/js/freelancer/modal.js");
 /* harmony import */ var _active__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./active */ "./resources/js/components/active.js");
+/* harmony import */ var _completed__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./completed */ "./resources/js/components/completed.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26453,6 +26454,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -26491,7 +26493,8 @@ function (_Component) {
       skills: "",
       jobSkills: [],
       notifications: [],
-      activeJobs: ""
+      activeJobs: "",
+      completedJobs: ""
     };
     window.jobs = _this.state.jobs;
     return _this;
@@ -26525,6 +26528,7 @@ function (_Component) {
         });
       });
       this.getActiveJobs();
+      this.getCompletedJobs();
     }
   }, {
     key: "componentWillMount",
@@ -26604,6 +26608,23 @@ function (_Component) {
       });
     }
   }, {
+    key: "getCompletedJobs",
+    value: function getCompletedJobs() {
+      var _this6 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/completed/?api_token=" + window.token).then(function (data) {
+        console.log(data);
+
+        if (data.data.length > 0) {
+          _this6.setState({
+            completedJobs: data.data
+          });
+        }
+      }).catch(function (data) {
+        console.log(data);
+      });
+    }
+  }, {
     key: "change",
     value: function change(e) {
       // alert(event.key);
@@ -26612,7 +26633,7 @@ function (_Component) {
   }, {
     key: "addJob",
     value: function addJob() {
-      var _this6 = this;
+      var _this7 = this;
 
       var body = [this.state.Name, this.state.Description, this.state.Money, this.state.Time, this.state.Link, this.state.jobSkills];
       var user_id = 1;
@@ -26621,7 +26642,7 @@ function (_Component) {
       }).then(function (res) {
         window.res = res;
 
-        _this6.setState({
+        _this7.setState({
           jobs: res.data,
           jobForDescription: res.data[0],
           Name: "",
@@ -26631,31 +26652,31 @@ function (_Component) {
           Link: "",
           jobSkills: [],
           alert: "The Job Has Been Added Successfully"
-        }, console.log(_this6.state.alert));
+        }, console.log(_this7.state.alert));
 
         setTimeout(function () {
-          return _this6.setState({
+          return _this7.setState({
             alert: ""
           });
         }, 4000);
-        console.log(_this6.state.jobs);
+        console.log(_this7.state.jobs);
       });
     }
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
-      var _this7 = this;
+      var _this8 = this;
 
       this.setState({
         jobForDescription: param
       }, function () {
-        console.log(_this7.state.jobForDescription);
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this7.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+        console.log(_this8.state.jobForDescription);
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this8.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
           window.bids = res.data;
           console.log(res.data); // alert(this.props.job.id+"lol");
           // jobs=jobs.reverse();
 
-          _this7.setState({
+          _this8.setState({
             bids: res.data.reverse()
           });
         });
@@ -26683,7 +26704,7 @@ function (_Component) {
   }, {
     key: "approve",
     value: function approve() {
-      var _this8 = this;
+      var _this9 = this;
 
       var id = this.state.bidForDescription.id;
       var data = {
@@ -26693,15 +26714,15 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + id + '?api_token=' + window.token, data).then(function (res) {
         console.log(res.data);
 
-        _this8.setState({
+        _this9.setState({
           bidForDescription: "",
           jobs: res.data.reverse()
         }, function () {
           console.log("done");
 
-          _this8.setJobForDescription(_this8.state.jobs[0] ? _this8.state.jobs[0] : "");
+          _this9.setJobForDescription(_this9.state.jobs[0] ? _this9.state.jobs[0] : "");
 
-          _this8.getActiveJobs();
+          _this9.getActiveJobs();
 
           alert("Check Active Jobs");
         });
@@ -26713,13 +26734,13 @@ function (_Component) {
   }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this9 = this;
+      var _this10 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this9.state.bidForDescription);
+        console.log(_this10.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -26727,7 +26748,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this10 = this;
+      var _this11 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
@@ -26790,7 +26811,7 @@ function (_Component) {
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           theBid: bids,
-          showBid: _this10.showBid.bind(_this10)
+          showBid: _this11.showBid.bind(_this11)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription,
@@ -26824,7 +26845,32 @@ function (_Component) {
         className: "card-footer bg-success"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-outline-dark "
-      }, "Pay"))))));
+      }, "Pay"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "p-5 pt-4 text-center bg-warning"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "text-primary "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-success"
+      }, "Completed"), " Jobs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: " pt-4 row lay pb-3 justify-content-center"
+      }, this.state.completedJobs != "" ? this.state.completedJobs.map(function (completedJob) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_completed__WEBPACK_IMPORTED_MODULE_10__["default"], {
+          key: completedJob.id,
+          completedJob: completedJob
+        });
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card  col-md-4mx-2 p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header bg-primary"
+      }, "No active projects"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body text-success    "
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "-----------"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        className: "d-block"
+      }, "==========="), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "z w-100 py-0"
+      }))))));
     }
   }]);
 
@@ -26918,6 +26964,76 @@ function (_React$Component) {
   }]);
 
   return Active;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/completed.js":
+/*!**********************************************!*\
+  !*** ./resources/js/components/completed.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Completed; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var Completed =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Completed, _React$Component);
+
+  function Completed(props) {
+    _classCallCheck(this, Completed);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Completed).call(this, props));
+  }
+
+  _createClass(Completed, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card col-md-2  mx-1 x  p-0 text-left side"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-header bg-dark text-white"
+      }, this.props.completedJob.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "float-right"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "viewer/" + this.props.completedJob.freelancer.id
+      }, "@", this.props.completedJob.freelancer.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "card-body bg-dark text-success   text-center "
+      }, this.props.completedJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: this.props.completedJob.final_link,
+        className: "btn btn-info btn-sm w-100"
+      }, "Project Files") : null));
+    }
+  }]);
+
+  return Completed;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 

@@ -28029,7 +28029,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header bg-dark text-white"
       }, this.props.activeJob.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
-        className: "text-warning float-right pointer",
+        className: "text-warning float-right pull-right ml-auto pointer",
         onClick: this.choiceClick.bind(this),
         id: this.props.theId
       }, "Click For Details ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {

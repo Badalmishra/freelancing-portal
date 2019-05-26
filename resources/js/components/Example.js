@@ -8,6 +8,7 @@ import Description from './Description';
 import Bid from '../freelancer/Bid';
 import Modal from '../freelancer/modal';
 import Active  from "./active";
+import Completed from "./completed";
 export default class Example extends Component {
     constructor(props) {
         super(props);
@@ -27,6 +28,7 @@ export default class Example extends Component {
             jobSkills:[],
             notifications:[],
             activeJobs:"",
+            completedJobs:"",
         };
         window.jobs=this.state.jobs;
     }
@@ -61,6 +63,7 @@ export default class Example extends Component {
              );
           });
         this.getActiveJobs();    
+        this.getCompletedJobs();
     }
     componentWillMount(){
         axios.get(`api/skills?api_token=`+window.token)
@@ -114,6 +117,19 @@ export default class Example extends Component {
             }
             
             });
+    }
+    getCompletedJobs(){
+        axios.get(`api/completed/?api_token=`+window.token)
+        .then(data => {
+            console.log(data);
+            if (data.data.length >0) {
+                
+                
+                this.setState({completedJobs:data.data});
+            }
+            
+            }).catch(data => {
+                console.log(data);});
     }
     change(e){
        // alert(event.key);
@@ -344,6 +360,41 @@ export default class Example extends Component {
                         }
                     </div>
                 </div>
+
+                <div className="p-5 pt-4 text-center bg-warning">
+                <h1 className="text-primary ">
+                <span className="text-success">Completed</span> Jobs
+                <hr></hr>
+                </h1>
+                <div className=" pt-4 row lay pb-3 justify-content-center">
+                    
+                    {this.state.completedJobs!=""?
+                        this.state.completedJobs.map((completedJob)=>{
+                            return(
+                                <Completed
+                                key={completedJob.id}
+                                completedJob={completedJob}
+                               />
+                               )
+                            })
+                            :
+                        <div  className="card  col-md-4mx-2 p-0 text-left side">
+                            <div className="card-header bg-primary">
+                                No active projects
+                            </div>
+                            <div className="card-body text-success    ">
+                                <small className="d-block">-----------</small>
+                            
+                                <small className="d-block">===========</small>
+                                <input className="z w-100 py-0"></input>
+                            </div>
+                            
+                        </div>
+                        }
+                    </div>
+                </div>
+
+
              </div> 
         );
     }

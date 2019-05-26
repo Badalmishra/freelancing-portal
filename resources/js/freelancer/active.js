@@ -34,10 +34,10 @@ export default class Active extends React.Component{
           
                             <div  className="card  mx-1 x  p-0 text-left side">
                                 <div  className="card-header bg-dark text-white">
-                                    {this.props.activeJob.body} 
+                                    {this.props.activeJob.body}  
                                     
                                     <small
-                                        className="text-warning float-right pointer" 
+                                        className="text-warning float-right pull-right ml-auto pointer" 
                                         onClick={this.choiceClick.bind(this)} 
                                         id={this.props.theId}>
                                         Click For Details <i className="fa fa-search-plus"></i>

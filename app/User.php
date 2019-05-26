@@ -51,6 +51,16 @@ class User extends Authenticatable implements MustVerifyEmail
         }
         return $jobs;
     }
+    public function completedJobs()
+    {
+        if (Auth::user()->type=='client') {
+            $jobs =$this->hasMany('App\jobs')->with(['transactions','freelancer','user','jobSkills.skills'])->where('status',2);    # code...
+        }else{
+            $jobs =$this->hasMany('App\jobs','assignedTo')->with('transactions','bids','user','jobSkills.skills')->where('status',2);
+        }
+        return $jobs;
+    }
+    
     
     public function bids()
     {

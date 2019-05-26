@@ -40,6 +40,16 @@ class activeJobs extends Controller
         
         return json_encode($refiend);
     }
+    public function completed()
+    {
+        $jobs =  Auth::guard('api')->user()->completedJobs()->get();
+       
+        
+
+     
+        
+        return json_encode($jobs);
+    }
 
     /**
      * Show the form for creating a new resource.
