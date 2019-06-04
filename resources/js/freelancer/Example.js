@@ -150,7 +150,7 @@ export default class Example extends Component {
 
        await axios.get(`api/notifications?api_token=`+window.token).then(
             (res)=>{
-                //console.log(res.data);
+                console.log(res.data);
                 this.setState({
                 notifications:res.data,
                     
@@ -194,8 +194,10 @@ export default class Example extends Component {
         );
     }
     click(){
+        console.log(event.target.id);
+        
         this.setState({
-            searchSkill:event.target.key,
+            searchSkill:event.target.id,
         });
     }
     fetch(){
@@ -226,26 +228,27 @@ export default class Example extends Component {
         return (
             
             <div className=" bg-white">
-                <div className="row  bg-primary lay add-background">
-                    <div className="  py-5 col-md-4 px-md-5  ">
+                <div className="row bg-my big lay ">
+                    <div className="  py-5 col-md-4 px-md-5  lb">
                         {this.state.choice
                         ?
                         <Choice
                             job={this.state.activeJobs[this.state.choice]}
                              />
                         :
-                        null
+                        <p>
+                            <i className="fas fa-skiing  sktr"></i>
+                            
+                        </p>
                         }
                     </div>
-                    <div className="side  py-4 px-5 col-md-8   text-center">
+                    <div className="  py-4 px-5 col-md-8   text-center ">
                                 
-                        <div className="display-3 pt-4 animated rotateInDownRight">
-                        <span className="bracket">{"<"}</span>
-                        <span className="text-primary">Hall Of Fame</span>
-                        <span className="bracket">{"/>"}</span><br></br> 
+                        <div className="text-right hall pt-4 pb-0 animated rotateInDownRight">
+                        <span className="text-white ">HALL <span className="">OF FAME</span></span>
                         </div>
-                        <hr className="bg-success"></hr>
-                        <div className=" pt-5 row lay pb-3 justify-content-center">
+                        <hr className="bg-success pt-1 m-0"></hr>
+                        <div className=" pt-5 row justify-content-center lay pb-2 ">
                         {this.state.activeJobs?
                                 this.state.activeJobs.map((activeJob,index)=>{
                             return(
@@ -292,6 +295,7 @@ export default class Example extends Component {
                                     return(
                                         <option 
                                         key={skill.id} 
+                                        id={skill.id}
                                         value={skill.id}
                                         onClick={this.click.bind(this)}
                                         >
@@ -308,7 +312,7 @@ export default class Example extends Component {
                     </div>
                 </div>
                 
-                <div className="row  lay    ">
+                <div className="row  lay   dash  text-dark">
                 
                     <div className="col-md-3 py-5">
                        
@@ -322,7 +326,7 @@ export default class Example extends Component {
                                 /> 
                             
                     </div>
-                    <div className="col-md-5 bg-primary py-5">
+                    <div className="col-md-5  py-5">
                     {   this.state.jobForDescription?
                         <Description
                             upbid={this.upbid.bind(this)}
@@ -333,7 +337,7 @@ export default class Example extends Component {
                             :null
                     }        
                     </div>
-                    <div className="col-md-4  bg-dark py-5" >
+                    <div className="col-md-4   py-5" >
                                
                             <div className="card-body p-0 ">
                             <div className=" list-group-item bg-success text-white ">All Bids</div>
@@ -366,7 +370,7 @@ export default class Example extends Component {
                 <i className="fa fa-bell"></i>
                 <i className="num">{this.state.notifications.filter(n => !n.status).length}</i>
             </button>
-            <div className="p-5 x">
+            <div className="p-5 z mt-0">
                 <Transactions/>
             </div>
             

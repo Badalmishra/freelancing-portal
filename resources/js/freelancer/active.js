@@ -46,27 +46,42 @@ export default class Active extends React.Component{
                                 <div className="card-body bg-dark text-success   text-center ">
                                   <h1 className="text-white">{this.props.activeJob.left}</h1>
                                    <p>Days Left</p>
-                                {
-                                    this.props.activeJob.final_link?
-                                        <span className="form-control py-0 pt-2 ">Processing Your Request</span>                                       
+                                {   
+                                    (this.props.activeJob.final_link || this.props.activeJob.left <0) ?
+                                        (this.props.activeJob.final_link)?
+                                            <span className="form-control py-0 pt-2 ">Processing Your Request</span>
+                                            :                                  
+                                            <span className="form-control py-0 pt-2 text-danger">
+                                                Deadline Crossed <br></br>
+                                                <span>Contact client<br></br> 
+                                                {this.props.activeJob.user.email}</span>
+                                            </span>
                                         :
-                                        <input placeholder="Project Google Drive Link" name="value" value={this.state.value} onChange={this.handle.bind(this)} className="z w-100  form-control py-0"></input>
+                                        <input placeholder="Project Google Drive Link" 
+                                            name="value" value={this.state.value} 
+                                            onChange={this.handle.bind(this)} 
+                                            className="z w-100  form-control py-0">
+                                            </input>
                                         
                                         
                                 }    
                                 </div>
                                 <div className="card-footer bg-dark">
                                    {
-                                        this.props.activeJob.final_link?
-                                        <button   className="btn w-100 btn-sm btn-success disabled">
-                                            Completional awaited
-                                        </button>
+                                        (this.props.activeJob.final_link || this.props.activeJob.left <0)?
+                                            (this.props.activeJob.final_link)?
+                                            <button   className="btn w-100 btn-sm btn-success disabled">
+                                                Completional awaited
+                                            </button>
+                                            :
+                                            <button className="btn w-100 btn-sm btn-danger disabled">
+                                                {this.props.activeJob.user.email}
+                                            </button>
                                         :
                                         <button  onClick={this.click.bind(this)} className="btn w-100 btn-sm btn-outline-success ">
                                             Complete
                                         </button>
                                    }
- 
                                 </div>
                             </div>
           

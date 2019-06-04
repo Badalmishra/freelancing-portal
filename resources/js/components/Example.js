@@ -82,7 +82,7 @@ export default class Example extends Component {
              "_method":"delete",
              "id":index,
         };
-  
+
         axios.post('api/jobs/'+index+'?api_token='+window.token,data)
           .then(res => {
               window.res=res;
@@ -106,15 +106,37 @@ export default class Example extends Component {
                  }
           });
     }
+    deleteAct(){
+        var index =event.target.id;
+        var data ={
+             "_method":"delete",
+             "id":index,
+        };
+
+        axios.post('api/jobs/'+index+'?api_token='+window.token,data)
+          .then(res => {
+              window.res=res;
+              if(res.data=='404'){
+                  this.setState({error:"This job was not posted by you"});
+                  setTimeout(()=>
+                      this.setState({error:""})
+                  ,3000);
+              } else{
+                    
+                     alert('Disputed Job Deleted');
+                     this.getActiveJobs();
+                 }
+          });
+    }
     getActiveJobs(){
         axios.get(`api/active/?api_token=`+window.token)
         .then(data => {
             console.log(data);
-            if (data.data.length >0) {
+            
                 
                 
                 this.setState({activeJobs:data.data});
-            }
+            
             
             });
     }
@@ -248,7 +270,7 @@ export default class Example extends Component {
     render() {
         return (
             <div className="p-0 ">
-                <div className="row  bg-primary lay add-background">
+                <div className="row  bg-primary lay big">
                     <div className="  py-5 col-md-4 px-md-5  ">
                         {this.state.skills?
                         <Addjob 
@@ -266,13 +288,13 @@ export default class Example extends Component {
                     
                         :null}
                     </div>
-                    <div className="bg-dark  py-5 col-md-8   text-center">
+                    <div className="  py-5 col-md-8   text-center">
                                 
-                        <div className="display-2 py-5 animated rotateInDownRight">
-                        <span className="bracket">{"<"}</span>
-                        <span className="text-primary">Ask the </span><br></br> 
-                        <span className="ml-5 px-4 text-primary">Geeks</span>
-                        <span className="bracket">{"/>"}</span>
+                        <div className="display-2 py-5 animated rotateInDownRight responsive">
+                            <span className="bracket">{"<"}</span>
+                            <span className="text-primary">Ask the </span><br></br> 
+                            <span className="ml-5 px-4 text-primary">Geeks</span>
+                            <span className="bracket">{"/>"}</span>
                         </div>
                         <Messages 
                                     error={this.state.error} 
@@ -331,11 +353,12 @@ export default class Example extends Component {
                 </h1>
                 <div className=" pt-4 row lay pb-3 justify-content-center">
                     
-                    {this.state.activeJobs!=""?
+                    {this.state.activeJobs?
                         this.state.activeJobs.map((activeJob)=>{
                             return(
                                 <Active
                                 key={activeJob.id}
+                                delete={this.deleteAct.bind(this)} 
                                 activeJob={activeJob}
                                />
                                )
@@ -361,7 +384,7 @@ export default class Example extends Component {
                     </div>
                 </div>
 
-                <div className="p-5 pt-4 text-center bg-warning">
+                <div className="dash p-5 pt-4 text-center bg-warning">
                 <h1 className="text-primary ">
                 <span className="text-success">Completed</span> Jobs
                 <hr></hr>

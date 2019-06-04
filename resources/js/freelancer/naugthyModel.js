@@ -26,7 +26,7 @@ export default class NaughtyModal extends React.Component{
                         {
                             this.props.noughties.map(naughty => {
                             return(<li className="list-group-item " key={naughty.id}>
-                                {naughty.body} Please check active projects. For Project: {naughty.jobs.body}
+                                {naughty.body} Please check active projects. For Project: {naughty.jobs?naughty.jobs.body:"Job Deleted"}
                                 <br></br>
                                 <small className="text-secondary">{naughty.created_at}</small>
                             </li>)

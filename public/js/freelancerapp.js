@@ -27452,7 +27452,8 @@ function (_Component) {
               case 0:
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/notifications?api_token=" + window.token).then(function (res) {
-                  //console.log(res.data);
+                  console.log(res.data);
+
                   _this7.setState({
                     notifications: res.data
                   });
@@ -27511,8 +27512,9 @@ function (_Component) {
   }, {
     key: "click",
     value: function click() {
+      console.log(event.target.id);
       this.setState({
-        searchSkill: event.target.key
+        searchSkill: event.target.id
       });
     }
   }, {
@@ -27552,25 +27554,25 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row  bg-primary lay add-background"
+        className: "row bg-my big lay "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "  py-5 col-md-4 px-md-5  "
+        className: "  py-5 col-md-4 px-md-5  lb"
       }, this.state.choice ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_choice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         job: this.state.activeJobs[this.state.choice]
-      }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "side  py-4 px-5 col-md-8   text-center"
+      }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("i", {
+        className: "fas fa-skiing  sktr"
+      }))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "  py-4 px-5 col-md-8   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "display-3 pt-4 animated rotateInDownRight"
+        className: "text-right hall pt-4 pb-0 animated rotateInDownRight"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-        className: "bracket"
-      }, "<"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-        className: "text-primary"
-      }, "Hall Of Fame"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-        className: "bracket"
-      }, "/>"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("br", null)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", {
-        className: "bg-success"
+        className: "text-white "
+      }, "HALL ", react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
+        className: ""
+      }, "OF FAME"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("hr", {
+        className: "bg-success pt-1 m-0"
       }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: " pt-5 row lay pb-3 justify-content-center"
+        className: " pt-5 row justify-content-center lay pb-2 "
       }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob, index) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_10__["default"], {
           key: activeJob.id,
@@ -27610,6 +27612,7 @@ function (_Component) {
       }, this.state.skills ? this.state.skills.map(function (skill) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
           key: skill.id,
+          id: skill.id,
           value: skill.id,
           onClick: _this11.click.bind(_this11)
         }, skill.name);
@@ -27617,7 +27620,7 @@ function (_Component) {
         onClick: this.fetch.bind(this),
         className: "col-3 btn btn-success form-component"
       }, "Search"))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "row  lay    "
+        className: "row  lay   dash  text-dark"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "col-md-3 py-5"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -27627,14 +27630,14 @@ function (_Component) {
         jobs: this.state.jobs,
         click: this.setJobForDescription.bind(this)
       })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-5 bg-primary py-5"
+        className: "col-md-5  py-5"
       }, this.state.jobForDescription ? react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Description__WEBPACK_IMPORTED_MODULE_6__["default"], {
         upbid: this.upbid.bind(this),
         job: this.state.jobForDescription,
         api_token: this.state.api_token,
         bids: this.state.bids
       }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "col-md-4  bg-dark py-5"
+        className: "col-md-4   py-5"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card-body p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
@@ -27662,7 +27665,7 @@ function (_Component) {
       }, this.state.notifications.filter(function (n) {
         return !n.status;
       }).length)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: "p-5 x"
+        className: "p-5 z mt-0"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Transactions__WEBPACK_IMPORTED_MODULE_11__["default"], null)));
     }
   }]);
@@ -28038,9 +28041,11 @@ function (_React$Component) {
         className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"
-      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 "
-      }, "Processing Your Request") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "Processing Your Request") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "form-control py-0 pt-2 text-danger"
+      }, "Deadline Crossed ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Contact client", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.activeJob.user.email)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         placeholder: "Project Google Drive Link",
         name: "value",
         value: this.state.value,
@@ -28048,9 +28053,11 @@ function (_React$Component) {
         className: "z w-100  form-control py-0"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer bg-dark"
-      }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-success disabled"
       }, "Completional awaited") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn w-100 btn-sm btn-danger disabled"
+      }, this.props.activeJob.user.email) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.click.bind(this),
         className: "btn w-100 btn-sm btn-outline-success "
       }, "Complete")));
@@ -28430,7 +28437,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "list-group-item ",
           key: naughty.id
-        }, naughty.body, " Please check active projects. For Project: ", naughty.jobs.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
+        }, naughty.body, " Please check active projects. For Project: ", naughty.jobs ? naughty.jobs.body : "Job Deleted", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", {
           className: "text-secondary"
         }, naughty.created_at));
       }))))));

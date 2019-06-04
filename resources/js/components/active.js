@@ -23,7 +23,11 @@ export default class Active extends React.Component{
                     <a href={this.props.activeJob.final_link}
                       className="btn btn-info btn-sm w-100">Project Files</a>                                       
                     :
-                    null                    
+                    this.props.activeJob.left< 5?
+                    <span className="form-control text-danger">
+                      Deadline crossed
+                    </span>
+                    :null           
                     
             }    
             </div>
@@ -37,7 +41,11 @@ export default class Active extends React.Component{
 
                     </form>
                     :
-                    null
+                    this.props.activeJob.left< 5?
+                    <button id={this.props.activeJob.id} className="list-group-item delete p-2  col-3 btn btn-outline-danger" onClick={this.props.delete}>
+                      <i className="fas fa-trash-alt"></i> Delete
+                    </button>
+                    :null
                 }
 
             </div>

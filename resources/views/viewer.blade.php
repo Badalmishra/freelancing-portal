@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="/css/pro.css">
     <link rel="stylesheet" href="/css/certain.css">
 
-    <div class="showcase row m-0 px-5 bg-secondary">
+    <div class="showcase row m-0 px-5 bg-secondary big">
         <div class="col-md-6 p-0">
             <div class="row m-0 bg-dark text-white p-0">
                 <div class="col-md-4 m-0 p-0" style="height:180px;overflow-y:hidden;">

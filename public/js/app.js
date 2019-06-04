@@ -26593,30 +26593,58 @@ function (_Component) {
       });
     }
   }, {
+    key: "deleteAct",
+    value: function deleteAct() {
+      var _this5 = this;
+
+      var index = event.target.id;
+      var data = {
+        "_method": "delete",
+        "id": index
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + index + '?api_token=' + window.token, data).then(function (res) {
+        window.res = res;
+
+        if (res.data == '404') {
+          _this5.setState({
+            error: "This job was not posted by you"
+          });
+
+          setTimeout(function () {
+            return _this5.setState({
+              error: ""
+            });
+          }, 3000);
+        } else {
+          alert('Disputed Job Deleted');
+
+          _this5.getActiveJobs();
+        }
+      });
+    }
+  }, {
     key: "getActiveJobs",
     value: function getActiveJobs() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/active/?api_token=" + window.token).then(function (data) {
         console.log(data);
 
-        if (data.data.length > 0) {
-          _this5.setState({
-            activeJobs: data.data
-          });
-        }
+        _this6.setState({
+          activeJobs: data.data
+        });
       });
     }
   }, {
     key: "getCompletedJobs",
     value: function getCompletedJobs() {
-      var _this6 = this;
+      var _this7 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/completed/?api_token=" + window.token).then(function (data) {
         console.log(data);
 
         if (data.data.length > 0) {
-          _this6.setState({
+          _this7.setState({
             completedJobs: data.data
           });
         }
@@ -26633,7 +26661,7 @@ function (_Component) {
   }, {
     key: "addJob",
     value: function addJob() {
-      var _this7 = this;
+      var _this8 = this;
 
       var body = [this.state.Name, this.state.Description, this.state.Money, this.state.Time, this.state.Link, this.state.jobSkills];
       var user_id = 1;
@@ -26642,7 +26670,7 @@ function (_Component) {
       }).then(function (res) {
         window.res = res;
 
-        _this7.setState({
+        _this8.setState({
           jobs: res.data,
           jobForDescription: res.data[0],
           Name: "",
@@ -26652,31 +26680,31 @@ function (_Component) {
           Link: "",
           jobSkills: [],
           alert: "The Job Has Been Added Successfully"
-        }, console.log(_this7.state.alert));
+        }, console.log(_this8.state.alert));
 
         setTimeout(function () {
-          return _this7.setState({
+          return _this8.setState({
             alert: ""
           });
         }, 4000);
-        console.log(_this7.state.jobs);
+        console.log(_this8.state.jobs);
       });
     }
   }, {
     key: "setJobForDescription",
     value: function setJobForDescription(param) {
-      var _this8 = this;
+      var _this9 = this;
 
       this.setState({
         jobForDescription: param
       }, function () {
-        console.log(_this8.state.jobForDescription);
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this8.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+        console.log(_this9.state.jobForDescription);
+        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("api/bids/" + _this9.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
           window.bids = res.data;
           console.log(res.data); // alert(this.props.job.id+"lol");
           // jobs=jobs.reverse();
 
-          _this8.setState({
+          _this9.setState({
             bids: res.data.reverse()
           });
         });
@@ -26704,7 +26732,7 @@ function (_Component) {
   }, {
     key: "approve",
     value: function approve() {
-      var _this9 = this;
+      var _this10 = this;
 
       var id = this.state.bidForDescription.id;
       var data = {
@@ -26714,15 +26742,15 @@ function (_Component) {
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('api/jobs/' + id + '?api_token=' + window.token, data).then(function (res) {
         console.log(res.data);
 
-        _this9.setState({
+        _this10.setState({
           bidForDescription: "",
           jobs: res.data.reverse()
         }, function () {
           console.log("done");
 
-          _this9.setJobForDescription(_this9.state.jobs[0] ? _this9.state.jobs[0] : "");
+          _this10.setJobForDescription(_this10.state.jobs[0] ? _this10.state.jobs[0] : "");
 
-          _this9.getActiveJobs();
+          _this10.getActiveJobs();
 
           alert("Check Active Jobs");
         });
@@ -26734,13 +26762,13 @@ function (_Component) {
   }, {
     key: "showBid",
     value: function showBid(params) {
-      var _this10 = this;
+      var _this11 = this;
 
       console.log(this.state.bidForDescription);
       this.setState({
         bidForDescription: params
       }, function () {
-        console.log(_this10.state.bidForDescription);
+        console.log(_this11.state.bidForDescription);
         $('#exampleModal').modal('show');
       });
       window.the = this.state.bidForDescription;
@@ -26748,12 +26776,12 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this11 = this;
+      var _this12 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row  bg-primary lay add-background"
+        className: "row  bg-primary lay big"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "  py-5 col-md-4 px-md-5  "
       }, this.state.skills ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -26767,9 +26795,9 @@ function (_Component) {
         skills: this.state.skills,
         skillManagement: this.skillManagement.bind(this)
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "bg-dark  py-5 col-md-8   text-center"
+        className: "  py-5 col-md-8   text-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "display-2 py-5 animated rotateInDownRight"
+        className: "display-2 py-5 animated rotateInDownRight responsive"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "bracket"
       }, "<"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -26811,7 +26839,7 @@ function (_Component) {
       }, this.state.bids != "" ? this.state.bids.map(function (bids) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           theBid: bids,
-          showBid: _this11.showBid.bind(_this11)
+          showBid: _this12.showBid.bind(_this12)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_freelancer_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription,
@@ -26824,9 +26852,10 @@ function (_Component) {
         className: "text-success"
       }, "Active"), " Jobs", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: " pt-4 row lay pb-3 justify-content-center"
-      }, this.state.activeJobs != "" ? this.state.activeJobs.map(function (activeJob) {
+      }, this.state.activeJobs ? this.state.activeJobs.map(function (activeJob) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_active__WEBPACK_IMPORTED_MODULE_9__["default"], {
           key: activeJob.id,
+          delete: _this12.deleteAct.bind(_this12),
           activeJob: activeJob
         });
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -26846,7 +26875,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-outline-dark "
       }, "Pay"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "p-5 pt-4 text-center bg-warning"
+        className: "dash p-5 pt-4 text-center bg-warning"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-primary "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -26946,7 +26975,9 @@ function (_React$Component) {
       }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: this.props.activeJob.final_link,
         className: "btn btn-info btn-sm w-100"
-      }, "Project Files") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Project Files") : this.props.activeJob.left < 5 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "form-control text-danger"
+      }, "Deadline crossed") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer "
       }, this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         action: "/paypal",
@@ -26959,7 +26990,13 @@ function (_React$Component) {
         type: "submit",
         value: "pay",
         className: "btn btn-success btn-sm w-100"
-      })) : null));
+      })) : this.props.activeJob.left < 5 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: this.props.activeJob.id,
+        className: "list-group-item delete p-2  col-3 btn btn-outline-danger",
+        onClick: this.props.delete
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-trash-alt"
+      }), " Delete") : null));
     }
   }]);
 
