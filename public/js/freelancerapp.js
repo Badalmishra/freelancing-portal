@@ -27335,8 +27335,8 @@ function (_Component) {
         var skills = res.data; // jobs=jobs.reverse();
 
         _this3.setState({
-          skills: skills,
-          searchSkill: skills[0].id
+          skills: skills //searchSkill:skills[0].id,
+
         });
       });
     }
@@ -27512,27 +27512,47 @@ function (_Component) {
   }, {
     key: "click",
     value: function click() {
-      console.log(event.target.id);
-      this.setState({
-        searchSkill: event.target.id
-      });
+      var _this10 = this;
+
+      console.log(event.target.value);
+
+      if (event.target.value == '100') {
+        axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/jobs?api_token=" + window.token).then(function (res) {
+          var jobs = res.data.reverse(); // jobs=jobs.reverse();
+
+          _this10.setState({
+            jobs: jobs,
+            jobForDescription: jobs[0] ? jobs[0] : null
+          });
+
+          axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bids/" + _this10.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+            return _this10.setState({
+              bids: res.data.reverse()
+            });
+          });
+        });
+      } else {
+        this.setState({
+          searchSkill: event.target.value
+        });
+      }
     }
   }, {
     key: "fetch",
     value: function fetch() {
-      var _this10 = this;
+      var _this11 = this;
 
       console.log(this.state.searchSkill);
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/jobs/' + this.state.searchSkill + '?api_token=' + window.token).then(function (res) {
         var jobs = res.data.reverse();
 
-        _this10.setState({
+        _this11.setState({
           jobs: jobs //   jobForDescription:jobs[0]?jobs[0]:null,
 
         }, function () {
           console.log("done");
 
-          _this10.setJobForDescription(_this10.state.jobs[0] ? _this10.state.jobs[0] : "");
+          _this11.setJobForDescription(_this11.state.jobs[0] ? _this11.state.jobs[0] : "");
         });
 
         console.log(jobs);
@@ -27549,7 +27569,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this11 = this;
+      var _this12 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
@@ -27578,8 +27598,8 @@ function (_Component) {
           key: activeJob.id,
           activeJob: activeJob,
           theId: index,
-          complete: _this11.complete.bind(_this11),
-          choice: _this11.choice.bind(_this11)
+          complete: _this12.complete.bind(_this12),
+          choice: _this12.choice.bind(_this12)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -27608,13 +27628,15 @@ function (_Component) {
         className: "row w-50 search mx-auto"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("select", {
         className: "form-component col-9",
-        placeholder: "Search by skill"
-      }, this.state.skills ? this.state.skills.map(function (skill) {
+        placeholder: "Search by skill",
+        onChange: this.click.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
+        value: ""
+      }, "All"), this.state.skills ? this.state.skills.map(function (skill) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("option", {
           key: skill.id,
           id: skill.id,
-          value: skill.id,
-          onClick: _this11.click.bind(_this11)
+          value: skill.id
         }, skill.name);
       }) : null), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         onClick: this.fetch.bind(this),
@@ -27648,8 +27670,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this11.showBid.bind(_this11),
-          deleteBid: _this11.deleteBid.bind(_this11)
+          showBid: _this12.showBid.bind(_this12),
+          deleteBid: _this12.deleteBid.bind(_this12)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription

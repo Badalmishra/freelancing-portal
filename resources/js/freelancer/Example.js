@@ -64,7 +64,7 @@ export default class Example extends Component {
          // jobs=jobs.reverse();
           this.setState({ 
               skills:skills,
-              searchSkill:skills[0].id,
+              //searchSkill:skills[0].id,
            });
         })
     }
@@ -194,11 +194,24 @@ export default class Example extends Component {
         );
     }
     click(){
-        console.log(event.target.id);
-        
+        console.log(event.target.value);
+        if (event.target.value == '100') {
+            axios.get(`api/jobs?api_token=`+window.token)
+                .then(res => {
+                const jobs = res.data.reverse();
+                // jobs=jobs.reverse();
+                this.setState({ 
+                    jobs:jobs,
+                    jobForDescription:jobs[0]?jobs[0]:null,
+                });
+                axios.get(`api/bids/`+this.state.jobForDescription.id+`?api_token=`+window.token)
+                    .then(res => this.setState({ bids:res.data.reverse(),}));
+                });
+        }else{
         this.setState({
-            searchSkill:event.target.id,
+            searchSkill:event.target.value,
         });
+        }
     }
     fetch(){
         console.log(this.state.searchSkill);
@@ -288,8 +301,8 @@ export default class Example extends Component {
                         <hr className="w-75"></hr>
                     </h1>
                     <div className="row w-50 search mx-auto">
-                        <select className="form-component col-9" placeholder="Search by skill">
-                            
+                        <select className="form-component col-9" placeholder="Search by skill"  onChange={this.click.bind(this)}>
+                            <option   value="">All</option>
                             {this.state.skills?
                                 this.state.skills.map((skill) =>{
                                     return(
@@ -297,7 +310,7 @@ export default class Example extends Component {
                                         key={skill.id} 
                                         id={skill.id}
                                         value={skill.id}
-                                        onClick={this.click.bind(this)}
+                                        
                                         >
                                         {skill.name}
                                         </option>
