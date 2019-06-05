@@ -221,3 +221,19 @@ body{
   font-family: Arial, Helvetica, sans-serif;
   color: rgba(205, 206, 206, 0.76)!important;
 }
+.nac{
+  padding-bottom: 0px!important;
+}
+.dropdown-item:hover{
+  background: unset!important;
+  color:palegreen!important;
+  border-bottom:1px solid green;
+}
+
+.dropdown-menu{
+  background: rgba(0,0,0,0.5)!important;
+
+}
+.skc{
+  font-size:15rem!important;
+}

@@ -270,7 +270,7 @@ export default class Example extends Component {
     render() {
         return (
             <div className="p-0 ">
-                <div className="row  bg-primary lay big">
+                <div className="row pt-4 bg-primary m-0 big" id="addjob">
                     <div className="  py-5 col-md-4 px-md-5  ">
                         {this.state.skills?
                         <Addjob 
@@ -289,11 +289,13 @@ export default class Example extends Component {
                         :null}
                     </div>
                     <div className="  py-5 col-md-8   text-center">
-                                
-                        <div className="display-2 py-5 animated rotateInDownRight responsive">
+                        <p>
+                            <i className="fas fa-skiing skc"></i>
+                        </p>
+                        <div className="display-2 animated rotateInDownRight responsive">
                             <span className="bracket">{"<"}</span>
-                            <span className="text-primary">Ask the </span><br></br> 
-                            <span className="ml-5 px-4 text-primary">Geeks</span>
+                            <span className="text-success">Ask the</span>
+                            <span className=" text-primary">Geeks</span>
                             <span className="bracket">{"/>"}</span>
                         </div>
                         <Messages 
@@ -302,7 +304,7 @@ export default class Example extends Component {
                                     />
                     </div>
                 </div>
-                <div className="tools bg-white lay">
+                <div className="tools bg-white lay" id="managejob">
                     <div className="text-center  p-3 px-5 lay"> 
 
                         <h1 className=" text-black">Manage Jobs</h1>
@@ -346,79 +348,77 @@ export default class Example extends Component {
                     bidForDescription={this.state.bidForDescription}
                     approve={this.approve.bind(this)}
                 />
-                <div className="p-5 pt-4 text-center bg-dark">
-                <h1 className="text-primary ">
-                <span className="text-success">Active</span> Jobs
-                <hr></hr>
-                </h1>
-                <div className=" pt-4 row lay pb-3 justify-content-center">
-                    
-                    {this.state.activeJobs?
-                        this.state.activeJobs.map((activeJob)=>{
-                            return(
-                                <Active
-                                key={activeJob.id}
-                                delete={this.deleteAct.bind(this)} 
-                                activeJob={activeJob}
-                               />
-                               )
-                            })
-                            :
-                        <div  className="card  col-md-4mx-2 p-0 text-left side">
-                            <div className="card-header bg-primary">
-                                No active projects
+                <div className="dash p-5 pt-4 text-center bg-dark" id="active">
+                    <h1 className="text-primary ">
+                    <span className="text-success">Active</span> Jobs
+                    <hr></hr>
+                    </h1>
+                    <div className=" pt-4 row lay pb-3 justify-content-center">
+                        
+                        {this.state.activeJobs?
+                            this.state.activeJobs.map((activeJob)=>{
+                                return(
+                                    <Active
+                                    key={activeJob.id}
+                                    delete={this.deleteAct.bind(this)} 
+                                    activeJob={activeJob}
+                                />
+                                )
+                                })
+                                :
+                            <div  className="card  col-md-4mx-2 p-0 text-left side">
+                                <div className="card-header bg-primary">
+                                    No active projects
+                                </div>
+                                <div className="card-body text-success    ">
+                                    <small className="d-block">-----------</small>
+                                
+                                    <small className="d-block">===========</small>
+                                    <input className="z w-100 py-0"></input>
+                                </div>
+                                <div className="card-footer bg-success">
+                                    <button className="btn w-100 btn-sm btn-outline-dark ">
+                                    Pay
+                                    </button> 
+                                </div>
                             </div>
-                            <div className="card-body text-success    ">
-                                <small className="d-block">-----------</small>
-                            
-                                <small className="d-block">===========</small>
-                                <input className="z w-100 py-0"></input>
-                            </div>
-                            <div className="card-footer bg-success">
-                                <button className="btn w-100 btn-sm btn-outline-dark ">
-                                Pay
-                                </button> 
-                            </div>
+                            }
                         </div>
-                        }
                     </div>
-                </div>
 
-                <div className="dash p-5 pt-4 text-center bg-warning">
-                <h1 className="text-primary ">
-                <span className="text-success">Completed</span> Jobs
-                <hr></hr>
-                </h1>
-                <div className=" pt-4 row lay pb-3 justify-content-center">
-                    
-                    {this.state.completedJobs!=""?
-                        this.state.completedJobs.map((completedJob)=>{
-                            return(
-                                <Completed
-                                key={completedJob.id}
-                                completedJob={completedJob}
-                               />
-                               )
-                            })
-                            :
-                        <div  className="card  col-md-4mx-2 p-0 text-left side">
-                            <div className="card-header bg-primary">
-                                No active projects
+                <div className=" p-5 pt-4 text-center   big" id="completed">
+                    <h1 className="text-primary ">
+                    <span className="text-success">Completed</span> Jobs
+                    <hr></hr>
+                    </h1>
+                    <div className=" pt-4 row lay pb-3 justify-content-center">
+                        
+                        {this.state.completedJobs!=""?
+                            this.state.completedJobs.map((completedJob)=>{
+                                return(
+                                    <Completed
+                                    key={completedJob.id}
+                                    completedJob={completedJob}
+                                />
+                                )
+                                })
+                                :
+                            <div  className="card  col-md-4mx-2 p-0 text-left side">
+                                <div className="card-header bg-primary">
+                                    No active projects
+                                </div>
+                                <div className="card-body text-success    ">
+                                    <small className="d-block">-----------</small>
+                                
+                                    <small className="d-block">===========</small>
+                                    <input className="z w-100 py-0"></input>
+                                </div>
+                                
                             </div>
-                            <div className="card-body text-success    ">
-                                <small className="d-block">-----------</small>
-                            
-                                <small className="d-block">===========</small>
-                                <input className="z w-100 py-0"></input>
-                            </div>
-                            
+                            }
                         </div>
-                        }
                     </div>
-                </div>
-
-
-             </div> 
+                </div> 
         );
     }
 }

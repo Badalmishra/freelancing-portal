@@ -54,13 +54,39 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                            <a href="/" class="nav-link text-white"><i class="fa fa-home"></i> Home</a>
+                            </li>
+                            <div class="dropdown nav-item">
+                                <a  href="#" class="nav-link text-white" role="button"  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-bars"></i> Menu
+                                </a>
+                                <div class="dropdown-menu bg-dark text-white" aria-labelledby="dropdownMenuButton">
+                                    @if (Auth::user()->type=="freelancer")
+                                      
+                                            <a href="/profile" class="dropdown-item text-white">Profile</a>
+                                     
+                                    @else
+                                       
+                                            <a href="#active" class="dropdown-item text-white">Active</a>
+                                        
+                                            <a href="#completed" class="dropdown-item text-white">Completed</a>
+                                       
+                                            <a href="#addjob" class="dropdown-item text-white">AddJobs</a>
+                                        
+                                            <a href="#managejob" class="dropdown-item text-white">ManageJobs</a>
+                                       
+                                    @endif
+                                </div>
+                            </div>
+                           
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <i class="fa fa-user"></i>  {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item text-white" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -71,14 +97,8 @@
                                     </form>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a href="/" class="nav-link">Home</a>
-                            </li>
-                            @if (Auth::user()->type=="freelancer")
-                                <li class="nav-item">
-                                    <a href="/profile" class="nav-link">Profile</a>
-                                </li>
-                            @endif
+                            
+                           
                         @endguest
                     </ul>
                 </div>

@@ -28063,7 +28063,7 @@ function (_React$Component) {
         className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"
-      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link || this.props.activeJob.left < 5 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 "
       }, "Processing Your Request") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 text-danger"
@@ -28075,7 +28075,7 @@ function (_React$Component) {
         className: "z w-100  form-control py-0"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer bg-dark"
-      }, this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.activeJob.final_link || this.props.activeJob.left < 5 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-success disabled"
       }, "Completional awaited") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-danger disabled"

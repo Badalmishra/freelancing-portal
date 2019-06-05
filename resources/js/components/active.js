@@ -42,7 +42,7 @@ export default class Active extends React.Component{
                     </form>
                     :
                     this.props.activeJob.left< 5?
-                    <button id={this.props.activeJob.id} className="list-group-item delete p-2  col-3 btn btn-outline-danger" onClick={this.props.delete}>
+                    <button id={this.props.activeJob.id} className="btn-sm w-100  btn btn-outline-danger" onClick={this.props.delete}>
                       <i className="fas fa-trash-alt"></i> Delete
                     </button>
                     :null

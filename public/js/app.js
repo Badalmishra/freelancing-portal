@@ -26781,7 +26781,8 @@ function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "p-0 "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "row  bg-primary lay big"
+        className: "row pt-4 bg-primary m-0 big",
+        id: "addjob"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "  py-5 col-md-4 px-md-5  "
       }, this.state.skills ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Addjob__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -26796,21 +26797,24 @@ function (_Component) {
         skillManagement: this.skillManagement.bind(this)
       }) : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "  py-5 col-md-8   text-center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "display-2 py-5 animated rotateInDownRight responsive"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fas fa-skiing skc"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "display-2 animated rotateInDownRight responsive"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "bracket"
       }, "<"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "text-primary"
-      }, "Ask the "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "ml-5 px-4 text-primary"
+        className: "text-success"
+      }, "Ask the"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: " text-primary"
       }, "Geeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "bracket"
       }, "/>")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_messages__WEBPACK_IMPORTED_MODULE_4__["default"], {
         error: this.state.error,
         alert: this.state.alert
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "tools bg-white lay"
+        className: "tools bg-white lay",
+        id: "managejob"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center  p-3 px-5 lay"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
@@ -26845,7 +26849,8 @@ function (_Component) {
         bidForDescription: this.state.bidForDescription,
         approve: this.approve.bind(this)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "p-5 pt-4 text-center bg-dark"
+        className: "dash p-5 pt-4 text-center bg-dark",
+        id: "active"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-primary "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -26875,7 +26880,8 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-outline-dark "
       }, "Pay"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "dash p-5 pt-4 text-center bg-warning"
+        className: " p-5 pt-4 text-center   big",
+        id: "completed"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-primary "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
@@ -26992,7 +26998,7 @@ function (_React$Component) {
         className: "btn btn-success btn-sm w-100"
       })) : this.props.activeJob.left < 5 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: this.props.activeJob.id,
-        className: "list-group-item delete p-2  col-3 btn btn-outline-danger",
+        className: "btn-sm w-100  btn btn-outline-danger",
         onClick: this.props.delete
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-trash-alt"
@@ -27059,9 +27065,9 @@ function (_React$Component) {
         className: "card-header bg-dark text-white"
       }, this.props.completedJob.body, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "float-right"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("small", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: "viewer/" + this.props.completedJob.freelancer.id
-      }, "@", this.props.completedJob.freelancer.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "@", this.props.completedJob.freelancer.name)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body bg-dark text-success   text-center "
       }, this.props.completedJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: this.props.completedJob.final_link,

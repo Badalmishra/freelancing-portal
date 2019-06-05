@@ -47,7 +47,7 @@ export default class Active extends React.Component{
                                   <h1 className="text-white">{this.props.activeJob.left}</h1>
                                    <p>Days Left</p>
                                 {   
-                                    (this.props.activeJob.final_link || this.props.activeJob.left <0) ?
+                                    (this.props.activeJob.final_link || this.props.activeJob.left <5) ?
                                         (this.props.activeJob.final_link)?
                                             <span className="form-control py-0 pt-2 ">Processing Your Request</span>
                                             :                                  
@@ -68,7 +68,7 @@ export default class Active extends React.Component{
                                 </div>
                                 <div className="card-footer bg-dark">
                                    {
-                                        (this.props.activeJob.final_link || this.props.activeJob.left <0)?
+                                        (this.props.activeJob.final_link || this.props.activeJob.left <5)?
                                             (this.props.activeJob.final_link)?
                                             <button   className="btn w-100 btn-sm btn-success disabled">
                                                 Completional awaited

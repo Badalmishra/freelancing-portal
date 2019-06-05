@@ -11,9 +11,12 @@ export default class Completed extends React.Component{
             <div className="card-header bg-dark text-white">
                 {this.props.completedJob.body}
                 <span className="float-right">
-                <a href={"viewer/"+this.props.completedJob.freelancer.id}>
-                  @{this.props.completedJob.freelancer.name}
-                </a></span>
+                  <small>
+                    <a href={"viewer/"+this.props.completedJob.freelancer.id}>
+                      @{this.props.completedJob.freelancer.name}
+                    </a>
+                  </small>
+                </span>
             </div>
             <div className="card-body bg-dark text-success   text-center ">
               
