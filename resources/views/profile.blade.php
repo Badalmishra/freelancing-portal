@@ -126,8 +126,8 @@
                     {{$job->body}}
                 </div>
                 <div class="card-body bg-dark text-success   text-center ">
-                    <h1 class="text-white">{{$job->bids[0]->price}}</h1>
-                    <p>By {{$job->user->name}}</p>
+                    <h1 class="text-white">${{$job->bids[0]->price}}</h1>
+                    <p>For {{$job->user->name}}</p>
                     <span class="form-control py-0 pt-2 ">Ended on : {{$job->bids[0]->updated_at}}</span>
                 </div>
                 <div class="card-footer bg-dark">

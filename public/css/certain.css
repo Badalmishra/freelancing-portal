@@ -56,6 +56,7 @@
 }
 .mouse:hover{
   background: rgba(0,0,0,0.2);
+  color : white;
 }
 #form *{
    border-radius:0px !important; }
