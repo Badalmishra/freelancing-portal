@@ -31,7 +31,8 @@ class profileController extends Controller
     public function viewer(Request $request)
     {   
         $user_id = $request->id;
-        if ($user_id == Auth::user()->id) {
+        $self_id = Auth::check()?Auth::user()->id:0;
+        if ($user_id == $self_id) {
             return redirect('/profile');
         }
         $user = User::where('id',$user_id)->with(['reviews.reviewer','userskills.skills'])->get();

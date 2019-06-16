@@ -296,7 +296,7 @@ export default class Example extends Component {
                         </div>
                     </div>
                 </div>
-                <div className=" pt-5 pb-3 tag  bg-secondary text-white text-center" id="formM">
+                <div className=" pt-5 pb-3 tag  bg-white text-secondary text-center" id="formM">
                     <h1 className="">Dash Board
                         <hr className="w-75"></hr>
                     </h1>

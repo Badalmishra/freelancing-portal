@@ -27618,7 +27618,7 @@ function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-outline-dark "
       }, "Complete")))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-        className: " pt-5 pb-3 tag  bg-secondary text-white text-center",
+        className: " pt-5 pb-3 tag  bg-white text-secondary text-center",
         id: "formM"
       }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h1", {
         className: ""

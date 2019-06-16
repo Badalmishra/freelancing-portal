@@ -59,18 +59,18 @@
         <div class="col-md-6 p-2">
               <div class="btn btn-group-vertical w-100 float-right">
                     <div class="btn btn-group m-0 p-0 w-100 mb-1">
-                        <div class="btn btn-font btn-primary w-100 mr-1">Resume</div>
-                        <div class="btn btn-font btn-outline-success w-100 text-white">Portfolio</div>
+                        <a href="#reviews" class="btn btn-font btn-primary w-100 mr-1">Reviews</a>
+                        <a href="#completed" class="btn btn-font btn-outline-success w-100 text-white">Completed</a>
                     </div>
                     <div class="btn btn-group m-0 p-0 w-100">
-                        <div class="btn btn-font btn-outline-success mr-1 text-white">Facebook</div>
-                        <div class="btn btn-font btn-outline-primary text-white">Twitter</div>
+                        <a href="#skills" class="btn btn-font btn-outline-success mr-1 text-white">Skill Sets</a>
+                        <a href="#form" class="btn btn-font btn-outline-primary text-white">Feedbaclk</a>
                     </div>
               </div>
               
         </div>
     </div>
-    <div class=" p-5 bg-white" id="active">
+    <div class=" p-5 bg-white" id="completed">
         <h1>Completed Jobs <hr class="mt-1"></h1>
         <div class="row m-0 justify-content-center mt-5 p-5">
             
@@ -97,7 +97,7 @@
     </div>
     <div class="pt-1 bg-secondary">
     </div>
-    <div class=" bg-white p-5">
+    <div class=" bg-white p-5" id="reviews">
         <h2>Reviews</h2>
         <div class="list-group">
          @foreach ($user->reviews as $review)
