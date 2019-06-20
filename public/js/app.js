@@ -26388,9 +26388,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn btn-outline-success disabled",
         title: "Maximum Money client is willing to pay"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-rupee-sign mr-2"
-      }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "mr-2"
+      }, "$"), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "time btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn btn-outline-primary disabled   "
@@ -26981,7 +26981,7 @@ function (_React$Component) {
       }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         href: this.props.activeJob.final_link,
         className: "btn btn-info btn-sm w-100"
-      }, "Project Files") : this.props.activeJob.left < 5 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Project Files") : this.props.activeJob.left < 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control text-danger"
       }, "Deadline crossed") : null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer "
@@ -26996,7 +26996,7 @@ function (_React$Component) {
         type: "submit",
         value: "pay",
         className: "btn btn-success btn-sm w-100"
-      })) : this.props.activeJob.left < 5 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      })) : this.props.activeJob.left < 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: this.props.activeJob.id,
         className: "btn-sm w-100  btn btn-outline-danger",
         onClick: this.props.delete

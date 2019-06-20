@@ -40,7 +40,7 @@
                     <ul class="navbar-nav ml-auto">
                     @if ($message = Session::get('admin'))
                         <li class="nav-item">
-                            <a class="nav-link" href="/adminunauth">Logout</a>
+                            <a class="nav-link" href="/adminunauth"><i class="fa fa-door-open text-white"></i> Logout</a>
                         </li>
                     @else
                         <li class="nav-item">

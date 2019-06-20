@@ -15,7 +15,7 @@ class activeJobs extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $jobs =  Auth::guard('api')->user()->activeJobs()->get();
         foreach ($jobs as $job) {
             $date = time();

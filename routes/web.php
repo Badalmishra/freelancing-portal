@@ -51,5 +51,7 @@ Route::get('admin','adminController@index');
 Route::post('adminauth','adminController@authenticate');
 Route::get('adminunauth','adminController@unauthenticate');
 Route::get('searchuser','adminController@searchuser');
+Route::get('adminactive/{id}','adminController@adminactive');
+Route::get('deleteadmin/{id}/{user_id}','adminController@deleteadmin');
 
 

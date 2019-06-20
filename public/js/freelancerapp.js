@@ -27177,9 +27177,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn  btn-sm btn-outline-success disabled",
         title: "Maximum Money client is willing to pay"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-rupee-sign mr-2"
-      }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "mr-2"
+      }, "$"), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "time btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn btn-sm btn-outline-info disabled   "
@@ -28178,9 +28178,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn  btn-sm btn-outline-success disabled",
         title: "Maximum Money client is willing to pay"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-rupee-sign mr-2"
-      }), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "mr-2"
+      }, "$"), this.props.job.maxMoney), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "time btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "btn btn-sm btn-outline-info disabled   "

@@ -129,7 +129,7 @@ export default class Decription extends React.Component{
                 <div className="card-footer ">
                     <span className="btn  btn-sm btn-outline-success disabled" 
                        title="Maximum Money client is willing to pay">
-                        <i className="fas fa-rupee-sign mr-2"></i> 
+                        <span className="mr-2">$</span> 
                         {this.props.job.maxMoney}
                     </span>
                     <div className="time btn-group">

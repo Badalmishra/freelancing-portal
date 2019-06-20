@@ -4,16 +4,16 @@
         <div class="col-md-2  d-lg-block d-none p-3" style="background:rgba(25, 127, 210, 1) !important;">
             <ul class="nav flex-column text-center mt-5">
             <i class="fa fa-skiing text-white" style="font-size:8rem;"></i>
-            <hr class="bg-secondary">
+            <hr class="bg-secondary pt-1 bg-white">
                 <div class="text-left ml-2">
                     <li class="nav-item">
                         <a class="nav-link active text-white lead" href="/admin">Search <i class="fa fa-search"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white lead" href="/stats">Data Logistics</a>
+                        <a class="nav-link text-white lead" href="/stats">Data Logistics <i class="fa fa-chart-line"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white lead" href="/Manual">Manual</a>
+                        <a class="nav-link text-white lead" href="/Manual">Manual <i class="fa fa-align-left"></i></a>
                     </li>
                 </div>
             </ul>
@@ -42,7 +42,7 @@
                             <a class="lead" href="viewer/{{$user->id}}">@ {{$user->name}} profile </a>
                         </div>
                         <div class="col-md-3">
-                            <a href="userjobs" class="lead">ActiveJobs</a>
+                            <a href="adminactive/{{$user->id}}" class="lead">ActiveJobs</a>
                         </div>
                         <div class="col-md-3">
                                 Paypal :
