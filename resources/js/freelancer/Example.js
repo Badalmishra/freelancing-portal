@@ -193,6 +193,20 @@ export default class Example extends Component {
             }
         );
     }
+    report(params){
+        console.log(params);
+
+        var id = params;
+        axios.get('api/report/'+id+'?api_token='+window.token).
+        then(res =>
+            {
+                console.log(res.data);
+                this.setState({
+                    activeJobs:res.data,
+                });
+            }
+        );
+    }
     click(){
         console.log(event.target.value);
         if (event.target.value == '100') {
@@ -270,6 +284,7 @@ export default class Example extends Component {
                                 activeJob={activeJob}
                                 theId={index}
                                 complete={this.complete.bind(this)}
+                                report={this.report.bind(this)}
                                 choice = {this.choice.bind(this)}
                                 />
                            )

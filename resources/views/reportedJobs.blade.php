@@ -40,13 +40,23 @@
                             <p class="lead">
                                 <b>{{$job->user->email}}</b>
                                 <hr>
-                                <i>{{$job->left}} days left</i>
+                                <i>
+                                    {{$job->left}} days left <br>
+                                    @if($job->left < 0 )
+                                    <span class="text-secondary">Deadline crossed</span>
+                                    @endif
+                                </i>
                                 <br>
                                 <i>{{$job->bids[0]->price}} dollars</i>
                             </p>
                         </div>
                         <div class="col-md-9">
-                            <h2 class="text-secondary">{{$job->body}}</h2>
+                            <h2 class="text-secondary">
+                                {{$job->body}} 
+                                <a href="/viewer/{{$job->freelancer->id}}" class="lead float-right">
+                                    Freelancer @ {{$job->freelancer->name}}
+                                </a>
+                            </h2>
                             <hr class="bg-dark pt-1">
                             <p class="lead">this is some job, what a job, lol job.</p>
                             <a class="btn btn-outline-dark" href="/deleteadmin/{{$job->id}}/{{$job->assignedTo}}" >Delete Job</a>

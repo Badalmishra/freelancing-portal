@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\admin;
 use App\jobs;
+use App\skills;
 use Illuminate\Http\Request;
 
 class adminController extends Controller
@@ -85,6 +86,36 @@ class adminController extends Controller
                 $jobs= jobs::where('status',1)->with(['jobSkills.skills','user'])->get();
                 $request->session()->put('adminMessage','Job Deleted');
                 return redirect('adminactive/'.$user_id);            
+        }
+
+        else{
+            return view('adminLogin',);
+        }
+    }
+    public function report(Request $request){
+        if($request->session()->has('admin')){
+            $jobs =  jobs::where('report',1)->with('transactions','bids','user','jobSkills.skills','freelancer')->get();
+            foreach ($jobs as $job) {
+                $date = time();
+                $last= strtotime($job->bids[0]->updated_at ."+".$job->bids[0]->time." days" ) ;    
+                $sub= $last-$date;
+                $job->left=round($sub / (60 * 60 * 24));
+                
+            }
+            $refiend=[];
+            // error_log($jobs);
+            foreach ($jobs as $job) {
+                if (isset($job->transactions)) {
+                        // error_log($job->transactions);
+                    if ($job->transactions->status != 1) {
+                        array_push($refiend,$job);
+                    }
+                }else{
+                    array_push($refiend,$job);
+                }
+                
+            }       
+            return view('reportedJobs',['jobs'=>$refiend]);  
         }
 
         else{

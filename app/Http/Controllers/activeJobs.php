@@ -130,6 +130,35 @@ class activeJobs extends Controller
         
         return json_encode($refiend);
     }
+    public function report(Request $request,$id)
+    {
+        $job= jobs::find($id);
+        $job->report =1;
+        $job->save();
+        $jobs =  Auth::guard('api')->user()->activeJobs()->get();
+        foreach ($jobs as $job) {
+            $date = time();
+            $last= strtotime($job->bids[0]->updated_at ."+".$job->bids[0]->time." days" ) ;    
+            $sub= $last-$date;
+            $job->left=round($sub / (60 * 60 * 24));
+            
+        }
+        $refiend=[];
+        // error_log($jobs);
+        foreach ($jobs as $job) {
+            if (isset($job->transactions)) {
+                    // error_log($job->transactions);
+                if ($job->transactions->status != 1) {
+                    array_push($refiend,$job);
+                }
+            }else{
+                array_push($refiend,$job);
+            }
+            
+        }
+        
+        return json_encode($refiend);
+    }
 
     /**
      * Remove the specified resource from storage.

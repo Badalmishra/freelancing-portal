@@ -27510,9 +27510,24 @@ function (_Component) {
       });
     }
   }, {
+    key: "report",
+    value: function report(params) {
+      var _this10 = this;
+
+      console.log(params);
+      var id = params;
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/report/' + id + '?api_token=' + window.token).then(function (res) {
+        console.log(res.data);
+
+        _this10.setState({
+          activeJobs: res.data
+        });
+      });
+    }
+  }, {
     key: "click",
     value: function click() {
-      var _this10 = this;
+      var _this11 = this;
 
       console.log(event.target.value);
 
@@ -27520,13 +27535,13 @@ function (_Component) {
         axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/jobs?api_token=" + window.token).then(function (res) {
           var jobs = res.data.reverse(); // jobs=jobs.reverse();
 
-          _this10.setState({
+          _this11.setState({
             jobs: jobs,
             jobForDescription: jobs[0] ? jobs[0] : null
           });
 
-          axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bids/" + _this10.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
-            return _this10.setState({
+          axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("api/bids/" + _this11.state.jobForDescription.id + "?api_token=" + window.token).then(function (res) {
+            return _this11.setState({
               bids: res.data.reverse()
             });
           });
@@ -27540,19 +27555,19 @@ function (_Component) {
   }, {
     key: "fetch",
     value: function fetch() {
-      var _this11 = this;
+      var _this12 = this;
 
       console.log(this.state.searchSkill);
       axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/jobs/' + this.state.searchSkill + '?api_token=' + window.token).then(function (res) {
         var jobs = res.data.reverse();
 
-        _this11.setState({
+        _this12.setState({
           jobs: jobs //   jobForDescription:jobs[0]?jobs[0]:null,
 
         }, function () {
           console.log("done");
 
-          _this11.setJobForDescription(_this11.state.jobs[0] ? _this11.state.jobs[0] : "");
+          _this12.setJobForDescription(_this12.state.jobs[0] ? _this12.state.jobs[0] : "");
         });
 
         console.log(jobs);
@@ -27569,7 +27584,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this12 = this;
+      var _this13 = this;
 
       return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: " bg-white"
@@ -27598,8 +27613,9 @@ function (_Component) {
           key: activeJob.id,
           activeJob: activeJob,
           theId: index,
-          complete: _this12.complete.bind(_this12),
-          choice: _this12.choice.bind(_this12)
+          complete: _this13.complete.bind(_this13),
+          report: _this13.report.bind(_this13),
+          choice: _this13.choice.bind(_this13)
         });
       }) : react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
         className: "card  col-md-4mx-2 p-0 text-left side"
@@ -27670,8 +27686,8 @@ function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_Bid__WEBPACK_IMPORTED_MODULE_7__["default"], {
           key: id,
           theBid: bid,
-          showBid: _this12.showBid.bind(_this12),
-          deleteBid: _this12.deleteBid.bind(_this12)
+          showBid: _this13.showBid.bind(_this13),
+          deleteBid: _this13.deleteBid.bind(_this13)
         });
       }) : null)))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_modal__WEBPACK_IMPORTED_MODULE_8__["default"], {
         bidForDescription: this.state.bidForDescription
@@ -28040,6 +28056,13 @@ function (_React$Component) {
       this.props.complete(params);
     }
   }, {
+    key: "report",
+    value: function report() {
+      var job_id = this.props.activeJob.id;
+      var params = job_id;
+      this.props.report(params);
+    }
+  }, {
     key: "choiceClick",
     value: function choiceClick() {
       var id = event.target.id;
@@ -28063,9 +28086,12 @@ function (_React$Component) {
         className: "card-body bg-dark text-success   text-center "
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "text-white"
-      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link || this.props.activeJob.left < 5 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.props.activeJob.left), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Days Left"), this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 "
-      }, "Processing Your Request") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Processing Your Request"), this.props.activeJob.left < 0 && this.props.activeJob.report != 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.report.bind(this),
+        className: "btn btn-sm btn-info"
+      }, "Report") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Reported")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 text-danger"
       }, "Deadline Crossed ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Contact client", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.activeJob.user.email)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         placeholder: "Project Google Drive Link",
@@ -28075,7 +28101,7 @@ function (_React$Component) {
         className: "z w-100  form-control py-0"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-footer bg-dark"
-      }, this.props.activeJob.final_link || this.props.activeJob.left < 5 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, this.props.activeJob.final_link || this.props.activeJob.left < 0 ? this.props.activeJob.final_link ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-success disabled"
       }, "Completional awaited") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn w-100 btn-sm btn-danger disabled"

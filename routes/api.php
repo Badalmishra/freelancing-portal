@@ -29,6 +29,7 @@ Route::middleware('auth:api')->resource('active', 'activeJobs');
 
 Route::middleware('auth:api')->get('completed', 'activeJobs@completed');
 
+Route::middleware('auth:api')->get('report/{id}', 'activeJobs@report');
 
 Route::middleware('auth:api')->get('mytransactions', 'jobsController@transactions');
 
