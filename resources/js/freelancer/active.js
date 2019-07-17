@@ -58,9 +58,9 @@ export default class Active extends React.Component{
                                                 <span className="form-control py-0 pt-2 ">
                                                     Processing Your Request
                                                 </span>
-                                                {((this.props.activeJob.left <0) && (this.props.activeJob.report !=1)) ?
+                                                {((this.props.activeJob.left < 0) && (this.props.activeJob.report !=1) ) ?
                                                 <button onClick={this.report.bind(this)} className="btn btn-sm btn-info">Report</button>
-                                                :<p>Reported</p>}
+                                                :<p>{this.props.activeJob.report !=1 ?'':'Reported'}</p>}
                                             </span>
                                             :                                  
                                             <span className="form-control py-0 pt-2 text-danger">

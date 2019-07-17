@@ -103,14 +103,14 @@
         </div>
         <div class="col-md-6 p-2">
               <div class="btn btn-group-vertical w-100 float-right">
-                    <div class="btn btn-group m-0 p-0 w-100 mb-1">
-                        <div class="btn btn-font btn-primary w-100 mr-1">Resume</div>
-                        <div class="btn btn-font btn-outline-success w-100 text-white">Portfolio</div>
-                    </div>
-                    <div class="btn btn-group m-0 p-0 w-100">
-                        <div class="btn btn-font btn-outline-success mr-1 text-white">Facebook</div>
-                        <div class="btn btn-font btn-outline-primary text-white">Twitter</div>
-                    </div>
+                <div class="btn btn-group m-0 p-0 w-100 mb-1">
+                    <a href="#reviews" class="btn btn-font btn-primary w-100 mr-1">Reviews</a>
+                    <a href="#completed" class="btn btn-font btn-outline-success w-100 text-white">Completed</a>
+                </div>
+                <div class="btn btn-group m-0 p-0 w-100">
+                    <a href="#skills" class="btn btn-font btn-outline-success mr-1 text-white">Skill Sets</a>
+                    <a href="#form" class="btn btn-font btn-outline-primary text-white">Feedback</a>
+                </div>
               </div>
               
         </div>

@@ -21,7 +21,7 @@
         </div>
         <div class="col p-4 bg-white">
             <div class="container p-5">
-            <h2 class="text-secondary">Active Jobs</h2>
+            <h2 class="text-secondary">Reported Jobs</h2>
             @if ($message = Session::get('adminMessage'))
             <div class="alert alert-danger">
                     <span onclick="this.parentElement.style.display='none'"

@@ -22,13 +22,10 @@ class activeJobs extends Controller
             $last= strtotime($job->bids[0]->updated_at ."+".$job->bids[0]->time." days" ) ;    
             $sub= $last-$date;
             $job->left=round($sub / (60 * 60 * 24));
-            
         }
         $refiend=[];
-        // error_log($jobs);
         foreach ($jobs as $job) {
             if (isset($job->transactions)) {
-                    // error_log($job->transactions);
                 if ($job->transactions->status != 1) {
                     array_push($refiend,$job);
                 }
@@ -37,17 +34,11 @@ class activeJobs extends Controller
             }
             
         }
-        
         return json_encode($refiend);
     }
     public function completed()
     {
         $jobs =  Auth::guard('api')->user()->completedJobs()->get();
-       
-        
-
-     
-        
         return json_encode($jobs);
     }
 

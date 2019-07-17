@@ -64,7 +64,7 @@
                     </div>
                     <div class="btn btn-group m-0 p-0 w-100">
                         <a href="#skills" class="btn btn-font btn-outline-success mr-1 text-white">Skill Sets</a>
-                        <a href="#form" class="btn btn-font btn-outline-primary text-white">Feedbaclk</a>
+                        <a href="#form" class="btn btn-font btn-outline-primary text-white">Feedback</a>
                     </div>
               </div>
               

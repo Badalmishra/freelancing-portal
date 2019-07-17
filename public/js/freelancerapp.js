@@ -28091,7 +28091,7 @@ function (_React$Component) {
       }, "Processing Your Request"), this.props.activeJob.left < 0 && this.props.activeJob.report != 1 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.report.bind(this),
         className: "btn btn-sm btn-info"
-      }, "Report") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Reported")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, "Report") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.activeJob.report != 1 ? '' : 'Reported')) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "form-control py-0 pt-2 text-danger"
       }, "Deadline Crossed ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Contact client", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), this.props.activeJob.user.email)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         placeholder: "Project Google Drive Link",

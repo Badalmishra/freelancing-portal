@@ -10,7 +10,7 @@
                         <a class="nav-link active text-white lead" href="/admin">Search <i class="fa fa-search"></i></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white lead" href="/stats">Reports Claims<i class="fa fa-chart-line"></i></a>
+                        <a class="nav-link text-white lead" href="/report">Reports Claims<i class="fa fa-chart-line"></i></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white lead" href="/Manual">Manual <i class="fa fa-align-left"></i></a>
